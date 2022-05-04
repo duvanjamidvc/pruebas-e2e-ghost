@@ -100,5 +100,8 @@ dist
 # DynamoDB Local files
 .dynamodb/
 
+# .idea Local files
+.idea/
+
 # TernJS port file
 .tern-port
