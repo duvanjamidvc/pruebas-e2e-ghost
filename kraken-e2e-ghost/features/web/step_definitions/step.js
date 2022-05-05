@@ -172,6 +172,35 @@ When('I click pages', async function () {
     return await element.click();
 });
 
+When('I click new page', async function () {
+    let element = await this.driver.$('.view-actions > a[href="#/editor/page/"]');
+    return await element.click();
+});
+
+When('I write title a page', async function () {
+    let element = await this.driver.$('textarea[autofocus]');
+    return await element.setValue('Nueva página');
+});
+
+When('I publish a page and verify', async function () {
+    let elementPrev = await this.driver.$('.settings-menu-toggle');
+    await elementPrev.click();
+    let elementView = await  this.driver.$('.gh-view');
+    await elementView.click();
+    let element = await this.driver.$('.gh-publishmenu .gh-publishmenu-trigger');
+    await element.click();
+    let btnPublish = await this.driver.$('.gh-publishmenu-button');
+    await btnPublish.click();
+    await wait(3);
+    let elementUrl = await this.driver.$('.post-view-link');
+    await elementUrl.click();
+    await wait(3);
+    await this.driver.closeWindow();
+    await wait(3);
+    let back = await this.driver.$('a[href="#/pages/"]');
+    return await back.click();
+});
+
 function wait(seconds) {
     return new Promise(function (r) { return setTimeout(r, 1000 * seconds); })
 }

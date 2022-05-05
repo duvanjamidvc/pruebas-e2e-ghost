@@ -12,3 +12,9 @@ Scenario: Como usuario inicio sesion, creo una pagina, la público y validó la 
   And I wait for 5 seconds
   And I click pages
   Then I wait for 2 seconds
+  And I click new page
+  And I wait for 2 seconds
+  And I write title a page
+  Then I wait for 2 seconds
+  And I publish a page and verify
+  And I wait for 5 seconds
