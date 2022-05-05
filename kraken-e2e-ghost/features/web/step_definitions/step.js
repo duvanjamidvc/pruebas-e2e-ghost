@@ -131,10 +131,25 @@ When('I create member', async function () {
 
 });
 
-When('I validate the creation of member', async function () {
+When('I validate exist member', async function () {
     let btnMember = await this.driver.$(`a[href*="${idMember}"]`);
     await btnMember.click();
 });
+
+When('I edit a member', async function () {
+    let inputName = await this.driver.$('#member-name');
+    await inputName.setValue('Usuario prueba editar');
+
+    let emailName = await this.driver.$('#member-email');
+    await emailName.setValue('prueba-2@prueba.com');
+
+    let btnSave = await this.driver.$('.view-actions > button');
+    await btnSave.click();
+    await wait(3);
+
+    let btnBack = await this.driver.$('.gh-canvas-title > a');
+    return await btnBack.click();
+})
 
 When('I delete a member', async function () {
     let btnSettings = await this.driver.$('.view-actions > .dropdown > button');
