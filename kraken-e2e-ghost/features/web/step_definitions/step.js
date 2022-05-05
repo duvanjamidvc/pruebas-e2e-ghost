@@ -164,7 +164,7 @@ When('I delete a member', async function () {
     return await btnConfirm.click();
 });
 
-When('I change post state to draft', async function () {
+When('I change state to draft', async function () {
     let element = await this.driver.$('.gh-publishmenu .gh-publishmenu-trigger');
     await element.click();
     let btnUnpublish = await this.driver.$('.gh-publishmenu-radio:not(.active)');
@@ -214,6 +214,26 @@ When('I publish a page and verify', async function () {
     await wait(3);
     let back = await this.driver.$('a[href="#/pages/"]');
     return await back.click();
+});
+
+When('I click an exist page', async function () {
+    let element = await this.driver.$$('span.gh-content-status-published');
+    return await element[0].click();
+});
+
+When('I write content of page', async function () {
+    let element = await this.driver.$('.koenig-editor__editor-wrapper');
+    await element.click();
+    return await element.setValue('Contenido del post 1');
+});
+
+When('I verify page state is draft', async function () {
+    let url = await this.driver.getUrl();
+    let urlSplit = url.split('/');
+    let idMember = urlSplit.pop()
+    let back = await this.driver.$('a[href="#/pages/"]');
+    await back.click();
+    return await this.driver.$(`a[href*="${idMember}"] .items-center .gh-content-status-draft`);
 });
 
 function wait(seconds) {
