@@ -81,8 +81,8 @@ When('I publish a post and verify', async function () {
 });
 
 When('I click an exist post', async function () {
-    let element = await this.driver.$('.view-container .posts-list .gh-posts-list-item .gh-post-list-status .items-center .gh-content-status-published:nth-child(1)');
-    return await element.click();
+    let element = await this.driver.$$('span.gh-content-status-published');
+    return await element[0].click();
 });
 
 When('I write content of post', async function () {
@@ -154,10 +154,17 @@ When('I change post state to draft', async function () {
 });
 
 When('I verify post state is draft', async function () {
-    let postUrl = await this.driver.getUrl();
+    let url = await this.driver.getUrl();
+    let urlSplit = url.split('/');
+    let idMember = urlSplit.pop()
     let back = await this.driver.$('a[href="#/posts/"]');
     await back.click();
-    return await this.driver.$(`.view-container .posts-list .gh-posts-list-item > a[href="${postUrl}"] .items-center .gh-content-status-draft`);
+    return await this.driver.$(`a[href*="${idMember}"] .items-center .gh-content-status-draft`);
+});
+
+When('I click pages', async function () {
+    let element = await this.driver.$('a[href="#/pages/"]');
+    return await element.click();
 });
 
 function wait(seconds) {
