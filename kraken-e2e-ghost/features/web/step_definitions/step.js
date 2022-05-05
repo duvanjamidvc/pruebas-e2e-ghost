@@ -1,4 +1,4 @@
-const {Given, When, Then} = require('@cucumber/cucumber');
+const { Given, When, Then } = require('@cucumber/cucumber');
 
 
 When('I enter email {kraken-string}', async function (email) {
@@ -89,6 +89,22 @@ When('I write content of post', async function () {
     let element = await this.driver.$('.koenig-editor__editor-wrapper');
     await element.click();
     return await element.setValue('Contenido del post 1');
+});
+
+When('I change post state to draft', async function () {
+    let element = await this.driver.$('.gh-publishmenu .gh-publishmenu-trigger');
+    await element.click();
+    let btnUnpublish = await this.driver.$('.gh-publishmenu-radio:not(.active)');
+    await btnUnpublish.click();
+    let btnUpdate = await this.driver.$('.gh-publishmenu-button');
+    return await btnUpdate.click();
+});
+
+When('I verify post state is draft', async function () {
+    let postUrl = await this.driver.getUrl();
+    let back = await this.driver.$('a[href="#/posts/"]');
+    await back.click();
+    return await this.driver.$(`.view-container .posts-list .gh-posts-list-item > a[href="${postUrl}"] .items-center .gh-content-status-draft`);
 });
 
 function wait(seconds) {
