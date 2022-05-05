@@ -1,7 +1,7 @@
 Feature: Members
 
 @user1 @web
-Scenario: Como usuario inicio sesion, creo un miembro
+Scenario: Como usuario inicio sesion, creo un miembro lo valido y elimino
   Given I navigate to page "<URL_GHOST>"
   And I wait for 3 seconds
   When I enter email "<EMAIL>"
@@ -16,3 +16,7 @@ Scenario: Como usuario inicio sesion, creo un miembro
   And I wait for 2 seconds
   And I create member
   And I wait for 3 seconds
+  And I validate the creation of member
+  And I wait for 3 seconds
+  And I delete a member
+
