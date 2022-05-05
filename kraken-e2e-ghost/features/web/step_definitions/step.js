@@ -91,6 +91,59 @@ When('I write content of post', async function () {
     return await element.setValue('Contenido del post 1');
 });
 
+When('I click members', async function () {
+
+    let element = await this.driver.$('a[href="#/members/"]');
+
+    return await element.click();
+
+});
+
+When('I click new member', async function () {
+
+    let element = await this.driver.$('.view-actions-top-row > a[href="#/members/new/"]');
+
+    return await element.click();
+
+});
+
+When('I create member', async function () {
+
+    let inputName = await this.driver.$('#member-name');
+    await inputName.setValue('Contenido del post 1');
+
+    let emailName = await this.driver.$('#member-email');
+    await emailName.setValue('prueba@prueba.com');
+
+    let btnSave = await this.driver.$('.view-actions > button');
+    await btnSave.click();
+    await wait(3);
+    let url = await this.driver.getUrl();
+
+    let urlSplit = url.split('/');
+    let idMember = urlSplit.pop()
+
+    let btnBack = await this.driver.$('.gh-canvas-title > a');
+    await btnBack.click();
+
+    let btnMember = await this.driver.$(`a[href*="${idMember}"]`);
+    await btnMember.click();
+
+    let btnSettings = await this.driver.$('.view-actions > .dropdown > button');
+    await btnSettings.click();
+
+    let btnDelete = await this.driver.$('.gh-member-actions-menu > li:last-child > button');
+    await btnDelete.click();
+
+    // let btnModal = await this.driver.$('.modal-content');
+    // await btnModal.click();
+    await wait(3);
+
+    let btnConfirm = await this.driver.$('.modal-footer .gh-btn.gh-btn-red.gh-btn-icon.ember-view');
+    return await btnConfirm.click();
+
+});
+
 function wait(seconds) {
     return new Promise(function (r) { return setTimeout(r, 1000 * seconds); })
 }
