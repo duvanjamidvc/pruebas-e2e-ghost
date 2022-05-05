@@ -70,10 +70,9 @@ When('I publish a post and verify', async function () {
     await element.click();
     let btnPublish = await this.driver.$('.gh-publishmenu-button');
     await btnPublish.click();
-    let elementUrl = await this.driver.$('#url');
     await new Promise(function (r) { return setTimeout(r, 1000 * 3); })
-    let url = await elementUrl.getValue();
-    return this.driver.url(url);
+    let elementUrl = await this.driver.$('.post-view-link');
+    await elementUrl.click();
 });
 
 
