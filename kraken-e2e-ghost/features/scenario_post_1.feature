@@ -9,7 +9,7 @@ Scenario: Como usuario inicio sesion, creo un post, lo público y validó la pub
   And I enter password "<PASSWORD>"
   And I wait for 1 seconds
   And I click login
-  And I wait for 3 seconds
+  And I wait for 5 seconds
   And I click posts
   Then I wait for 2 seconds
   And I click new post
