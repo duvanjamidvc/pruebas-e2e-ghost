@@ -1,4 +1,4 @@
-Feature: My feature
+Feature: Post
 
 @user1 @web
 Scenario: Como usuario inicio sesion, creo un post, lo público y validó la publicación

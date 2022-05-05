@@ -15,4 +15,4 @@ Scenario: Como usuario inicio sesion, creo un miembro
   And I click new member
   And I wait for 2 seconds
   And I create member
-  And I wait for 30 seconds
+  And I wait for 3 seconds
