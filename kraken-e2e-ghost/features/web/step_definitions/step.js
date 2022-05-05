@@ -80,6 +80,17 @@ When('I publish a post and verify', async function () {
     return await back.click();
 });
 
+When('I click an exist post', async function () {
+    let element = await this.driver.$('.view-container .posts-list .gh-posts-list-item .gh-post-list-status .items-center .gh-content-status-published:nth-child(1)');
+    return await element.click();
+});
+
+When('I write content of post', async function () {
+    let element = await this.driver.$('.koenig-editor__editor-wrapper');
+    await element.click();
+    return await element.setValue('Contenido del post 1');
+});
+
 function wait(seconds) {
     return new Promise(function (r) { return setTimeout(r, 1000 * seconds); })
 }
