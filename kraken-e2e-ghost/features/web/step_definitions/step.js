@@ -2,19 +2,13 @@ const { Given, When, Then } = require('@cucumber/cucumber');
 const expect = require('chai').expect;
 const faker = require('@faker-js/faker/locale/de');
 
-When('I enter email {kraken-string}', async function (email) {
-    let element = await this.driver.$('#ember7');
-    return await element.setValue(email);
-});
-
-When('I enter password {kraken-string}', async function (password) {
-    let element = await this.driver.$('#ember9');
-    return await element.setValue(password);
-});
-
-When('I click login', async function () {
-    let element = await this.driver.$('#ember11');
-    return await element.click();
+When('I login {kraken-string} {kraken-string}', async function (email, password) {
+    let elementEmail = await this.driver.$('#ember7');
+    await elementEmail.setValue(email);
+    let elementPassword = await this.driver.$('#ember9');
+    await elementPassword.setValue(password);
+    let elementBtn = await this.driver.$('#ember11');
+    return await elementBtn.click();
 });
 
 When('I click posts', async function () {

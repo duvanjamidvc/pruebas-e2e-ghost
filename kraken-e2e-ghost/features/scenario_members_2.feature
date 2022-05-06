@@ -3,11 +3,7 @@ Feature: Members
   Scenario: Como usuario inicio sesion, creo un miembro, lo valido, lo edito y elimino
     Given I navigate to page "<URL_GHOST>"
     And I wait for 3 seconds
-    When I enter email "<EMAIL>"
-    And I wait for 1 seconds
-    And I enter password "<PASSWORD>"
-    And I wait for 1 seconds
-    And I click login
+    When I login "<EMAIL>" "<PASSWORD>"
     And I wait for 5 seconds
     And I click members
     And I wait for 2 seconds
@@ -17,7 +13,7 @@ Feature: Members
     And I wait for 3 seconds
     And I validate exist member
     And I wait for 3 seconds
-    And I edit a member
+    Then I edit a member
     And I wait for 3 seconds
     And I validate exist member
     And I wait for 3 seconds
