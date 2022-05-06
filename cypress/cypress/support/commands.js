@@ -50,11 +50,7 @@ Cypress.Commands.add("newTag", (newTag) => {
   cy.get(
     ".gh-canvas-header > .gh-canvas-header-content > .view-actions "
   ).click();
-  cy.wait(2000)
-  cy.intercept("**/ghost/api/**").as("addTag");
-  cy.wait("@addTag")
-    .its("response.statusCode")
-    .should("be.oneOf", [200, 201]);
+ cy.wait(5000)
   //leva a tags de nuevo
   cy.get('[href="#/tags/"]').parent().first().click();
 });
