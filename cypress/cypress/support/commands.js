@@ -16,7 +16,9 @@ Cypress.Commands.add('login', (username, password) => {
  */
 Cypress.Commands.add('closeDashBoardSession', () => {
 	const url = Cypress.config('baseUrlDashBoard');
-	cy.visit(url + '#/signout/');
+	cy.visit(url);
+	cy.get('.gh-user-avatar').parent().parent().click();
+	cy.get('.user-menu-signout').click();
 });
 
 Cypress.Commands.add('goToDashBoard', () => {
@@ -26,12 +28,20 @@ Cypress.Commands.add('goToDashBoard', () => {
 	cy.wait('@goToDashBoard');
 });
 
+Cypress.Commands.add('goToPublicPage', () => {
+	const url = Cypress.config('baseUrl');
+	cy.visit(url);
+	cy.intercept('GET', '**/ghost/**').as('goToPublicPage');
+	cy.wait('@goToPublicPage');
+});
+
 
 Cypress.Commands.add("newTag", (newTag) => {
 	const colorTag = cy.faker.datatype.hexaDecimal(8).split("0x")[1];
-	cy.get('[href="#/tags/"]').parent().first().click();
+	cy.get('a[href="#/tags/"]').parent().first().click();
+	cy.wait(3000);
 	//da clic en crear tag
-	cy.get('[href="#/tags/new/"]').click();
+	cy.get('section.view-actions>a[href="#/tags/new/"]').click();
 	//asigna variables
 	cy.get('[id="tag-name"]').type(newTag);
 	cy.get('[name="accent-color"]').first().type(colorTag);
@@ -39,15 +49,15 @@ Cypress.Commands.add("newTag", (newTag) => {
 	cy.get(
 		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
 	).click();
-	cy.wait(5000)
+	cy.wait(3000)
 	//leva a tags de nuevo
-	cy.get('[href="#/tags/"]').parent().first().click();
+	cy.get('a[href="#/tags/"]').parent().first().click();
 });
 
 Cypress.Commands.add("editTag", (descEdit, newTag) => {
-	cy.get('[href="#/tags/"]').parent().first().click();
+	cy.get('a[href="#/tags/"]').parent().first().click();
 	//navega a tag
-	cy.get('[href="#/tags/' + newTag.toLowerCase() + '/"]')
+	cy.get('a[href="#/tags/' + newTag.toLowerCase() + '/"]')
 		.first()
 		.click();
 	//actualiza descripción tag
@@ -56,21 +66,21 @@ Cypress.Commands.add("editTag", (descEdit, newTag) => {
 	cy.get(
 		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
 	).click();
-	cy.wait(5000)
+	cy.wait(3000)
 	//regresa a tags
-	cy.get('[href="#/tags/"]').parent().first().click();
+	cy.get('a[href="#/tags/"]').parent().first().click();
 });
 
 Cypress.Commands.add("goToGeneralSettings", () => {
-	cy.get('[href="#/settings/"]').first().click();
-	cy.get('[href="#/settings/general/"]').first().click();
+	cy.get('a[href="#/settings/"]').first().click();
+	cy.get('a[href="#/settings/general/"]').first().click();
 });
 
 Cypress.Commands.add("newMember", (emailMember) => {
 	const newMember = cy.faker.name.firstName();
 	const noteMember = cy.faker.lorem.paragraph();
-	cy.get('[href="#/members/"]:visible').parent().first().click();
-	cy.get('[href="#/members/new/"]').click();
+	cy.get('a[href="#/members/"]:visible').parent().first().click();
+	cy.get('a[href="#/members/new/"]').click();
 	//asignar variables
 	cy.get('[id="member-name"]').type(newMember, { force: true });
 	cy.get('[id="member-email"]').type(emailMember);
@@ -82,7 +92,7 @@ Cypress.Commands.add("newMember", (emailMember) => {
 });
 Cypress.Commands.add("deleteMember", (idMember) => {
 	//ingresa a miembro a eliminar
-	cy.get('[href="#/members/' + idMember + '/"]')
+	cy.get('a[href="#/members/' + idMember + '/"]')
 		.first()
 		.click();
 	//clic en eliminar

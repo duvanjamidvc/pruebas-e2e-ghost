@@ -126,7 +126,7 @@ Cypress.Commands.add('validatePageByTitleAndLink', (title, ocurrencias) => {
 	cy.log(`Validando que la pagina con titulo ${title}  y  ${titleToLink} este publicada`);
 	const url = Cypress.config('baseUrl');
 	cy.visit(url);
-	cy.get('.navbar a.menu-item-link[href$="/' + titleToLink + '/"]').should('have.length', ocurrencias);
+	cy.get('div.gh-head-menu>.nav>li>a[href$="/' + titleToLink + '/"]').should('have.length', ocurrencias);
 });
 
 

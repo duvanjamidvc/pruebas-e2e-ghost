@@ -2,7 +2,6 @@
 /// <reference types="../../support" />
 
 Cypress.on('uncaught:exception', (err, a) => {
-	// cy.task('log', { 'message': `An exception occurred: ${err}` });
 	return false;
 });
 

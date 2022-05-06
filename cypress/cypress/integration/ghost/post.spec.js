@@ -64,8 +64,6 @@ describe('Crear una subcategoría de filtrado los post publicados', () => {
 
 		cy.createPost(title, contenido);
 
-		cy.closeDashBoardSession();
-
 		cy.validatePostPublicByTitle(title, 1);
 
 	});
@@ -85,8 +83,6 @@ describe('Crear una subcategoría de filtrado los post publicados', () => {
 		cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
 
 		cy.deletePostByTitle(title);
-
-		cy.closeDashBoardSession();
 
 		cy.validatePostPublicByTitle(title, 0);
 
