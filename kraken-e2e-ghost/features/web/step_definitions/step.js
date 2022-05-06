@@ -228,6 +228,34 @@ When('I verify name changed', async  function () {
     expect(elementUserName).to.equal(userName);
 });
 
+When('I click profile', async  function () {
+    let element = await this.driver.$('.gh-user-avatar');
+    await element.click();
+    let btnProfile = await this.driver.$('a[href*="#/settings/staff"]');
+    await btnProfile.click();
+})
+
+When('I change password {kraken-string} {kraken-string}', async  function (passwordOld, passwordNew) {
+    let elementUserPasswordOld = await this.driver.$('#user-password-old');
+    await elementUserPasswordOld.setValue(passwordOld);
+
+    let elementUserPasswordNew = await this.driver.$('#user-password-new');
+    await elementUserPasswordNew.setValue(passwordNew);
+
+    let elementUserPasswordNewVerification = await this.driver.$('#user-new-password-verification');
+    await elementUserPasswordNewVerification.setValue(passwordNew);
+
+    let btnChangePassword = await this.driver.$('.button-change-password');
+    await btnChangePassword.click();
+})
+
+When ('I Sign out', async function() {
+    let element = await this.driver.$('.gh-user-avatar');
+    await element.click();
+    let btnProfile = await this.driver.$('.user-menu-signout');
+    await btnProfile.click();
+})
+
 function wait(seconds) {
     return new Promise(function (r) { return setTimeout(r, 1000 * seconds); })
 }
