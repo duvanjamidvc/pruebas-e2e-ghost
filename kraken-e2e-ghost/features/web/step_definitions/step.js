@@ -247,4 +247,54 @@ function wait(seconds) {
     return new Promise(function (r) { return setTimeout(r, 1000 * seconds); })
 }
 
+When('I click Tags', async function () {
+    let element = await this.driver.$('a[href="#/tags/"]');
+    return await element.click();
+});
 
+When('I click new Tag', async function () {
+    let element = await this.driver.$('section.view-actions>a[href="#/tags/new/"]');
+    return await element.click();
+});
+
+var nameTag = '';
+When('I create Tag', async function () {
+    let inputName = await this.driver.$('#tag-name');
+    nameTag = faker.commerce.productAdjective();
+    await inputName.setValue(nameTag);
+
+    let colorTag = await this.driver.$('input[name="accent-color"]');
+    await colorTag.setValue(faker.datatype.hexaDecimal(8).split("0x")[1]);
+
+    let btnSave = await this.driver.$('.gh-canvas-header > .gh-canvas-header-content > .view-actions ');
+    await btnSave.click();
+    await wait(3);
+
+
+    let btnBack = await this.driver.$('.gh-canvas-title > a');
+    return await btnBack.click();
+});
+
+Then('I validate exist Tag', async function () {
+    let btnTag = await this.driver.$(`a[href="#/tags/${nameTag.toLowerCase()}/"]`);
+    await btnTag.click();
+    expect(await this.driver.getUrl()).to.include(`/${nameTag.toLowerCase()}`);
+});
+
+const descEdit = faker.lorem.paragraph();
+When('I edit a tag', async function () {
+    let btnTag = await this.driver.$(`a[href="#/tags/${nameTag.toLowerCase()}/"]`);
+    await btnTag.click();
+    let descriptionTag = await this.driver.$('#tag-description');
+    await descriptionTag.setValue(descEdit);
+    let btnSave = await this.driver.$('.gh-canvas-header > .gh-canvas-header-content > .view-actions ');
+    await btnSave.click();
+    await wait(3);
+    let btnBack = await this.driver.$('.gh-canvas-title > a');
+    return await btnBack.click();
+});
+
+When('I validate edit Tag', async function () {
+    let btnTag = await this.driver.$(`a[href="#/tags/${nameTag.toLowerCase()}/"]`);
+    await btnTag.click();
+});
