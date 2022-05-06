@@ -7,7 +7,7 @@ Cypress.on('uncaught:exception', (err, a) => {
 });
 
 let usuarios;
-describe('Crear una subcategoría de filtrado los post publicados', () => {
+describe('Pages', () => {
 
 	before(() => {
 		cy.fixture('users').then(users => {
@@ -18,6 +18,17 @@ describe('Crear una subcategoría de filtrado los post publicados', () => {
 	beforeEach(() => {
 		cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
 	});
+	it('Crear pagina y publicarla', () => {
+
+		let title = 'Titulo de la pagina' + new Date().getTime();
+		let contenido = 'Contenido de la pagina' + new Date().getTime();
+
+		cy.createPage(title, contenido);
+		cy.createPageLink(title);
+		cy.closeDashBoardSession();
+		cy.validatePageByTitle(title, 1);
+	});
+
 
 	it('Eliminar pagina publicada', () => {
 
@@ -30,9 +41,14 @@ describe('Crear una subcategoría de filtrado los post publicados', () => {
 		cy.validatePageByTitle(title, 1);
 		cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
 		cy.deletePageLinkByTitle(title);
-		// cy.deletePageByTitle(title);
-		// cy.closeDashBoardSession();
-		// cy.validatePageByTitle(title, 0);
+		cy.deletePageByTitle(title);
+		cy.closeDashBoardSession();
+		cy.validatePageByTitle(title, 0);
 	});
+
+	afterEach(function () {
+		cy.closeDashBoardSession();
+	});
+
 
 });

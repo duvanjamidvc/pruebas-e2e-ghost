@@ -94,4 +94,8 @@ describe('Crear una subcategoría de filtrado los post publicados', () => {
 
 	});
 
+	afterEach(function () {
+		cy.closeDashBoardSession();
+	});
+
 });

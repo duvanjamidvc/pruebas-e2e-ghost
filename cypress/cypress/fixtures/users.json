@@ -1,13 +1,13 @@
 {
-  "admins": [
-    {
-      "username": "m.ojedan@uniandes.edu.co",
-      "password": "Viviana9624"
-    },
-    {
-      "username": "",
-      "password": ""
-    }
-  ],
-  "members": []
+	"admins": [
+		{
+			"username": "dj.vargasc1@uniandes.edu.co",
+			"password": "dduvanvargas"
+		},
+		{
+			"username": "",
+			"password": ""
+		}
+	],
+	"members": []
 }

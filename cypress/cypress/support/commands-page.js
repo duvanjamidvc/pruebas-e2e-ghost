@@ -76,15 +76,17 @@ Cypress.Commands.add('deletePageLinkByTitle', (title) => {
 	cy.get('#settings-navigation .gh-blognav-line  .gh-blognav-label')
 		.find('input.ember-text-field')
 		.each(($input) => {
-			if ($input.val() === title) {
+			const text = $input.val();
+			if (text == title) {
 				cy.wrap($input)
-					.parent('.gh-blognav-label')
-					.parent('.gh-blognav-line')
-					.parent('.gh-blognav-item')
-					.find('.gh-blognav-delete')
+					.parents('.gh-blognav-item')
+					.find('>.gh-blognav-delete')
 					.click();
 			}
 		});
+
+	//abrimos el menu lateral derecho
+	cy.get('section.view-actions>button').click({ force: true });
 });
 /**
  *  Comando para eliminar el primer post basado en el titulo
@@ -103,16 +105,9 @@ Cypress.Commands.add('deletePageByTitle', (title) => {
 
 	//buscamos la pagina en la lista y accedemos
 	cy.get('li.gh-posts-list-item>a.gh-post-list-title>h3.gh-content-entry-title')
-		.each(($item) => {
-			let content = $item.text();
-			cy.log(`titulo ${content} ${title}`);
-			if (content == title) {
-				cy.log(`titulo ${content} `);
-				cy.wrap($item)
-					.click();
-			}
-		});
-
+		.contains(title)
+		.parents('.gh-posts-list-item')
+		.click();
 	//abrimos el menu lateral derecho
 	cy.get('.settings-menu-toggle').click();
 	// eliminarmos el post
