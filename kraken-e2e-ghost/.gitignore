@@ -103,7 +103,7 @@ dist
 # .idea Local files
 .idea/
 
-reports/
+repots/
 
 # TernJS port file
 .tern-port
