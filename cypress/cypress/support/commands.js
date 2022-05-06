@@ -39,7 +39,7 @@ Cypress.Commands.add('goToPublicPage', () => {
 Cypress.Commands.add("newTag", (newTag) => {
 	const colorTag = cy.faker.datatype.hexaDecimal(8).split("0x")[1];
 	cy.get('a[href="#/tags/"]').parent().first().click();
-	cy.wait(3000);
+	cy.wait(5000);
 	//da clic en crear tag
 	cy.get('section.view-actions>a[href="#/tags/new/"]').click();
 	//asigna variables
@@ -49,7 +49,7 @@ Cypress.Commands.add("newTag", (newTag) => {
 	cy.get(
 		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
 	).click();
-	cy.wait(3000)
+	cy.wait(5000)
 	//leva a tags de nuevo
 	cy.get('a[href="#/tags/"]').parent().first().click();
 });
@@ -66,7 +66,7 @@ Cypress.Commands.add("editTag", (descEdit, newTag) => {
 	cy.get(
 		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
 	).click();
-	cy.wait(3000)
+	cy.wait(5000)
 	//regresa a tags
 	cy.get('a[href="#/tags/"]').parent().first().click();
 });
