@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:no-exit": "npx cypress run --config-file ./cypress.env.json --spec 'cypress/integration/ghost/*.js’ --headed chrome --no-exit",
-    "start": "npx cypress run --config-file ./cypress.env.json --spec 'cypress/integration/ghost/*.js’ --headless  chrome "
+    "test:no-exit": "npx cypress run --config-file ./cypress.env.json --spec 'cypress/integration/ghost/*.js' --headed chrome --no-exit",
+    "start": "npx cypress run --config-file ./cypress.env.json --spec 'cypress/integration/ghost/*.js' --headless  chrome "
   },
   "author": "",
   "license": "ISC",
