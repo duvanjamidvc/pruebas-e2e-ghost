@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@faker-js/faker": "^6.3.1",
+    "chai": "^4.3.6",
     "kraken-node": "^1.0.24"
   }
 }
