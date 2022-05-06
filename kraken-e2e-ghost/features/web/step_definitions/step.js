@@ -1,69 +1,47 @@
 const { Given, When, Then } = require('@cucumber/cucumber');
-
+const expect = require('chai').expect;
+const faker = require('@faker-js/faker/locale/de');
 
 When('I enter email {kraken-string}', async function (email) {
-
     let element = await this.driver.$('#ember7');
-
     return await element.setValue(email);
-
 });
 
 When('I enter password {kraken-string}', async function (password) {
-
     let element = await this.driver.$('#ember9');
-
     return await element.setValue(password);
-
 });
 
-
 When('I click login', async function () {
-
     let element = await this.driver.$('#ember11');
-
     return await element.click();
-
 });
 
 When('I click posts', async function () {
-
     let element = await this.driver.$('a[href="#/posts/"]');
-
     return await element.click();
-
 });
 
 When('I click new post', async function () {
-
     let element = await this.driver.$('.view-actions > a[href="#/editor/post/"]');
-
     return await element.click();
-
 });
 
-
 When('I write title a post', async function () {
-
     let element = await this.driver.$('textarea[autofocus]');
-
-    return await element.setValue('Nuevo post');
-
+    return await element.setValue(faker.name.title());
 });
 
 When('I publish a post', async function () {
-
     let elementPrev = await this.driver.$('.settings-menu-toggle');
     await elementPrev.click();
     let element = await this.driver.$('.gh-publishmenu .gh-publishmenu-trigger');
     await element.click();
     let btnPublish = await this.driver.$('.gh-publishmenu-button');
     return await btnPublish.click();
-
 });
 
 When('I publish a post and verify', async function () {
-
     let elementPrev = await this.driver.$('.settings-menu-toggle');
     await elementPrev.click();
     let element = await this.driver.$('.gh-publishmenu .gh-publishmenu-trigger');
@@ -88,47 +66,37 @@ When('I click an exist post', async function () {
 When('I write content of post', async function () {
     let element = await this.driver.$('.koenig-editor__editor-wrapper');
     await element.click();
-    return await element.setValue('Contenido del post 1');
+    return await element.setValue(faker.lorem.sentence());
 });
 
 When('I click members', async function () {
-
     let element = await this.driver.$('a[href="#/members/"]');
-
     return await element.click();
-
 });
 
 When('I click new member', async function () {
-
     let element = await this.driver.$('.view-actions-top-row > a[href="#/members/new/"]');
-
     return await element.click();
-
 });
 
 var idMember = '';
-
 When('I create member', async function () {
-
     let inputName = await this.driver.$('#member-name');
-    await inputName.setValue('Usuario prueba');
+    await inputName.setValue(faker.name.findName());
 
     let emailName = await this.driver.$('#member-email');
-    await emailName.setValue('prueba@prueba.com');
+    await emailName.setValue(faker.internet.email());
 
     let btnSave = await this.driver.$('.view-actions > button');
     await btnSave.click();
     await wait(3);
 
     let url = await this.driver.getUrl();
-
     let urlSplit = url.split('/');
     idMember = urlSplit.pop()
 
     let btnBack = await this.driver.$('.gh-canvas-title > a');
     return await btnBack.click();
-
 });
 
 When('I validate exist member', async function () {
@@ -138,10 +106,10 @@ When('I validate exist member', async function () {
 
 When('I edit a member', async function () {
     let inputName = await this.driver.$('#member-name');
-    await inputName.setValue('Usuario prueba editar');
+    await inputName.setValue(faker.name.findName());
 
     let emailName = await this.driver.$('#member-email');
-    await emailName.setValue('prueba-2@prueba.com');
+    await emailName.setValue(faker.internet.email());
 
     let btnSave = await this.driver.$('.view-actions > button');
     await btnSave.click();
@@ -194,7 +162,7 @@ When('I click new page', async function () {
 
 When('I write title a page', async function () {
     let element = await this.driver.$('textarea[autofocus]');
-    return await element.setValue('Nueva página');
+    return await element.setValue(faker.name.title());
 });
 
 When('I publish a page and verify', async function () {
@@ -224,7 +192,7 @@ When('I click an exist page', async function () {
 When('I write content of page', async function () {
     let element = await this.driver.$('.koenig-editor__editor-wrapper');
     await element.click();
-    return await element.setValue('Contenido del post 1');
+    return await element.setValue(faker.lorem.sentence());
 });
 
 When('I verify page state is draft', async function () {
@@ -234,6 +202,30 @@ When('I verify page state is draft', async function () {
     let back = await this.driver.$('a[href="#/pages/"]');
     await back.click();
     return await this.driver.$(`a[href*="${idMember}"] .items-center .gh-content-status-draft`);
+});
+
+When('I click profile', async  function () {
+    let element = await this.driver.$('.gh-user-avatar');
+    await element.click();
+    let btnProfile = await this.driver.$('a[href*="#/settings/staff"]');
+    return await btnProfile.click();
+})
+
+var userName = faker.name.findName();
+When('I write full name', async  function () {
+    let element = await this.driver.$('#user-name');
+    return await element.setValue(userName);
+});
+
+When('I click save config', async  function () {
+    let element = await this.driver.$('.view-actions .gh-btn');
+    return await element.setValue(userName);
+});
+
+When('I verify name changed', async  function () {
+    let element = await this.driver.$('.gh-user-name');
+    let elementUserName = await element.getText();
+    expect(elementUserName).to.equal(userName);
 });
 
 When('I click profile', async  function () {

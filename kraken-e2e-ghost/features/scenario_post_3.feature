@@ -20,7 +20,7 @@ Scenario: Como usuario inicio sesion, creo un post, lo publico y valido la publi
   And I wait for 5 seconds
   And I click an exist post
   And I wait for 2 seconds
-  And I change post state to draft
+  And I change state to draft
   And I wait for 2 seconds
   And I verify post state is draft
   And I wait for 5 seconds
