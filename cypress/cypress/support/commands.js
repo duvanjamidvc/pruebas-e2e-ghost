@@ -19,6 +19,14 @@ Cypress.Commands.add('closeDashBoardSession', () => {
 	cy.visit(url + '#/signout/');
 });
 
+Cypress.Commands.add('goToDashBoard', () => {
+	const url = Cypress.config('baseUrlDashBoard');
+	cy.visit(url);
+	cy.intercept('GET', '**/ghost/**').as('goToDashBoard');
+	cy.wait('@goToDashBoard');
+});
+
+
 Cypress.Commands.add("newTag", (newTag) => {
 	const colorTag = cy.faker.datatype.hexaDecimal(8).split("0x")[1];
 	cy.get('[href="#/tags/"]').parent().first().click();

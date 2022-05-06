@@ -121,12 +121,25 @@ Cypress.Commands.add('deletePageByTitle', (title) => {
 /**
  *  Comando para validar numero de veces que aparece una pagina publicado
  */
-Cypress.Commands.add('validatePageByTitle', (title, ocurrencias) => {
+Cypress.Commands.add('validatePageByTitleAndLink', (title, ocurrencias) => {
 	let titleToLink = title.replace(/\s/gi, '-').toLowerCase();
 	cy.log(`Validando que la pagina con titulo ${title}  y  ${titleToLink} este publicada`);
 	const url = Cypress.config('baseUrl');
 	cy.visit(url);
 	cy.get('.navbar a.menu-item-link[href$="/' + titleToLink + '/"]').should('have.length', ocurrencias);
+});
+
+
+/**
+ *  Comando para validar numero de veces que aparece una pagina publicado
+ */
+Cypress.Commands.add('validatePageLoadPublicLink', (title) => {
+	let titleToLink = title.replace(/\s/gi, '-').toLowerCase();
+	cy.log(`Validando que la pagina con titulo ${title}  y  ${titleToLink} este publicada`);
+	const url = Cypress.config('baseUrl');
+	cy.visit(url + '/' + titleToLink + '/');
+
+	cy.url().should('include', titleToLink);
 });
 
 
