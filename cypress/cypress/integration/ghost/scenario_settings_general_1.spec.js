@@ -31,20 +31,21 @@ describe("General Settings", () => {
     cy.get(
       ".gh-canvas-header > .gh-canvas-header-content > .view-actions "
     ).click();
-    cy.wait(500)
+    // esperamos que el guardado sea existoso
+   
+    cy.wait(5000)
     //visita el sitio
-     cy.visit(url);
-     //digita contraseña incorrecta
+    cy.visit(url);
+    //digita contraseña incorrecta
     cy.get('[name="password"]').type(incorrectPassword);
     cy.get('button[type="submit"]').click();
     //verifica que la contraseña sea incorrecta
     cy.get(
       ".gh-flow-content-wrap > .gh-flow-content > .gh-signin > .form-group "
-    ).should("contain", "Incorrect password."); 
-    
+    ).should("contain", "Incorrect password.");
   });
 
- it("Set public site", () => {
+  it("Set public site", () => {
     cy.goToGeneralSettings();
     //vuelve a poner el sitio como publico
     cy.get(
@@ -54,12 +55,11 @@ describe("General Settings", () => {
     cy.get(
       ".gh-canvas-header > .gh-canvas-header-content > .view-actions "
     ).click();
-    cy.wait(500)
-  }); 
-
+    cy.wait(500);
+  });
 
   after(() => {
-   cy.closeDashBoardSession();
+    cy.closeDashBoardSession();
   });
 });
 

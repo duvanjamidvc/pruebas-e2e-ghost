@@ -14,8 +14,12 @@ describe("Members", () => {
 
   it("create member  ", () => {
     const newMember = cy.faker.internet.email();
-    cy.newMember(newMember);   
-    cy.wait(500)
+    cy.newMember(newMember);
+    // esperamos que el guardado sea existoso
+    cy.intercept("**/ghost/api/**").as("addMember");
+    cy.wait("@addMember")
+      .its("response.statusCode")
+      .should("be.oneOf", [200, 201]);
     //obtiene url para tomar id
     cy.url().then((url) => {
       const id = url.split("members/")[1];
@@ -24,11 +28,10 @@ describe("Members", () => {
       cy.get("body").should("contain", newMember);
       cy.deleteMember(id);
     });
-  
   });
 
   after(() => {
-     cy.closeDashBoardSession();
+    cy.closeDashBoardSession();
   });
 });
 

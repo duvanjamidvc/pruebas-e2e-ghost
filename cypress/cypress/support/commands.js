@@ -50,6 +50,10 @@ Cypress.Commands.add("newTag", (newTag) => {
   cy.get(
     ".gh-canvas-header > .gh-canvas-header-content > .view-actions "
   ).click();
+  cy.intercept("**/ghost/api/**").as("addTag");
+  cy.wait("@addTag")
+    .its("response.statusCode")
+    .should("be.oneOf", [200, 201]);
   //leva a tags de nuevo
   cy.get('[href="#/tags/"]').parent().first().click();
 });
@@ -66,6 +70,7 @@ Cypress.Commands.add("editTag", (descEdit, newTag) => {
   cy.get(
     ".gh-canvas-header > .gh-canvas-header-content > .view-actions "
   ).click();
+  cy.wait(5000)
   //regresa a tags
   cy.get('[href="#/tags/"]').parent().first().click();
 });
@@ -80,7 +85,6 @@ Cypress.Commands.add("newMember", (emailMember) => {
   const noteMember = cy.faker.lorem.paragraph();
   cy.get('[href="#/members/"]:visible').parent().first().click();
   cy.get('[href="#/members/new/"]').click();
-  cy.wait(200);
   //asignar variables
   cy.get('[id="member-name"]').type(newMember, { force: true });
   cy.get('[id="member-email"]').type(emailMember);

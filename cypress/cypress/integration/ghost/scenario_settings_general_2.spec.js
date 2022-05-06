@@ -36,7 +36,7 @@ describe("General Settings", () => {
     cy.get(
       ".gh-canvas-header > .gh-canvas-header-content > .view-actions "
     ).click();
-    cy.wait(500);
+    cy.wait(5000);
     cy.visit(url);
     cy.get("body").should("contain", tittle); 
     cy.get("body").should("contain", subtittle); 
