@@ -14,4 +14,14 @@
 - Abra una terminar y ubíquese en el folder del proyecto descargado y acceda a la carpeta kraken-e2e-ghost ```cd /kraken-e2e-ghost```
 - Ejecute el siguiente comando para instalar los paquetes necesarios 
 ```npm install```
+- Configure los siguientes parametros de ghost en el archivo properties.json
+```json
+{
+  "URL_GHOST": "http://localhost:2368/ghost",
+  "EMAIL": "user@uniandes.edu.co",
+  "PASSWORD": "XXXXXXX",
+  "NEW_PASSWORD": "XXXXXX"
+}
+```
 - Ejecute el comando ```npm start``` para ejecutar las pruebas end to end con kraken
+
