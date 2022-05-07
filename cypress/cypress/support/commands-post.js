@@ -125,12 +125,18 @@ Cypress.Commands.add('selectFirstPostOfListAndEdit', (title, content) => {
 /**
  * Comando para seleccionar y editar para cambiar el estado a borrador de la primera pagina de la lista de paginas
  */
-Cypress.Commands.add('selectFirstPageOfListAndChangeState', () => {
-	cy.get('.gh-nav-view-list > li > a[href="#/posts/?type=published"]').click();
+Cypress.Commands.add('selectFirstPostOfListAndChangeState', (title) => {
 	cy.get('li.gh-posts-list-item>a>h3.gh-content-entry-title').contains(title).eq(0).parent('a').parent('li').click();
 	cy.get('.gh-publishmenu').click();
 	cy.get('.gh-publishmenu-radio:not(.active)').click();
 	cy.get('.gh-publishmenu-button').click();
 	cy.get('.gh-main').click();
 	cy.wait(200);
+});
+
+/**
+ * Comando para validar por el titulo de la pagina o post, si esta en estado borrador
+ */
+Cypress.Commands.add('validateDraftStatePost', (title, ocurrencias) => {
+	cy.get('.view-container ol li:nth-child(2) .gh-post-list-title .gh-content-entry-title').contains(title).should('have.length', ocurrencias);
 });

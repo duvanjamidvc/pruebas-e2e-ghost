@@ -21,8 +21,9 @@ describe('Posts', () => {
 		cy.createPostWithoutBack(title, contenido);
 		cy.publishPost();
 		cy.validatePublishPostFromSettings();
-		// vamos atras
+		cy.intercept('**/ghost/api/**').as('backPostNew');
 		cy.get('.gh-editor-back-button').click();
+		cy.wait('@backPostNew').its('response.statusCode').should('be.oneOf', [200, 201]);
 		cy.selectFirstPostOfListAndEdit(title, contenido);
 		cy.publishPost();
 		cy.validatePublishPostFromSettings();

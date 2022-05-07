@@ -17,12 +17,16 @@ describe('Pages', () => {
 		let title = cy.faker.name.title();
 		let contenido = cy.faker.lorem.sentence();
 		cy.createPageWithoutBack(title, contenido);
-		cy.backPage();
+		cy.intercept('**/ghost/api/**').as('backPageEdit');
+		cy.get('.gh-editor-back-button').click();
+		cy.wait('@backPageEdit').its('response.statusCode').should('be.oneOf', [200, 201]);
 		cy.filterPublishPage();
 		cy.selectFirstPageOfListAndChangeState();
-		cy.backPage();
+		cy.intercept('**/ghost/api/**').as('backPagePublish');
+		cy.get('.gh-editor-back-button').click();
+		cy.wait('@backPagePublish').its('response.statusCode').should('be.oneOf', [200, 201]);
 		cy.filterDraftPage();
-		cy.validateDraftState(title, 1);
+		cy.validateDraftStatePage(title, 1);
 	});
 
 	after(function () {

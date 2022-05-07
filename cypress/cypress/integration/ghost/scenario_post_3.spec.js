@@ -18,13 +18,19 @@ describe('Pages', () => {
 		let contenido = cy.faker.lorem.sentence();
 		cy.createPostWithoutBack(title, contenido);
 		cy.publishPost();
-		cy.backPage();
+		cy.intercept('**/ghost/api/**').as('backPost');
+		cy.get('.gh-editor-back-button').click();
+		cy.get('a[href="#/posts/?type=published"]').click();
+		cy.wait('@backPost').its('response.statusCode').should('be.oneOf', [200, 201]);
 
-		cy.selectFirstPageOfListAndChangeState();
+		cy.selectFirstPostOfListAndChangeState(title);
 
-		cy.get('.gh-nav-view-list > li > a[href="#/posts/?type=draft"]').click();
+		cy.intercept('**/ghost/api/**').as('backPostDraft');
+		cy.get('.gh-editor-back-button').click();
+		cy.get('a[href="#/posts/?type=draft"]').click();
+		cy.wait('@backPostDraft').its('response.statusCode').should('be.oneOf', [200, 201]);
 
-		cy.validateDraftState(title, 1);
+		cy.validateDraftStatePost(title, 1);
 	});
 
 	after(function () {

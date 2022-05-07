@@ -229,3 +229,10 @@ Cypress.Commands.add('selectFirstPageOfListAndChangeState', () => {
 	cy.wait(200);
 });
 
+/**
+ * Comando para validar por el titulo de la pagina o post, si esta en estado borrador
+ */
+Cypress.Commands.add('validateDraftStatePage', (title, ocurrencias) => {
+	cy.get('.view-container ol li:nth-child(2) .gh-post-list-title .gh-content-entry-title').contains(title).should('have.length', ocurrencias);
+});
+
