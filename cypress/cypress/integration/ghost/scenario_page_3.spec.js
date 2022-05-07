@@ -19,12 +19,12 @@ describe('Pages', () => {
 		cy.createPageWithoutBack(title, contenido);
 		cy.intercept('**/ghost/api/**').as('backPageEdit');
 		cy.get('.gh-editor-back-button').click();
-		cy.wait('@backPageEdit').its('response.statusCode').should('be.oneOf', [200, 201]);
+		cy.wait('@backPageEdit');
 		cy.filterPublishPage();
 		cy.selectFirstPageOfListAndChangeState();
 		cy.intercept('**/ghost/api/**').as('backPagePublish');
 		cy.get('.gh-editor-back-button').click();
-		cy.wait('@backPagePublish').its('response.statusCode').should('be.oneOf', [200, 201]);
+		cy.wait('@backPagePublish');
 		cy.filterDraftPage();
 		cy.validateDraftStatePage(title, 1);
 	});
