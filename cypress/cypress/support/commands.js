@@ -133,3 +133,19 @@ Cypress.Commands.add("editMember", (idMember) => {
 		.its("response.statusCode")
 		.should("be.oneOf", [200, 201]);
 });
+
+/**
+ * Comando para volver atras si se esta en post o paginas
+ */
+Cypress.Commands.add('backPage', () => {
+	cy.intercept('**/ghost/api/**').as('backPage');
+	cy.get('.gh-editor-back-button').click();
+	cy.wait('@backPage').its('response.statusCode').should('be.oneOf', [200, 201]);
+});
+
+/**
+ * Comando para validar por el titulo de la pagina o post, si esta en estado borrador
+ */
+Cypress.Commands.add('validateDraftState', (title, ocurrencias) => {
+	cy.get('.view-container ol li:nth-child(2) .gh-post-list-title .gh-content-entry-title').contains(title).should('have.length', ocurrencias);
+});

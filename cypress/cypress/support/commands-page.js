@@ -182,7 +182,7 @@ Cypress.Commands.add('publishPage', () => {
 });
 
 /**
- *  validar una pagina publicada desde la opcion de configuraciones
+ *  Comando para validar una pagina publicada desde la opcion de configuraciones
  */
 Cypress.Commands.add('validatePublishPageFromSettings', () => {
 	cy.get('.settings-menu-toggle').click();
@@ -191,7 +191,7 @@ Cypress.Commands.add('validatePublishPageFromSettings', () => {
 });
 
 /**
- * Filtrar paginas publicadas
+ * Comando para filtrar paginas publicadas
  */
 Cypress.Commands.add('filterPublishPage', () => {
 	cy.wait(100);
@@ -199,12 +199,33 @@ Cypress.Commands.add('filterPublishPage', () => {
 	cy.get('.ember-power-select-options li[data-option-index="2"]').click();
 });
 
+/**
+ * Comando para filtrar paginas en borrador
+ */
+Cypress.Commands.add('filterDraftPage', () => {
+	cy.wait(100);
+	cy.get('.view-actions .gh-contentfilter .gh-contentfilter-type .ember-basic-dropdown-trigger').click();
+	cy.get('.ember-power-select-options li[data-option-index="1"]').click();
+});
+
 
 /**
- * Seleccionar y editar una pagina de la lista de paginas
+ * Comando para seleccionar y editar la primera pagina de la lista de paginas
  */
 Cypress.Commands.add('selectFirstPageOfListAndEdit', () => {
 	cy.get('.view-container ol li:nth-child(2)').click();
 	cy.get('.koenig-editor__editor-wrapper').type(cy.faker.lorem.sentence());
+});
+
+/**
+ * Comando para seleccionar y editar para cambiar el estado a borrador de la primera pagina de la lista de paginas  
+ */
+Cypress.Commands.add('selectFirstPageOfListAndChangeState', () => {
+	cy.get('.view-container ol li:nth-child(2)').click();
+	cy.get('.gh-publishmenu').click();
+	cy.get('.gh-publishmenu-radio:not(.active)').click();
+	cy.get('.gh-publishmenu-button').click();
+	cy.get('.gh-main').click();
+	cy.wait(200);
 });
 

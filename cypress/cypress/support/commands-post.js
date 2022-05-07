@@ -88,7 +88,7 @@ Cypress.Commands.add('createPostWithoutBack', (title, content) => {
 })
 
 /**
- * Publicar un post
+ * Comando para Publicar un post
  */
 Cypress.Commands.add('publishPost', () => {
 	// vamos al menu publicar
@@ -100,7 +100,7 @@ Cypress.Commands.add('publishPost', () => {
 });
 
 /**
- * Validar que el post tenga enlace publico en los settings del post  
+ * Comando para Validar que el post tenga enlace publico en los settings del post  
  */
 Cypress.Commands.add('validatePublishPostFromSettings', (title, content) => {
 	cy.get('.settings-menu-toggle').click();
@@ -109,7 +109,7 @@ Cypress.Commands.add('validatePublishPostFromSettings', (title, content) => {
 });
 
 /**
- *Seleccionar el primer post listado publicado y editadorlo
+ * Comando para Seleccionar el primer post listado publicado y editadorlo
  */
 Cypress.Commands.add('selectFirstPostOfListAndEdit', (title, content) => {
 	// accede al menu de post publicados
@@ -120,4 +120,17 @@ Cypress.Commands.add('selectFirstPostOfListAndEdit', (title, content) => {
 	cy.get('li.gh-posts-list-item>a>h3.gh-content-entry-title').contains(title).eq(0).parent('a').parent('li').click();
 	cy.get('.koenig-editor__editor-wrapper').type(cy.faker.lorem.sentence());
 
+});
+
+/**
+ * Comando para seleccionar y editar para cambiar el estado a borrador de la primera pagina de la lista de paginas
+ */
+Cypress.Commands.add('selectFirstPageOfListAndChangeState', () => {
+	cy.get('.gh-nav-view-list > li > a[href="#/posts/?type=published"]').click();
+	cy.get('li.gh-posts-list-item>a>h3.gh-content-entry-title').contains(title).eq(0).parent('a').parent('li').click();
+	cy.get('.gh-publishmenu').click();
+	cy.get('.gh-publishmenu-radio:not(.active)').click();
+	cy.get('.gh-publishmenu-button').click();
+	cy.get('.gh-main').click();
+	cy.wait(200);
 });
