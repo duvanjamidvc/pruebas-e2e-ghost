@@ -86,6 +86,8 @@ describe('Crear una subcategoría de filtrado los post publicados', () => {
 
 		cy.validatePostPublicByTitle(title, 0);
 
+
+
 	});
 
 	afterEach(function () {

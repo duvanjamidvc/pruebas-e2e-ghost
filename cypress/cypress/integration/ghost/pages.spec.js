@@ -26,6 +26,7 @@ describe('Pages', () => {
 		cy.createPageLink(title);
 		cy.closeDashBoardSession();
 		cy.validatePageByTitleAndLink(title, 1);
+		cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
 	});
 
 	it('Crear pagina y publicarla', () => {
@@ -34,9 +35,7 @@ describe('Pages', () => {
 		let contenido = cy.faker.lorem.paragraph();
 
 		cy.createPage(title, contenido);
-		cy.closeDashBoardSession();
 		cy.validatePageLoadPublicLink(title);
-		cy.goToDashBoard();
 	});
 
 
@@ -53,7 +52,6 @@ describe('Pages', () => {
 		cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
 		cy.deletePageLinkByTitle(title);
 		cy.deletePageByTitle(title);
-		cy.closeDashBoardSession();
 		cy.validatePageByTitleAndLink(title, 0);
 	});
 
