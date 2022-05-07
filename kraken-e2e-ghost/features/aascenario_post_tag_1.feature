@@ -26,4 +26,5 @@ Feature: Settings
 	And I wait for 2 seconds
 	And I click in item with tag name
 	And I wait for 2 seconds
+	Then I validad set post tag
 

@@ -486,17 +486,9 @@ When("I update tag post", async function () {
 	return await btnSettings.click();
 });
 
-When("I click in tag filter post", async () => {
-	
-	let btnTag = await this.driver.$(
-		`.gh-contentfilter > .gh-contentfilter-tag > .ember-view`
-	);
-	return await btnTag.click();
-});
-
 Then("I validad set post tag", async function () {
 	let postTagNew = await this.driver.$(
 		`.gh-content-entry-title=${tittleNewPost}`
 	).getText();
-	expect(postTagNew).to.include(nameTag);
+	expect(postTagNew).to.include(tittleNewPost);
 });
