@@ -1,4 +1,4 @@
-# pruebas-e2e-ghost
+# Pruebas E2E 
 Para la ejecución de las pruebas, por favor siga las instrucciones:
 1. Clone el repositorio con ```git clone https://github.com/duvanjamidvc/pruebas-e2e-ghost.git``` o descargue el zip y descomprímalo.
 2. Para la ejecución de las pruebas con la herramienta kraken siga el siguiente tutorial [kraken-e2e-ghost](kraken-e2e-ghost/README.md).
