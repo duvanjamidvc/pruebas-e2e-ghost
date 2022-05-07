@@ -5,6 +5,9 @@ Para la ejecución de las pruebas, por favor siga las instrucciones
 - - para la ejecución de las pruebas con la herramienta cypress siga el siguiente tutorial [cypress](cypress/README.md).
 
 ## Funcionalidades
+-   Iniciar sesión: El sistema debe permitir iniciar sesión en el módulo administrador de la aplicación mediante usuario y contraseña para poder administrar el contenido de la plataforma.
+
+-   Cerrar sesión: El sistema debe permitir cerrar sesión del módulo administrador de la aplicación.
 
 -   Crear post: El sistema debe permitir la creación de un post ingresando un título y contenido relacionado mediante un editor.
 
