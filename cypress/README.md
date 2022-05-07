@@ -8,13 +8,13 @@
 - Abra una terminar y ubíquese en el folder del proyecto descargado y acceda a la carpeta cypress `cd /cypress`
 - Ejecute el siguiente comando para instalar los paquetes necesarios
   `npm install`
-- Verifique que puede acceder al sitio  [https://ghost-e2e-miso.herokuapp.com/ghost/](https://ghost-e2e-miso.herokuapp.com/ghost/) con las credenciales
+- Verifique que puede acceder al sitio  [https://ghost-e2e-miso.herokuapp.com/ghost/](https://ghost-e2e-miso.herokuapp.com/ghost/) con las credenciales:
 
-```json
-{
-  "username": "dj.vargasc1@uniandes.edu.co",
-  "password": "bonita1809"
-}
-```
+
+  - Email address: dj.vargasc1@uniandes.edu.co
+  - Password: bonita1809
+
 
 - Ejecute el comando `npm start` para ejecutar las pruebas end to end con cypress
+
+- Para ver el reporte de hallazgos puede ingresar al directorio /screenshots/ghost

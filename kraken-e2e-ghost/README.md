@@ -18,14 +18,13 @@ En Windows, suele surgir un problema relacionado a los permisos al ejecutar herr
 - Abra una terminar y ubíquese en el folder del proyecto descargado y acceda a la carpeta kraken-e2e-ghost ```cd kraken-e2e-ghost```
 - Ejecute el siguiente comando para instalar los paquetes necesarios 
 ```npm install```
-- Configure los siguientes parametros de ghost en el archivo properties.json
-```json
-{
-  "URL_GHOST": "http://localhost:2368/ghost",
-  "EMAIL": "user@uniandes.edu.co",
-  "PASSWORD": "XXXXXXX",
-  "NEW_PASSWORD": "XXXXXX"
-}
-```
-- Ejecute el comando ```npm start``` para ejecutar las pruebas end to end con kraken
+- Verifique que puede acceder al sitio  [https://ghost-e2e-miso.herokuapp.com/ghost/](https://ghost-e2e-miso.herokuapp.com/ghost/) con las credenciales:
 
+
+  - Email address: dj.vargasc1@uniandes.edu.co
+  - Password: bonita1809
+
+
+- Ejecute el comando `npm start` para ejecutar las pruebas end to end con cypress
+
+- Para ver el reporte ejecución de escenarios puede ingresar al directorio /reports
