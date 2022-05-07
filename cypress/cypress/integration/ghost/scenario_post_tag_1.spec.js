@@ -5,7 +5,7 @@ Cypress.on('uncaught:exception', (err, a) => {
 });
 
 let usuarios;
-describe('page and tag', () => {
+describe('post and tag', () => {
 
 	before(() => {
 		cy.fixture('users').then(users => {
@@ -18,12 +18,12 @@ describe('page and tag', () => {
 		const newTag = cy.faker.commerce.productAdjective();
 		cy.newTag(newTag);
 		
-		let title = 'Titulo del page' + new Date().getTime();
+		let title = 'Titulo del post' + new Date().getTime();
 		let contenido = cy.faker.lorem.paragraph();
 
-		cy.createPageWithTag(title, contenido, newTag);
+		cy.createPostWithTag(title, contenido, newTag);
 
-		cy.publishPage();
+		cy.publishPost();
 		cy.wait(100);
 		cy.get('.post-view-link').click();
 	});
