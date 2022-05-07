@@ -17,6 +17,10 @@ Cypress.Commands.add('login', (username, password) => {
 Cypress.Commands.add('closeDashBoardSession', () => {
 	const url = Cypress.config('baseUrlDashBoard');
 	cy.visit(url);
+
+	cy.intercept('GET', '**/ghost/**').as('goToDashBoardToCloseSession');
+	cy.wait('@goToDashBoardToCloseSession');
+
 	cy.get('.gh-user-avatar').parent().parent().click();
 	cy.get('.user-menu-signout').click();
 });
@@ -116,7 +120,7 @@ Cypress.Commands.add("editMember", (idMember) => {
 	//asignar variables
 	cy.get('[id="member-name"]').type(newMember, { force: true });
 	cy.get('[id="member-note"]').clear().type(noteMember);
-		//guardar
+	//guardar
 	cy.get(
 		".view-actions > button"
 	).click();
@@ -125,7 +129,7 @@ Cypress.Commands.add("editMember", (idMember) => {
 	cy.wait("@addMember")
 		.its("response.statusCode")
 		.should("be.oneOf", [200, 201]);
-	
+
 	// esperamos que el guardado sea existoso
 	cy.intercept("**/ghost/api/**").as("goBack");
 	cy.get('.gh-canvas-title > a').click();
