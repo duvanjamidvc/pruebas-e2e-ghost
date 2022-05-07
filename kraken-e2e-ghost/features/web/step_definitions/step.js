@@ -178,9 +178,11 @@ When("I click new page", async function () {
 	return await element.click();
 });
 
-When("I write title a page", async function () {
-	let element = await this.driver.$("textarea[autofocus]");
-	return await element.setValue(faker.name.title());
+var pageTitle;
+When('I write title a page', async function () {
+	let element = await this.driver.$('textarea[autofocus]');
+	pageTitle = faker.name.title();
+	return await element.setValue(pageTitle);
 });
 
 When("I publish a page and verify", async function () {
@@ -352,14 +354,17 @@ When("I click in post published menu", async () => {
 	await btnTag.click();
 });
 
-When("I click in tag filter", async () => {
-	let btnTag = await this.driver.$(
-		`.gh-contentfilter > .gh-contentfilter-tag`
-	);
+When('I click in post published menu', async function () {
+	let btnTag = await this.driver.$(`.gh-nav-view-list > li > a[href="#/posts/?type=published"]`);
 	await btnTag.click();
 });
 
-When("I click in item with tag name", async () => {
+When('I click in tag filter', async function () {
+	let btnTag = await this.driver.$(`.gh-contentfilter > .gh-contentfilter-tag`);
+	await btnTag.click();
+});
+
+When('I click in item with tag name', async function () {
 	let btnTag = await this.driver.$(`.ember-power-select-option=${nameTag}`);
 	await btnTag.click();
 });
@@ -492,3 +497,74 @@ Then("I validad set post tag", async function () {
 	).getText();
 	expect(postTagNew).to.include(tittleNewPost);
 });
+
+When('I click in settings', async function () {
+	let element = await this.driver.$('a[href="#/settings/"]');
+	return await element.click();
+});
+
+When('I click in navigation', async function () {
+	let element = await this.driver.$('a[href="#/settings/navigation/"]');
+	return await element.click();
+});
+
+When('I create link', async function () {
+
+	let title = pageTitle;
+	let titleToLink = title.replace(/\s/gi, '-').toLowerCase();
+	console.log(titleToLink);
+
+	let elements = await this.driver.$$('#settings-navigation>.gh-blognav-item>.gh-blognav-line>.gh-blognav-label');
+	console.log(elements);
+
+	let element = await elements[elements.length - 1].$('input.ember-text-field');
+	await element.clearValue();
+	await element.setValue(title);
+
+	let linkElements = await this.driver.$$('#settings-navigation>.gh-blognav-item>.gh-blognav-line>.gh-blognav-url');
+	let linkElement = await linkElements[linkElements.length - 1].$('input.ember-text-field');
+	await linkElement.clearValue();
+	await linkElement.setValue(titleToLink);
+
+	await this.driver.$('.view-actions>button').click();
+});
+
+When('I delete last link create', async function () {
+	let elements = await this.driver.$$('#settings-navigation>.sortable-objects>.draggable-object>.gh-blognav-item');
+
+	let element = await elements[elements.length - 1]
+		.$('.gh-blognav-delete');
+	await element.click();
+	await this.driver.$('.view-actions>button').click();
+});
+
+When('I verify page link', async function () {
+	let title = pageTitle;
+	let titleToLink = title.replace(/\s/gi, '-').toLowerCase();
+	let linkElement = await this.driver.$('div.gh-head-menu>.nav>li>a[href$="/' + titleToLink + '/"]');
+	expect(linkElement.isDisplayed());
+});
+
+When('I click page by title', async function () {
+	let page = await this.driver.$$("section.content-list>ol.gh-list>li.gh-posts-list-item");
+	await page[0].click();
+});
+
+When('I delete page', async function () {
+	//abrimos el menu lateral derecho
+	await this.driver.$('.settings-menu-toggle').click();
+	// eliminarmos el post
+	await this.driver.$('.settings-menu-delete-button').click();
+	// damos clic en eliminar en el mensaje de confirmacion
+	await this.driver.$(' .modal-content > .modal-footer > .ember-view ').click();
+});
+
+Then('I verify page link not displayed', async function () {
+	let title = pageTitle;
+	let titleToLink = title.replace(/\s/gi, '-').toLowerCase();
+	let linkElement = await this.driver.$('div.gh-head-menu>.nav>li>a[href$="/' + titleToLink + '/"]');
+	expect(!linkElement.isDisplayed());
+});
+
+
+
