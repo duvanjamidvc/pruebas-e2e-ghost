@@ -15,7 +15,7 @@ En Windows, suele surgir un problema relacionado a los permisos al ejecutar herr
             ```
         - mac https://www.youtube.com/watch?v=daVygBAm1zs o https://stackoverflow.com/a/32314718
 ## Ejecutar pruebas
-- Abra una terminar y ubíquese en el folder del proyecto descargado y acceda a la carpeta kraken-e2e-ghost ```cd /kraken-e2e-ghost```
+- Abra una terminar y ubíquese en el folder del proyecto descargado y acceda a la carpeta kraken-e2e-ghost ```cd kraken-e2e-ghost```
 - Ejecute el siguiente comando para instalar los paquetes necesarios 
 ```npm install```
 - Configure los siguientes parametros de ghost en el archivo properties.json
