@@ -61,8 +61,8 @@ Para la ejecución de las pruebas, por favor siga las instrucciones
 | 20 | Configuración perfil         | Como usuario quiero cambiar mi nombre de usuario                                                                                                                                            |
 
 ## Integrantes
-Plinio José Grijalba Ramirez, Código: 202214358
-Natalie Carolina Santiago Torres, Código: 202214374
-Duvan Jamid Vargas Castillo, Código: 202210190
-Magda Viviana Ojeda Niño, Código: 202210187
+- Plinio José Grijalba Ramirez, Código: 202214358
+- Natalie Carolina Santiago Torres, Código: 202214374
+- Duvan Jamid Vargas Castillo, Código: 202210190
+- Magda Viviana Ojeda Niño, Código: 202210187
 
