@@ -61,8 +61,8 @@ Para la ejecución de las pruebas, por favor siga las instrucciones:
 | 20 | Configuración perfil     | Cambiar el nombre de usuario y validar que en el menu del usuario se vea el nuevo nombre                                                       |
 
 ## Integrantes
-- Plinio José Grijalba Ramirez, Código: 202214358
-- Natalie Carolina Santiago Torres, Código: 202214374
-- Duvan Jamid Vargas Castillo, Código: 202210190
-- Magda Viviana Ojeda Niño, Código: 202210187
+- Plinio José Grijalba Ramirez, Correo: p.grijalbar@uniandes.edu.co
+- Natalie Carolina Santiago Torres, Correo: n.santiago@uniandes.edu.co
+- Duvan Jamid Vargas Castillo, Correo: dj.vargasc1@uniandes.edu.co
+- Magda Viviana Ojeda Niño, Correo: m.ojedan@uniandes.edu.co
 
