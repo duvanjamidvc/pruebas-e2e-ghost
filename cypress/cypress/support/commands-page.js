@@ -182,7 +182,7 @@ Cypress.Commands.add('publishPage', () => {
 });
 
 /**
- *  validar una pagina publicada desde la opcion de configuraciones
+ *  Comando para validar una pagina publicada desde la opcion de configuraciones
  */
 Cypress.Commands.add('validatePublishPageFromSettings', () => {
 	cy.get('.settings-menu-toggle').click();
@@ -191,7 +191,7 @@ Cypress.Commands.add('validatePublishPageFromSettings', () => {
 });
 
 /**
- * Filtrar paginas publicadas
+ * Comando para filtrar paginas publicadas
  */
 Cypress.Commands.add('filterPublishPage', () => {
 	cy.wait(100);
@@ -200,7 +200,7 @@ Cypress.Commands.add('filterPublishPage', () => {
 });
 
 /**
- * Filtrar paginas en borrador
+ * Comando para filtrar paginas en borrador
  */
 Cypress.Commands.add('filterDraftPage', () => {
 	cy.wait(100);
@@ -210,7 +210,7 @@ Cypress.Commands.add('filterDraftPage', () => {
 
 
 /**
- * Seleccionar y editar la primera pagina de la lista de paginas
+ * Comando para seleccionar y editar la primera pagina de la lista de paginas
  */
 Cypress.Commands.add('selectFirstPageOfListAndEdit', () => {
 	cy.get('.view-container ol li:nth-child(2)').click();
@@ -218,7 +218,7 @@ Cypress.Commands.add('selectFirstPageOfListAndEdit', () => {
 });
 
 /**
- * Seleccionar y editar para cambiar el estado a borrador de la primera pagina de la lista de paginas  
+ * Comando para seleccionar y editar para cambiar el estado a borrador de la primera pagina de la lista de paginas  
  */
 Cypress.Commands.add('selectFirstPageOfListAndChangeState', () => {
 	cy.get('.view-container ol li:nth-child(2)').click();
@@ -228,22 +228,4 @@ Cypress.Commands.add('selectFirstPageOfListAndChangeState', () => {
 	cy.get('.gh-main').click();
 	cy.wait(200);
 });
-
-/**
- * Validar por el titulo de la pagina, si la pagina esta en estado borrador
- */
-Cypress.Commands.add('validateDraftState', (title, ocurrencias) => {
-	// cy.get('.view-container ol li:nth-child(2) .gh-post-list-title .gh-content-entry-title').should('have.text', title);
-	cy.get('.view-container ol li:nth-child(2) .gh-post-list-title .gh-content-entry-title').contains(title).should('have.length', ocurrencias);
-});
-
-/**
- * Validar si la pagina esta en estado borrador
- */
-Cypress.Commands.add('backPage', () => {
-	cy.intercept('**/ghost/api/**').as('backPage');
-	cy.get('.gh-editor-back-button').click();
-	cy.wait('@backPage').its('response.statusCode').should('be.oneOf', [200, 201]);
-});
-
 
