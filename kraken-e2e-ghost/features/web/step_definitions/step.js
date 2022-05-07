@@ -347,7 +347,7 @@ Then("I validate edit Tag", async function () {
 	expect(btnTag).to.include(descEdit);
 });
 
-When("I click in post published menu", async () => {
+When("I click in post published menu", async function () {
 	let btnTag = await this.driver.$(
 		`.gh-nav-view-list > li > a[href="#/posts/?type=published"]`
 	);
@@ -363,34 +363,33 @@ When('I click in tag filter', async function () {
 	let btnTag = await this.driver.$(`.gh-contentfilter > .gh-contentfilter-tag`);
 	await btnTag.click();
 });
-
 When('I click in item with tag name', async function () {
 	let btnTag = await this.driver.$(`.ember-power-select-option=${nameTag}`);
 	await btnTag.click();
 });
 
-When("I click in save filter button", async () => {
+When("I click in save filter button", async function () {
 	let btnTag = await this.driver.$(
 		`.view-actions > .gh-contentfilter > .dropdown > .gh-btn-save-view`
 	);
 	await btnTag.click();
 });
 
-When("I type name filter", async () => {
+When("I type name filter", async function () {
 	await this.driver.$(`#view-name`).clearValue();
 	await this.driver.$(`#view-name`).setValue(nameTag);
 });
-When("I select color filter", async () => {
+When("I select color filter", async function () {
 	await this.driver.$(`#view-pink`).parentElement().click();
 });
 
-When("I click in save popUp button", async () => {
+When("I click in save popUp button", async function () {
 	let btnTag = await this.driver.$(
 		`.modal-content > .modal-footer > .ember-view`
 	);
 	await btnTag.click();
 });
-Then("I validate menu filter", async () => {
+Then("I validate menu filter", async function () {
 	let menuItem = await this.driver
 		.$(`.gh-nav-view-list`)
 		.$(`li`)
