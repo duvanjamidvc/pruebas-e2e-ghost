@@ -229,6 +229,41 @@ Cypress.Commands.add('selectFirstPageOfListAndChangeState', () => {
 	cy.wait(200);
 });
 
+
+/**
+ *  Comando para crear un post sin volver atras
+ */
+Cypress.Commands.add('createPageWithTag', (title, content, tag) => {
+
+	cy.log(`Creando pagina con titulo ${title}  y contenido  ${content}`);
+
+	const url = Cypress.config('baseUrlDashBoard');
+	cy.visit(url);
+	// accede al menu pages
+	cy.get('.gh-nav-list.gh-nav-manage  li  a[href="#/pages/"]').click();
+
+	// clic en el boton de crear pagina
+	cy.get('section.view-actions>a[href="#/editor/page/"]').click({ force: true });
+	//llena el titulo del post 
+	cy.get('textarea.gh-editor-title').clear().type(title);
+	// llena el contenido 
+	cy.get('article.koenig-editor').type(content);
+	
+	cy.get('.settings-menu-toggle').click();
+	
+	cy.get('#tag-input').type(tag);
+
+	cy.get('.ember-power-select-option')
+		.contains(tag)
+		.first()
+		.click();
+	
+	// esperamos que el guardado sea existoso
+	cy.intercept('**/ghost/api/**').as('publishPage');
+	cy.wait('@publishPage').its('response.statusCode').should('be.oneOf', [200, 201]);
+	
+});
+
 /**
  * Comando para validar por el titulo de la pagina o post, si esta en estado borrador
  */
