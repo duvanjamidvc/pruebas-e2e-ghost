@@ -1,3 +1,7 @@
+## Consideraciones
+
+En Windows, suele surgir un problema relacionado a los permisos al ejecutar herramientas vía línea de comandos, como solución alternativa se sugiere usar una máquina linux física o virtual .
+
 ## Prerequsisitos
 - [Repositorio](https://github.com/duvanjamidvc/pruebas-e2e-ghost.git) ```git clone https://github.com/duvanjamidvc/pruebas-e2e-ghost.git``` o descargué el zip y descomprímalo. 
 - [NodeJS (Version ≥ 12)](https://nodejs.org)
