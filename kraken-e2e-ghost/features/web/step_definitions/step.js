@@ -340,7 +340,7 @@ When("I click new Tag", async function () {
 var nameTag = "";
 When("I create Tag", async function () {
 	let inputName = await this.driver.$("#tag-name");
-	nameTag = faker.commerce.productAdjective();
+	nameTag = faker.commerce.productAdjective()+faker.datatype.number();
 	await inputName.setValue(nameTag);
 
 	let colorTag = await this.driver.$('input[name="accent-color"]');
