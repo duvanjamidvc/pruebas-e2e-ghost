@@ -1,33 +1,35 @@
 /// <reference types="cypress" />
 
-Cypress.on('uncaught:exception', (err, a) => {
+Cypress.on("uncaught:exception", (err, a) => {
 	return false;
 });
 
 let usuarios;
-describe('Pages', () => {
-
+describe("Pages", () => {
 	before(() => {
-		cy.fixture('users').then(users => {
+		cy.fixture("users").then((users) => {
 			usuarios = users;
-			cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
 		});
 	});
 
-	it('Crear pagina, publicarla, editarla y verificar que se publicó a traves del link generado en el las configuraciones de la pagina', () => {
+	beforeEach(() => {
+		cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
+	});
+
+	it("Crear pagina, publicarla, editarla y verificar que se publicó a traves del link generado en el las configuraciones de la pagina", () => {
 		let title = cy.faker.name.title();
 		let contenido = cy.faker.lorem.sentence();
 		cy.createPageWithoutBack(title, contenido);
 		cy.wait(400);
-		cy.get('.gh-editor-back-button').click();
+		cy.get(".gh-editor-back-button").click();
+		cy.wait(400);
 		cy.filterPublishPage();
 		cy.selectFirstPageOfListAndEdit();
 		cy.publishPage();
 		cy.validatePublishPageFromSettings();
 	});
 
-	after(function () {
+	afterEach(function () {
 		cy.closeDashBoardSession();
 	});
-
 });
