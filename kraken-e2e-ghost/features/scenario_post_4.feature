@@ -13,6 +13,8 @@ Feature: Posts
 		And I wait for 2 seconds
 		And I create Tag
 		And I wait for 2 seconds
+		And I navigate to page "<URL_GHOST>"
+		And I wait for 2 seconds
 		And I click in post published menu
 		And I wait for 2 seconds
 		And I click in tag filter

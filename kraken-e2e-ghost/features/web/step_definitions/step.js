@@ -191,7 +191,7 @@ Then("I publish a page and verify", async function () {
 	let elementView = await this.driver.$(".gh-view");
 	await elementView.click();
 	let element = await this.driver.$(
-		".gh-publishmenu .gh-publishmenu-trigger"
+		".gh-publishmenu>.gh-publishmenu-trigger"
 	);
 	await element.click();
 	let btnPublish = await this.driver.$(".gh-publishmenu-button");
@@ -204,6 +204,47 @@ Then("I publish a page and verify", async function () {
 	await wait(3);
 	let back = await this.driver.$('a[href="#/pages/"]');
 	return await back.click();
+});
+
+When("I publish a page", async function () {
+
+	await this.driver.$('article.koenig-editor').click();
+	let element = await this.driver.$(
+		".gh-publishmenu>.gh-publishmenu-trigger"
+	);
+	await element.click();
+	let btnPublish = await this.driver.$(".gh-publishmenu-button");
+	await btnPublish.click();
+});
+
+When("I set tag to page", async function () {
+
+	let elementPrev = await this.driver.$(".settings-menu-toggle");
+	await elementPrev.click();
+	let elementView = await this.driver.$("#tag-input");
+	await elementView.click();
+	await wait(4);
+
+	let tagItem = await this.driver.$(`.ember-power-select-option=${nameTag}`);
+	await tagItem.click();
+});
+
+
+
+Then("I validate page with tag", async function () {
+	let titlePageItem = await this.driver.$(`.gh-content-entry-title=${pageTitle}`);
+	expect(titlePageItem.isDisplayed());
+
+	let tagItemName = await titlePageItem.parentElement().$(`.midgrey-l2=${nameTag}`);
+	expect(tagItemName.isDisplayed());
+
+});
+
+
+Then("I go to page url {kraken-string}", async function (urlBase) {
+	let titleLink = pageTitle.replace(/\s/gi, "-").toLowerCase();
+	await this.driver.url(`${urlBase}/${titleLink}/`);
+	expect(await this.driver.getUrl()).to.include(`/${titleLink}`);
 });
 
 When("I click an exist page", async function () {
@@ -514,7 +555,6 @@ When('I create link', async function () {
 	console.log(titleToLink);
 
 	let elements = await this.driver.$$('#settings-navigation>.gh-blognav-item>.gh-blognav-line>.gh-blognav-label');
-	console.log(elements);
 
 	let element = await elements[elements.length - 1].$('input.ember-text-field');
 	await element.clearValue();
