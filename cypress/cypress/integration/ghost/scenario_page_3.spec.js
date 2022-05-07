@@ -13,12 +13,16 @@ describe('Pages', () => {
 			cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
 		});
 	});
-
-	it('Crear pagina, publicarla y verificar que se publicó a traves del link generado en el las configuraciones de la pagina', () => {
+	it('Crear pagina, publicarla, editarla, cambiar el estado a borrador y válido en la lista de paginas que el estado sea borrador', () => {
 		let title = cy.faker.name.title();
 		let contenido = cy.faker.lorem.sentence();
 		cy.createPageWithoutBack(title, contenido);
-		cy.validatePublishPageFromSettings();
+		cy.backPage();
+		cy.filterPublishPage();
+		cy.selectFirstPageOfListAndChangeState();
+		cy.backPage();
+		cy.filterDraftPage();
+		cy.validateDraftState(title, 1);
 	});
 
 	after(function () {

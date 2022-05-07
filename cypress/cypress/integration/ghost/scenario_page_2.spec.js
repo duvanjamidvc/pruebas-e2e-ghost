@@ -14,11 +14,11 @@ describe('Pages', () => {
 		});
 	});
 
-	it('Crear pagina, publicarla, editarla y verificar que se publicó a traves del link generado en el las configuraciones del post', () => {
+	it('Crear pagina, publicarla, editarla y verificar que se publicó a traves del link generado en el las configuraciones de la pagina', () => {
 		let title = cy.faker.name.title();
 		let contenido = cy.faker.lorem.sentence();
 		cy.createPageWithoutBack(title, contenido);
-		cy.get('a[href="#/pages/"]').click();
+		cy.backPage();
 		cy.filterPublishPage();
 		cy.selectFirstPageOfListAndEdit();
 		cy.publishPage();

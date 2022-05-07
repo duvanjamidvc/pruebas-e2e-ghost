@@ -199,12 +199,51 @@ Cypress.Commands.add('filterPublishPage', () => {
 	cy.get('.ember-power-select-options li[data-option-index="2"]').click();
 });
 
+/**
+ * Filtrar paginas en borrador
+ */
+Cypress.Commands.add('filterDraftPage', () => {
+	cy.wait(100);
+	cy.get('.view-actions .gh-contentfilter .gh-contentfilter-type .ember-basic-dropdown-trigger').click();
+	cy.get('.ember-power-select-options li[data-option-index="1"]').click();
+});
+
 
 /**
- * Seleccionar y editar una pagina de la lista de paginas
+ * Seleccionar y editar la primera pagina de la lista de paginas
  */
 Cypress.Commands.add('selectFirstPageOfListAndEdit', () => {
 	cy.get('.view-container ol li:nth-child(2)').click();
 	cy.get('.koenig-editor__editor-wrapper').type(cy.faker.lorem.sentence());
 });
+
+/**
+ * Seleccionar y editar para cambiar el estado a borrador de la primera pagina de la lista de paginas  
+ */
+Cypress.Commands.add('selectFirstPageOfListAndChangeState', () => {
+	cy.get('.view-container ol li:nth-child(2)').click();
+	cy.get('.gh-publishmenu').click();
+	cy.get('.gh-publishmenu-radio:not(.active)').click();
+	cy.get('.gh-publishmenu-button').click();
+	cy.get('.gh-main').click();
+	cy.wait(200);
+});
+
+/**
+ * Validar por el titulo de la pagina, si la pagina esta en estado borrador
+ */
+Cypress.Commands.add('validateDraftState', (title, ocurrencias) => {
+	// cy.get('.view-container ol li:nth-child(2) .gh-post-list-title .gh-content-entry-title').should('have.text', title);
+	cy.get('.view-container ol li:nth-child(2) .gh-post-list-title .gh-content-entry-title').contains(title).should('have.length', ocurrencias);
+});
+
+/**
+ * Validar si la pagina esta en estado borrador
+ */
+Cypress.Commands.add('backPage', () => {
+	cy.intercept('**/ghost/api/**').as('backPage');
+	cy.get('.gh-editor-back-button').click();
+	cy.wait('@backPage').its('response.statusCode').should('be.oneOf', [200, 201]);
+});
+
 
