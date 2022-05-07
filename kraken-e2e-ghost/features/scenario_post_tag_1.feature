@@ -1,6 +1,6 @@
-Feature: Settings
+Feature: Post-tag
   @user1 @web
-  Scenario: Como usuario inicio sesion, cambio contraseña del sitio y la valido 
+  Scenario: Como usuario inicio sesion, creo un tag creo un post le asigno el tag y valido
     Given I navigate to page "<URL_GHOST>"
     And I wait for 3 seconds
     When I login "<EMAIL>" "<PASSWORD>"
@@ -22,7 +22,7 @@ Feature: Settings
 	And I wait for 5 seconds
 	And I click posts
 	And I wait for 3 seconds
-	And I click in tag filter post
+	And I click in tag filter
 	And I wait for 2 seconds
 	And I click in item with tag name
 	And I wait for 2 seconds

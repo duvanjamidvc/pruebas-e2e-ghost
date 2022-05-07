@@ -43,7 +43,7 @@ When("I publish a post", async function () {
 	return await btnPublish.click();
 });
 
-When("I publish a post and verify", async function () {
+Then("I publish a post and verify", async function () {
 	let elementPrev = await this.driver.$(".settings-menu-toggle");
 	await elementPrev.click();
 	let element = await this.driver.$(
@@ -105,12 +105,12 @@ When("I create member", async function () {
 	return await btnBack.click();
 });
 
-When("I validate exist member", async function () {
+Then("I validate exist member", async function () {
 	let btnMember = await this.driver.$(`a[href*="${idMember}"]`);
 	await btnMember.click();
 });
 
-When("I edit a member", async function () {
+Then("I edit a member", async function () {
 	let inputName = await this.driver.$("#member-name");
 	await inputName.setValue(faker.name.findName());
 
@@ -155,7 +155,7 @@ When("I change state to draft", async function () {
 	return await btnUpdate.click();
 });
 
-When("I verify post state is draft", async function () {
+Then("I verify post state is draft", async function () {
 	let url = await this.driver.getUrl();
 	let urlSplit = url.split("/");
 	let idMember = urlSplit.pop();
@@ -185,7 +185,7 @@ When('I write title a page', async function () {
 	return await element.setValue(pageTitle);
 });
 
-When("I publish a page and verify", async function () {
+Then("I publish a page and verify", async function () {
 	let elementPrev = await this.driver.$(".settings-menu-toggle");
 	await elementPrev.click();
 	let elementView = await this.driver.$(".gh-view");
@@ -217,7 +217,7 @@ When("I write content of page", async function () {
 	return await element.setValue(faker.lorem.sentence());
 });
 
-When("I verify page state is draft", async function () {
+Then("I verify page state is draft", async function () {
 	let url = await this.driver.getUrl();
 	let urlSplit = url.split("/");
 	let idMember = urlSplit.pop();
@@ -246,7 +246,7 @@ When("I click save config", async function () {
 	return await element.click();
 });
 
-When("I verify name changed", async function () {
+Then("I verify name changed", async function () {
 	let element = await this.driver.$(".gh-user-name");
 	let elementUserName = await element.getText();
 	expect(elementUserName).to.equal(userName);
@@ -347,7 +347,7 @@ Then("I validate edit Tag", async function () {
 	expect(btnTag).to.include(descEdit);
 });
 
-When("I click in post published menu", async () => {
+When("I click in post published menu", async function () {
 	let btnTag = await this.driver.$(
 		`.gh-nav-view-list > li > a[href="#/posts/?type=published"]`
 	);
@@ -363,34 +363,33 @@ When('I click in tag filter', async function () {
 	let btnTag = await this.driver.$(`.gh-contentfilter > .gh-contentfilter-tag`);
 	await btnTag.click();
 });
-
 When('I click in item with tag name', async function () {
 	let btnTag = await this.driver.$(`.ember-power-select-option=${nameTag}`);
 	await btnTag.click();
 });
 
-When("I click in save filter button", async () => {
+When("I click in save filter button", async function () {
 	let btnTag = await this.driver.$(
 		`.view-actions > .gh-contentfilter > .dropdown > .gh-btn-save-view`
 	);
 	await btnTag.click();
 });
 
-When("I type name filter", async () => {
+When("I type name filter", async function () {
 	await this.driver.$(`#view-name`).clearValue();
 	await this.driver.$(`#view-name`).setValue(nameTag);
 });
-When("I select color filter", async () => {
+When("I select color filter", async function () {
 	await this.driver.$(`#view-pink`).parentElement().click();
 });
 
-When("I click in save popUp button", async () => {
+When("I click in save popUp button", async function () {
 	let btnTag = await this.driver.$(
 		`.modal-content > .modal-footer > .ember-view`
 	);
 	await btnTag.click();
 });
-Then("I validate menu filter", async () => {
+Then("I validate menu filter", async function () {
 	let menuItem = await this.driver
 		.$(`.gh-nav-view-list`)
 		.$(`li`)
