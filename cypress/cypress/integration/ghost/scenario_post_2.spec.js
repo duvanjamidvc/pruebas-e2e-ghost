@@ -8,10 +8,13 @@ let usuarios;
 describe('Posts', () => {
 
 	before(() => {
-		cy.fixture('users').then(users => {
+		cy.fixture("users").then((users) => {
 			usuarios = users;
-			cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
 		});
+	});
+
+	beforeEach(() => {
+		cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
 	});
 	
 	it('Como usuario inicio sesion, creo un post lo publico y luego lo edito y lo vuelvo a publicar', () => {
@@ -21,15 +24,14 @@ describe('Posts', () => {
 		cy.createPostWithoutBack(title, contenido);
 		cy.publishPost();
 		cy.validatePublishPostFromSettings();
-		cy.intercept('**/ghost/api/**').as('backPostNew');
+		cy.wait(400);
 		cy.get('.gh-editor-back-button').click();
-		cy.wait('@backPostNew').its('response.statusCode').should('be.oneOf', [200, 201]);
 		cy.selectFirstPostOfListAndEdit(title, contenido);
 		cy.publishPost();
 		cy.validatePublishPostFromSettings();
 	});
 
-	after(function () {
+	afterEach(function () {
 		cy.closeDashBoardSession();
 	});
 
