@@ -1,6 +1,6 @@
-Feature: Tags
+Feature: Settings
   @user1 @web
-  Scenario: Como usuario inicio sesion, creo un tag lo valido 
+  Scenario: Como usuario inicio sesion, cambio contraseña del sitio y la valido 
     Given I navigate to page "<URL_GHOST>"
     And I wait for 3 seconds
     When I login "<EMAIL>" "<PASSWORD>"
