@@ -25,6 +25,6 @@ En Windows, suele surgir un problema relacionado a los permisos al ejecutar herr
   - Password: bonita1809
 
 
-- Ejecute el comando `npm start` para ejecutar las pruebas end to end con cypress
+- Ejecute el comando `npm start` para ejecutar las pruebas end to end con kraken
 
 - Para ver el reporte ejecución de escenarios puede ingresar al directorio /reports
