@@ -2,7 +2,7 @@
 /**
  *  Comando para crear un post
  */
-Cypress.Commands.add('createPage', (title, content) => {
+Cypress.Commands.add('createPage', (title, content, ) => {
 
 	cy.log(`Creando pagina con titulo ${title}  y contenido  ${content}`);
 
@@ -142,4 +142,69 @@ Cypress.Commands.add('validatePageLoadPublicLink', (title) => {
 	cy.url().should('include', titleToLink);
 });
 
+/**
+ *  Comando para crear un post sin volver atras
+ */
+Cypress.Commands.add('createPageWithoutBack', (title, content, ) => {
+
+	cy.log(`Creando pagina con titulo ${title}  y contenido  ${content}`);
+
+	const url = Cypress.config('baseUrlDashBoard');
+	cy.visit(url);
+	// accede al menu pages
+	cy.get('.gh-nav-list.gh-nav-manage  li  a[href="#/pages/"]').click();
+
+	// clic en el boton de crear pagina
+	cy.get('section.view-actions>a[href="#/editor/page/"]').click({ force: true });
+	//llena el titulo del post 
+	cy.get('textarea.gh-editor-title').clear().type(title);
+	// llena el contenido 
+	cy.get('article.koenig-editor').type(content);
+	// esperamos que el guardado sea existoso
+	cy.intercept('**/ghost/api/**').as('publishPage');
+	cy.wait('@publishPage').its('response.statusCode').should('be.oneOf', [200, 201]);
+	// vamos al menu publicar
+	cy.get('.gh-publishmenu.ember-view').click();
+	// clic en el boton publicar
+	cy.get('.gh-publishmenu-footer>button.gh-publishmenu-button').click();
+});
+
+/**
+ * Comando para publicar una pagina 
+ */
+Cypress.Commands.add('publishPage', () => {
+	// vamos al menu publicar
+	cy.get('.gh-publishmenu.ember-view').click();
+	// clic en el boton publicar
+	cy.intercept('**/ghost/api/**').as('publish');
+	cy.get('.gh-publishmenu-footer>button.gh-publishmenu-button').click();
+	cy.wait('@publish').its('response.statusCode').should('be.oneOf', [200, 201]);
+});
+
+/**
+ *  validar una pagina publicada desde la opcion de configuraciones
+ */
+Cypress.Commands.add('validatePublishPageFromSettings', () => {
+	cy.get('.settings-menu-toggle').click();
+	cy.wait(100);
+	cy.get('.post-view-link').click();
+});
+
+/**
+ * Filtrar paginas publicadas
+ */
+Cypress.Commands.add('filterPublishPage', () => {
+	cy.wait(100);
+	cy.get('.view-actions .gh-contentfilter .gh-contentfilter-type .ember-basic-dropdown-trigger').click();
+	cy.get('.ember-power-select-options li[data-option-index="2"]').click();
+});
+
+
+/**
+ * Seleccionar y editar una pagina de la lista de paginas
+ */
+Cypress.Commands.add('selectFirstPageOfListAndEdit', () => {
+	cy.get('.view-container ol li:nth-child(2)').click();
+	cy.get('.koenig-editor__editor-wrapper').type(cy.faker.lorem.sentence());
+});
 
