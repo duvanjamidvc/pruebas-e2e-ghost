@@ -17,14 +17,12 @@ describe('Pages', () => {
 		let title = cy.faker.name.title();
 		let contenido = cy.faker.lorem.sentence();
 		cy.createPageWithoutBack(title, contenido);
-		cy.intercept('**/ghost/api/**').as('backPageEdit');
+		cy.wait(400);
 		cy.get('.gh-editor-back-button').click();
-		cy.wait('@backPageEdit');
 		cy.filterPublishPage();
 		cy.selectFirstPageOfListAndChangeState();
-		cy.intercept('**/ghost/api/**').as('backPagePublish');
+		cy.wait(400);
 		cy.get('.gh-editor-back-button').click();
-		cy.wait('@backPagePublish');
 		cy.filterDraftPage();
 		cy.validateDraftStatePage(title, 1);
 	});

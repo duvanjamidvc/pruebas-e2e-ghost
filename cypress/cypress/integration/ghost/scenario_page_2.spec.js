@@ -18,9 +18,8 @@ describe('Pages', () => {
 		let title = cy.faker.name.title();
 		let contenido = cy.faker.lorem.sentence();
 		cy.createPageWithoutBack(title, contenido);
-		cy.intercept('**/ghost/api/**').as('backPage');
+		cy.wait(400);
 		cy.get('.gh-editor-back-button').click();
-		cy.wait('@backPage');
 		cy.filterPublishPage();
 		cy.selectFirstPageOfListAndEdit();
 		cy.publishPage();
