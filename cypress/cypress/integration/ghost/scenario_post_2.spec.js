@@ -29,7 +29,7 @@ describe('Posts', () => {
 	});
 
 	after(function () {
-		// cy.closeDashBoardSession();
+		cy.closeDashBoardSession();
 	});
 
 });
