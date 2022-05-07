@@ -37,28 +37,28 @@ Para la ejecución de las pruebas, por favor siga las instrucciones:
 
 ## Escenarios de prueba
 
-| Funcionalidades          | Descripción escenario                                                                                                                          |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| Crear post               | Crear post, publicarlo y ver el post desde el link generado en las configuraciones de la página                                                |
-| Editar post              | Crear post, Editar post, publicarlo y ver el post desde el link generado en las configuraciones de la página                                   |
-| Editar post              | Crear post, publicarlo, cambiar el estado de post previamente publicado a borrador y ver el post en la lista de posts con estado borrador      |
-| Crear tags               | Crear tag, filtrar listado de post por tag y validar que se listen los post relacionados al tag                                                |
-| Crear página             | Crear página, publicarla y ver la página desde el link generado en las configuraciones de la página                                            |
-| Editar página            | Crear página, Editar página, publicarla y ver la página desde el link generado en las configuraciones de la página                             |
-| Editar página            | Crear página, publicarla y ver la página desde el link generado en las configuraciones de la página                                            |
-| Crear página             | Crear página, publicarla, cambiar el estado de página previamente publicada a borrador y ver la página en la lista de post con estado borrador |
-| Crear página             | Crear página, publicarla y ver la página ingresando al link de la página                                                                       |
-| Crear página             | Crear página, publicarla, crear link de navegación, cerrar sesión y ver la página ingresando al link de la página                              |
-| Crear tags               | Crear tag y verificar que haya sido creado exitosamente                                                                                        |
-| Editar tags              | Crear tag, editar el tag verificar que haya sido editado exitosamente                                                                          |
-| Crear Post - Crear tags  | Crear post, crear tag, asignarlo a un post y verificar que haya sido asignado correctamente                                                    |
-| Crear página- Crear tags | Crear post, crear tag, asignarlo a una página y verificar que haya sido asignado correctamente                                                 |
-| Crear miembros           | Crear miembro y verificar que haya sido creado exitosamente                                                                                    |
-| Editar miembros          | Crear miembro, validar que haya sido creado. editarlo y eliminarlo.                                                                            |
-| Configuración general    | Configuración general, cambia contraseña y verifica que el cambio sea exitoso                                                                  |
-| Configuración general    | Configuración general, cambiar título y subtitulo y verifica que el cambio sea exitoso                                                         |
-| Configuración perfil     | Cambiar la contraseña y validar que el inicio de sesión sea exitoso con la nueva contraseña                                                    |
-| Configuración perfil     | Cambiar el nombre de usuario y validar que en el menú del usuario se vea el nuevo nombre                                                       |                                                                                                                                           |
+| ID | Funcionalidades          | Descripción escenario                                                                                                                          |
+| -- | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1  | Crear post               | Crear post, publicarlo y ver el post desde el link generado en las configuraciones de la página                                                |
+| 2  | Editar post              | Crear post, Edtitar post, publicarlo y ver el post desde el link generado en las configuraciones de la página                                  |
+| 3  | Editar post              | Crear post, publicarlo, cambiar el estado de post previamente publicado a borrador y ver el post en la lista de posts con estado borrador      |
+| 4  | Crear tags               | Crear tag, filtrar listado de post por tag y validar que se listen los post relacionados al tag                                                |
+| 5  | Crear página             | Crear página, publicarla y ver la página desde el link generado en las configuraciones de la página                                            |
+| 6  | Editar página            | Crear página, Editar página, publicarla y ver la página desde el link generado en las configuraciones de la página                             |
+| 7  | Editar página            | Crear página, publicarla y ver la página desde el link generado en las configuraciones de la página                                            |
+| 8  | Crear página             | Crear página, publicarla, cambiar el estado de página previamente publicada a borrador y ver la página en la lista de post con estado borrador |
+| 9  | Crear página             | Crear página, publicarla y ver la página ingresando al link de la página                                                                       |
+| 10 | Crear página             | Crear página, publicarla, crear link de navegación, cerrar sesión y ver la página ingresando al link de la página                              |
+| 11 | Crear tags               | Crear tag y verificar que haya sido creado exitosamente                                                                                        |
+| 12 | Editar tags              | Crear tag, editar el tag verificar que haya sido editado exitosamente                                                                          |
+| 13 | Crear Post - Crear tags  | Crear post, crear tag, asignarlo a un post y verificar que haya sido asignado correctamente                                                    |
+| 14 | Crear página- Crear tags | Crear post, crear tag, asignarlo a una página y verificar que haya sido asignado correctamente                                                 |
+| 15 | Crear miembros           | Crear miembro y verificar que haya sido creado exitosamente                                                                                    |
+| 16 | Editar miembros          | Crear miembro, validar que haya sido creado. editarlo y eliminarlo.                                                                            |
+| 17 | Configuración general    | Configuración general, cambia contraseña y verifica que el cambio sea exitoso                                                                  |
+| 18 | Configuración general    | Configuración general,cambiar título y subtitulo y verifica que el cambio sea exitoso                                                          |
+| 19 | Configuración perfil     | Cambiar la contraseña y validar que el inicio de sesion sea exitoso con la nueva contraseña                                                    |
+| 20 | Configuración perfil     | Cambiar el nombre de usuario y validar que en el menu del usuario se vea el nuevo nombre                                                       |
 
 ## Integrantes
 - Plinio José Grijalba Ramirez, Código: 202214358
