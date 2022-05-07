@@ -17,7 +17,7 @@ describe('Tag', () => {
     const newTag = cy.faker.commerce.productAdjective();
     cy.newTag(newTag);
     //valida que la lista contenga el nuevo tag
-    cy.get('[href="#/tags/'+newTag.toLowerCase()+'/"]').should('contain',newTag)
+    cy.get('a[href="#/tags/'+newTag.toLowerCase()+'/"]').should('contain',newTag)
   });
 
 

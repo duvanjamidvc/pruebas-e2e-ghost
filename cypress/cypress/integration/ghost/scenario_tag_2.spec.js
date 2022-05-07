@@ -18,7 +18,7 @@ describe("Tag", () => {
     const descEdit = cy.faker.lorem.paragraph();
     cy.editTag(descEdit, newTag);
     //valida que contenga la descripción editada en el tag
-    cy.get('[href="#/tags/' + newTag.toLowerCase() + '/"]').should(
+    cy.get('a[href="#/tags/' + newTag.toLowerCase() + '/"]').should(
       "contain",
       descEdit
     );

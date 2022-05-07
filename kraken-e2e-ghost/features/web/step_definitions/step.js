@@ -282,21 +282,27 @@ Then('I validate exist Tag', async function () {
 });
 
 const descEdit = faker.lorem.paragraph();
-When('I edit a tag', async function () {
-	let btnTag = await this.driver.$(`a[href="#/tags/${nameTag.toLowerCase()}/"]`);
-	await btnTag.click();
-	let descriptionTag = await this.driver.$('#tag-description');
-	await descriptionTag.setValue(descEdit);
-	let btnSave = await this.driver.$('.gh-canvas-header > .gh-canvas-header-content > .view-actions ');
-	await btnSave.click();
-	await wait(3);
-	let btnBack = await this.driver.$('.gh-canvas-title > a');
-	return await btnBack.click();
+When("I edit a tag", async function () {
+  let btnTag = await this.driver.$(
+    `a[href="#/tags/${nameTag.toLowerCase()}/"]`
+  );
+  await btnTag.click();
+  let descriptionTag = await this.driver.$("#tag-description");
+  await descriptionTag.setValue(descEdit);
+  let btnSave = await this.driver.$(
+    ".gh-canvas-header > .gh-canvas-header-content > .view-actions "
+  );
+  await btnSave.click();
+  await wait(3);
+  let btnBack = await this.driver.$(".gh-canvas-title > a");
+  return await btnBack.click();
 });
 
-When('I validate edit Tag', async function () {
-	let btnTag = await this.driver.$(`a[href="#/tags/${nameTag.toLowerCase()}/"]`);
-	await btnTag.click();
+Then("I validate edit Tag", async function () {
+  let btnTag = await this.driver
+    .$(`a[href="#/tags/${nameTag.toLowerCase()}/"]`)
+    .getText();
+  expect(btnTag).to.include(descEdit);
 });
 
 
@@ -339,4 +345,84 @@ Then('I validate menu filter', async () => {
 	let menuItem = await this.driver.$(`.gh-nav-view-list`).$(`li`).$(`a[title="${nameTag.trim()}"]`);
 	expect(menuItem.isDisplayed());
 
+});
+
+When("I click general settings", async function () {
+  let element = await this.driver.$('a[href="#/settings/"]');
+  await element.click();
+  let subElement = await this.driver.$('a[href="#/settings/general/"]');
+  return await subElement.click();
+});
+
+const newPassword = faker.internet.password();
+When("I set private site", async function () {
+  if (!(await this.driver.$('input[name="general[password]').isExisting())) {
+    let btnprivate = await this.driver.$(
+      "body > div.gh-app > div > main > section > div:nth-child(4) > section > div > div.gh-expandable-header > div.for-switch > label > span"
+    );
+    await btnprivate.click();
+    await wait(3);
+  }
+  let inputPassword = await this.driver.$('input[name="general[password]');
+  await inputPassword.setValue(newPassword);
+  let btnSave = await this.driver.$(
+    ".gh-canvas-header > .gh-canvas-header-content > .view-actions "
+  );
+  return await btnSave.click();
+});
+
+When("I go dashboard", async function () {
+  let element = await this.driver.$('a[href="#/dashboard/"]');
+  return await element.click();
+});
+
+Then("I validate password change", async function () {
+  let inputPassword = await this.driver
+    .$('input[name="general[password]"]')
+    .getValue();
+  expect(inputPassword).to.equal(newPassword);
+});
+
+Then("I set public site", async function () {
+  let btnprivate = await this.driver.$(
+    "body > div.gh-app > div > main > section > div:nth-child(4) > section > div > div.gh-expandable-header > div.for-switch > label > span"
+  );
+  await btnprivate.click();
+  let btnSave = await this.driver.$(
+    ".gh-canvas-header > .gh-canvas-header-content > .view-actions "
+  );
+  await btnSave.click();
+  return await wait(3);
+});
+
+const tittle = faker.company.companyName();
+const subtittle = faker.company.catchPhrase();
+When("I update tittle and subtittle", async function () {
+  let btnTandS = await this.driver.$(
+    ".gh-main-section:nth-child(2) > .gh-expandable > .gh-expandable-block:nth-child(1) > .gh-expandable-header > button "
+  );
+  await btnTandS.click();
+  let tittleInput = await this.driver
+    .$("div[class='gh-setting-content-extended']")
+    .$(".form-group")
+    .$("input[type='text']");
+  let subtittleInput = await this.driver
+    .$("div[class='gh-setting-content-extended']")
+    .$(".description-container")
+    .$("input[type='text']");
+  await tittleInput.setValue(tittle);
+  await subtittleInput.setValue(subtittle);
+  let btnSave = await this.driver.$(
+    ".gh-canvas-header > .gh-canvas-header-content > .view-actions "
+  );
+  await btnSave.click();
+  return await wait(3);
+});
+
+Then("I validad update tittle and subtittle", async function () {
+  let headerContent = await this.driver
+    .$('.site-header-content')
+    .getText();
+  expect(headerContent).to.include(tittle);
+  expect(headerContent).to.include(subtittle);
 });
