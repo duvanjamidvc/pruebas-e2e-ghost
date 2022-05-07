@@ -66,3 +66,58 @@ Cypress.Commands.add('validatePostPublicByTitle', (title, ocurrencias) => {
 });
 
 
+/**
+ *  Comando para crear un post sin volver atras a la lista de posts
+ */
+Cypress.Commands.add('createPostWithoutBack', (title, content) => {
+
+	cy.log(`Creando post con titulo ${title}  y contenido  ${content}`);
+	const url = Cypress.config('baseUrlDashBoard');
+	cy.visit(url);
+	// accede al menu de post nuevo
+	cy.get('.gh-nav-list.gh-nav-manage  li  a[href="#/editor/post/"]').click();
+	//llena el titulo del post 
+	cy.get('textarea.gh-editor-title').clear().type(title);
+
+	cy.intercept('**/ghost/api/**').as('publishPost');
+	// llena el contenido 
+	cy.get('article.koenig-editor').type(content);
+	// esperamos que el guardado sea existoso
+	cy.wait('@publishPost').its('response.statusCode').should('be.oneOf', [200, 201]);
+	
+})
+
+/**
+ * Publicar un post
+ */
+Cypress.Commands.add('publishPost', () => {
+	// vamos al menu publicar
+	cy.get('.gh-publishmenu-trigger').click();
+	// clic en el boton publicar
+	cy.intercept('**/ghost/api/**').as('publish');
+	cy.get('button.gh-publishmenu-button').click();
+	cy.wait('@publish').its('response.statusCode').should('be.oneOf', [200, 201]);
+});
+
+/**
+ * Validar que el post tenga enlace publico en los settings del post  
+ */
+Cypress.Commands.add('validatePublishPostFromSettings', (title, content) => {
+	cy.get('.settings-menu-toggle').click();
+	cy.wait(100);
+	cy.get('.post-view-link').click();
+});
+
+/**
+ *Seleccionar el primer post listado publicado y editadorlo
+ */
+Cypress.Commands.add('selectFirstPostOfListAndEdit', (title, content) => {
+	// accede al menu de post publicados
+	cy.intercept('**/ghost/api/**').as('loadPosts');
+	cy.get('.gh-nav-view-list > li > a[href="#/posts/?type=published"]').click();
+	cy.wait('@loadPosts').its('response.statusCode').should('be.oneOf', [200, 201]);
+	//buscamos el post en la lista y accedemos
+	cy.get('li.gh-posts-list-item>a>h3.gh-content-entry-title').contains(title).eq(0).parent('a').parent('li').click();
+	cy.get('.koenig-editor__editor-wrapper').type(cy.faker.lorem.sentence());
+
+});

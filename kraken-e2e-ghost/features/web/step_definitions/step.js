@@ -213,7 +213,7 @@ When('I write full name', async  function () {
 
 When('I click save config', async  function () {
     let element = await this.driver.$('.view-actions .gh-btn');
-    return await element.setValue(userName);
+    return await element.click();
 });
 
 When('I verify name changed', async  function () {
