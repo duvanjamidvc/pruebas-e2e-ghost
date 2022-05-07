@@ -37,28 +37,28 @@ Para la ejecución de las pruebas, por favor siga las instrucciones
 
 ## Escenarios de prueba
 
-| ID | Funcionalidad                | Descripción                                                                                                                                                                                 |
-| -- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1  | Crear post                   | Como usuario inicio sesion, creo un post, lo público y validó la publicación                                                                                                                |
-| 2  | Crear post - Editar post     | Como usuario inicio sesion, creo un post lo publico y luego lo edito y lo vuelvo a publicar                                                                                                 |
-| 3  | Crear post                   | Como usuario inicio sesion, creo un post, lo publico y validó la publicación, luego lo edito, cambio el estado a no publicado y válido en la lista de post que el estado sea borrador       |
-| 4  | Crear post                   | Como usuario creo un tag y luego creo un filtro de los post publicados por ese tag, y valido que el filtro quede accesible                                                                  |
-| 5  | Crear página                 | Como usuario inicio sesion, creó una página, la público y validó la publicación a traves del link generado en el las configuraciones de la pagina                                           |
-| 6  | Crear página - Editar página | Como usuario inicio sesion, creó una página, la publico y luego la edito y la vuelvo a publicar                                                                                             |
-| 7  | Crear página                 | Como usuario inicio sesion, creo una pagina, la publico y validó la publicación, luego la edito, cambio el estado a no publicado y válido en la lista de paginas que el estado sea borrador |
-| 8  | Crear página                 | Como usuario quiere Crear una pagina ,publicarla con link verificar que esta publica y luego eliminar el link y la pagina,                                                                  |
-| 9  | Crear página                 | Crear una pagina y publicarla y valido que se haya publicado                                                                                                                                |
-| 10 | Crear página                 | Como usuario inicio sesion, creó una página, creo el link, y valido que este publica                                                                                                        |
-| 11 | Crear tags                   | Como usuario de la aplicación quiero crear un tag y verificar que se haya creado.                                                                                                           |
-| 12 | Editar tags                  | Como usuario de la aplicación quiero editar un tag y verificar que se haya editado.                                                                                                         |
-| 13 | Crear Post - Crear tags      | Como usuario quiero crear un tag y asignarselo a la publicación                                                                                                                             |
-| 14 | Crear página- Crear tags     | Como usuario quiero crear un tag y asignarselo a la pagina                                                                                                                                  |
-| 15 | Crear miembros               | Crear un miembro verificar que esté en la lista de miembros y eliminarlo                                                                                                                    |
-| 16 | Editar miembros              | Crear un miembro, verificar que este en la lista de miembros editarlo y eliminarlo                                                                                                          |
-| 17 | Configuración general        | Como usuario quiero poder asignarle una contraseña a un sitio y verificar que la valide                                                                                                     |
-| 18 | Configuración general        | Como usuario quiero cambiar el titulo y subtitulo del sitio y visualizar esto                                                                                                               |
-| 19 | Configuración perfil         | Como usuario quiero cambiar mi contraseña                                                                                                                                                   |
-| 20 | Configuración perfil         | Como usuario quiero cambiar mi nombre de usuario                                                                                                                                            |
+| Funcionalidades          | Descripción escenario                                                                                                                          |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Crear post               | Crear post, publicarlo y ver el post desde el link generado en las configuraciones de la página                                                |
+| Editar post              | Crear post, Editar post, publicarlo y ver el post desde el link generado en las configuraciones de la página                                   |
+| Editar post              | Crear post, publicarlo, cambiar el estado de post previamente publicado a borrador y ver el post en la lista de posts con estado borrador      |
+| Crear tags               | Crear tag, filtrar listado de post por tag y validar que se listen los post relacionados al tag                                                |
+| Crear página             | Crear página, publicarla y ver la página desde el link generado en las configuraciones de la página                                            |
+| Editar página            | Crear página, Editar página, publicarla y ver la página desde el link generado en las configuraciones de la página                             |
+| Editar página            | Crear página, publicarla y ver la página desde el link generado en las configuraciones de la página                                            |
+| Crear página             | Crear página, publicarla, cambiar el estado de página previamente publicada a borrador y ver la página en la lista de post con estado borrador |
+| Crear página             | Crear página, publicarla y ver la página ingresando al link de la página                                                                       |
+| Crear página             | Crear página, publicarla, crear link de navegación, cerrar sesión y ver la página ingresando al link de la página                              |
+| Crear tags               | Crear tag y verificar que haya sido creado exitosamente                                                                                        |
+| Editar tags              | Crear tag, editar el tag verificar que haya sido editado exitosamente                                                                          |
+| Crear Post - Crear tags  | Crear post, crear tag, asignarlo a un post y verificar que haya sido asignado correctamente                                                    |
+| Crear página- Crear tags | Crear post, crear tag, asignarlo a una página y verificar que haya sido asignado correctamente                                                 |
+| Crear miembros           | Crear miembro y verificar que haya sido creado exitosamente                                                                                    |
+| Editar miembros          | Crear miembro, validar que haya sido creado. editarlo y eliminarlo.                                                                            |
+| Configuración general    | Configuración general, cambia contraseña y verifica que el cambio sea exitoso                                                                  |
+| Configuración general    | Configuración general, cambiar título y subtitulo y verifica que el cambio sea exitoso                                                         |
+| Configuración perfil     | Cambiar la contraseña y validar que el inicio de sesión sea exitoso con la nueva contraseña                                                    |
+| Configuración perfil     | Cambiar el nombre de usuario y validar que en el menú del usuario se vea el nuevo nombre                                                       |                                                                                                                                           |
 
 ## Integrantes
 - Plinio José Grijalba Ramirez, Código: 202214358
