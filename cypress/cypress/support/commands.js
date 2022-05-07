@@ -133,3 +133,22 @@ Cypress.Commands.add("editMember", (idMember) => {
 		.its("response.statusCode")
 		.should("be.oneOf", [200, 201]);
 });
+
+Cypress.Commands.add("setPassword", (newPassword) => {
+	cy.get("body").then(($body) => {
+		if ($body.find('[name="general[password]"]').length <= 0) {
+			cy.get(
+				"body > div.gh-app > div > main > section > div:nth-child(4) > section > div > div.gh-expandable-header > div.for-switch > label > span"
+			).click();
+		}
+		//asigna contraseña
+		cy.get('[name="general[password]"]')
+			.invoke("val", "")
+			.type(newPassword);
+	});
+	//guarda
+	cy.get(
+		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
+	).click();
+});
+
