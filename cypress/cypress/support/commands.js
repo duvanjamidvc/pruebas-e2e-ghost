@@ -105,3 +105,31 @@ Cypress.Commands.add("deleteMember", (idMember) => {
 		.first()
 		.click();
 });
+
+Cypress.Commands.add("editMember", (idMember) => {
+	const newMember = cy.faker.name.firstName();
+	const noteMember = cy.faker.lorem.paragraph();
+	//ingresa a miembro a eliminar
+	cy.get('a[href="#/members/' + idMember + '/"]')
+		.first()
+		.click();
+	//asignar variables
+	cy.get('[id="member-name"]').type(newMember, { force: true });
+	cy.get('[id="member-note"]').clear().type(noteMember);
+		//guardar
+	cy.get(
+		".view-actions > button"
+	).click();
+	// esperamos que el guardado sea existoso
+	cy.intercept("**/ghost/api/**").as("addMember");
+	cy.wait("@addMember")
+		.its("response.statusCode")
+		.should("be.oneOf", [200, 201]);
+	
+	// esperamos que el guardado sea existoso
+	cy.intercept("**/ghost/api/**").as("goBack");
+	cy.get('.gh-canvas-title > a').click();
+	cy.wait("@goBack")
+		.its("response.statusCode")
+		.should("be.oneOf", [200, 201]);
+});
