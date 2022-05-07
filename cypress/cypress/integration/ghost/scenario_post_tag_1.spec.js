@@ -15,7 +15,7 @@ describe('post and tag', () => {
 	});
 	
 	it('Como usuario quiero crear un tag y asignarselo a una página', () => {
-		const newTag = cy.faker.commerce.productAdjective();
+		const newTag = cy.faker.commerce.productAdjective()+cy.faker.datatype.number();
 		cy.newTag(newTag);
 		
 		let title = 'Titulo del post' + new Date().getTime();

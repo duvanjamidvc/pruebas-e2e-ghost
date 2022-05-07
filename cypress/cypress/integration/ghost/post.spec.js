@@ -24,7 +24,7 @@ describe('Crear una subcategoría de filtrado los post publicados', () => {
 		const url = Cypress.config('baseUrlDashBoard');
 		cy.visit(url);
 
-		const newTag = cy.faker.commerce.productAdjective().toUpperCase();
+		const newTag = cy.faker.commerce.productAdjective().toUpperCase()+cy.faker.datatype.number();
 		cy.newTag(newTag);
 
 		// accede al menu de post publicados

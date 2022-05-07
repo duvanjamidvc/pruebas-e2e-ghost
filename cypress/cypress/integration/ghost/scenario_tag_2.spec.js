@@ -13,7 +13,7 @@ describe("Tag", () => {
   });
 
   it("Edit tag ", () => {
-    const newTag = cy.faker.commerce.productAdjective();
+    const newTag = cy.faker.commerce.productAdjective()+cy.faker.datatype.number();
     cy.newTag(newTag);
     const descEdit = cy.faker.lorem.paragraph();
     cy.editTag(descEdit, newTag);
