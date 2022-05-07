@@ -104,10 +104,12 @@ Cypress.Commands.add("deleteMember", (idMember) => {
 	cy.get(
 		".view-actions > .dropdown > .dropdown > li:nth-child(2) > .mr2"
 	).click();
+	cy.wait(400)
 	//click en modal aceptar
 	cy.get(".modal-footer > .gh-btn.gh-btn-red.gh-btn-icon.ember-view")
 		.first()
 		.click();
+	
 });
 
 Cypress.Commands.add("editMember", (idMember) => {
