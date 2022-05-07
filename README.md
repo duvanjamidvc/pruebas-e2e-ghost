@@ -15,6 +15,8 @@ Para la ejecución de las pruebas, por favor siga las instrucciones
 
 -   Publicar post: El sistema debe permitir publicar un post para poder visualizarlo en la pagina principal.
 
+-   Publicar post: El sistema debe permitir publicar un post para poder visualizarlo en la pagina principal.
+
 -   Crear página: El sistema debe permitir la creación de una página ingresando título de la página y contenido relacionado mediante un editor.
 
 -   Editar página: El sistema debe permitir la edición de una página pudiendo agregar nuevo contenido o eliminando el que ya no se requiera.
@@ -57,3 +59,10 @@ Para la ejecución de las pruebas, por favor siga las instrucciones
 | 18 | Configuración general        | Como usuario quiero cambiar el titulo y subtitulo del sitio y visualizar esto                                                                                                               |
 | 19 | Configuración perfil         | Como usuario quiero cambiar mi contraseña                                                                                                                                                   |
 | 20 | Configuración perfil         | Como usuario quiero cambiar mi nombre de usuario                                                                                                                                            |
+
+## Integrantes
+Plinio José Grijalba Ramirez, Código: 202214358
+Natalie Carolina Santiago Torres, Código: 202214374
+Duvan Jamid Vargas Castillo, Código: 202210190
+Magda Viviana Ojeda Niño, Código: 202210187
+
