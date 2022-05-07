@@ -10,9 +10,13 @@ Para la ejecución de las pruebas, por favor siga las instrucciones
 
 -   Editar post: El sistema debe permitir la edición de un post pudiendo agregar nuevo contenido y eliminando el que ya no se requiera.
 
+-   Publicar post: El sistema debe permitir publicar un post para poder visualizarlo en la pagina principal.
+
 -   Crear página: El sistema debe permitir la creación de una página ingresando título de la página y contenido relacionado mediante un editor.
 
 -   Editar página: El sistema debe permitir la edición de una página pudiendo agregar nuevo contenido o eliminando el que ya no se requiera.
+
+-   Publicar página: El sistema debe permitir publicar una página para poder configurarla en la navegación.
 
 -   Crear tags: El sistema debe permitir crear tags con el fin de poder clasificar los posts y páginas creadas en la aplicación
 
