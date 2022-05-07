@@ -388,12 +388,6 @@ Then("I validate edit Tag", async function () {
 	expect(btnTag).to.include(descEdit);
 });
 
-When("I click in post published menu", async function () {
-	let btnTag = await this.driver.$(
-		`.gh-nav-view-list > li > a[href="#/posts/?type=published"]`
-	);
-	await btnTag.click();
-});
 
 When('I click in post published menu', async function () {
 	let btnTag = await this.driver.$(`.gh-nav-view-list > li > a[href="#/posts/?type=published"]`);
