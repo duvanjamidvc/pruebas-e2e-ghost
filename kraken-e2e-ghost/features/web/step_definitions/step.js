@@ -43,7 +43,7 @@ When("I publish a post", async function () {
 	return await btnPublish.click();
 });
 
-When("I publish a post and verify", async function () {
+Then("I publish a post and verify", async function () {
 	let elementPrev = await this.driver.$(".settings-menu-toggle");
 	await elementPrev.click();
 	let element = await this.driver.$(
@@ -105,12 +105,12 @@ When("I create member", async function () {
 	return await btnBack.click();
 });
 
-When("I validate exist member", async function () {
+Then("I validate exist member", async function () {
 	let btnMember = await this.driver.$(`a[href*="${idMember}"]`);
 	await btnMember.click();
 });
 
-When("I edit a member", async function () {
+Then("I edit a member", async function () {
 	let inputName = await this.driver.$("#member-name");
 	await inputName.setValue(faker.name.findName());
 
@@ -155,7 +155,7 @@ When("I change state to draft", async function () {
 	return await btnUpdate.click();
 });
 
-When("I verify post state is draft", async function () {
+Then("I verify post state is draft", async function () {
 	let url = await this.driver.getUrl();
 	let urlSplit = url.split("/");
 	let idMember = urlSplit.pop();
@@ -185,7 +185,7 @@ When('I write title a page', async function () {
 	return await element.setValue(pageTitle);
 });
 
-When("I publish a page and verify", async function () {
+Then("I publish a page and verify", async function () {
 	let elementPrev = await this.driver.$(".settings-menu-toggle");
 	await elementPrev.click();
 	let elementView = await this.driver.$(".gh-view");
@@ -217,7 +217,7 @@ When("I write content of page", async function () {
 	return await element.setValue(faker.lorem.sentence());
 });
 
-When("I verify page state is draft", async function () {
+Then("I verify page state is draft", async function () {
 	let url = await this.driver.getUrl();
 	let urlSplit = url.split("/");
 	let idMember = urlSplit.pop();
@@ -246,7 +246,7 @@ When("I click save config", async function () {
 	return await element.click();
 });
 
-When("I verify name changed", async function () {
+Then("I verify name changed", async function () {
 	let element = await this.driver.$(".gh-user-name");
 	let elementUserName = await element.getText();
 	expect(elementUserName).to.equal(userName);
