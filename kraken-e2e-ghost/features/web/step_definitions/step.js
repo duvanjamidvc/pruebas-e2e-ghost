@@ -24,12 +24,12 @@ When(
 	"I login {kraken-string} {kraken-string}",
 	async function (email, password) {
 		await takeScreenShot(this);
-		let elementEmail = await this.driver.$("#ember7");
+		let elementEmail = await this.driver.$('input[name="identification"]');
 		await elementEmail.setValue(email);
-		let elementPassword = await this.driver.$("#ember9");
+		let elementPassword = await this.driver.$('input[name="password"]');
 		await elementPassword.setValue(password);
 		await takeScreenShot(this);
-		let elementBtn = await this.driver.$("#ember11");
+		let elementBtn = await this.driver.$('button[type="submit"]');
 		await elementBtn.click();
 		return await takeScreenShot(this);
 	}
