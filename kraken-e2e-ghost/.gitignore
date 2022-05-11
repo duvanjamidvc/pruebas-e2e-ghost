@@ -107,3 +107,7 @@ repots/
 
 # TernJS port file
 .tern-port
+
+.vscode
+
+screenShots/

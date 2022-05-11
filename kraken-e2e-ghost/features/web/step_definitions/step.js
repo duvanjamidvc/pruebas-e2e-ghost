@@ -1,16 +1,37 @@
 const { Given, When, Then } = require("@cucumber/cucumber");
 const expect = require("chai").expect;
 const faker = require("@faker-js/faker/locale/de");
+const fs = require('fs');
+
+const dir = 'screenShots/'+(new Date()).toISOString();
+let countScreenShot = 0;
+fs.mkdirSync(dir, {recursive: true});
+
+
+async function takeScreenShot (self) {
+	await self.driver.saveScreenshot(`./${dir}/screenshot-${countScreenShot}.png`)
+	countScreenShot++;
+}
+
+When(
+	"I take a screenshot", async function () {
+		await this.driver.saveScreenshot(`./${dir}/screenshot-${countScreenShot}.png`)
+		countScreenShot++;
+	}
+)
 
 When(
 	"I login {kraken-string} {kraken-string}",
 	async function (email, password) {
+		await takeScreenShot(this);
 		let elementEmail = await this.driver.$("#ember7");
 		await elementEmail.setValue(email);
 		let elementPassword = await this.driver.$("#ember9");
 		await elementPassword.setValue(password);
+		await takeScreenShot(this);
 		let elementBtn = await this.driver.$("#ember11");
-		return await elementBtn.click();
+		await elementBtn.click();
+		return await takeScreenShot(this);
 	}
 );
 
@@ -38,6 +59,7 @@ When("I publish a post", async function () {
 	let element = await this.driver.$(
 		".gh-publishmenu .gh-publishmenu-trigger"
 	);
+	await takeScreenShot(this);
 	await element.click();
 	let btnPublish = await this.driver.$(".gh-publishmenu-button");
 	return await btnPublish.click();
@@ -46,18 +68,22 @@ When("I publish a post", async function () {
 Then("I publish a post and verify", async function () {
 	let elementPrev = await this.driver.$(".settings-menu-toggle");
 	await elementPrev.click();
+	await takeScreenShot(this);
 	let element = await this.driver.$(
 		".gh-publishmenu .gh-publishmenu-trigger"
 	);
 	await element.click();
 	let btnPublish = await this.driver.$(".gh-publishmenu-button");
 	await btnPublish.click();
+	await takeScreenShot(this);
 	await wait(3);
 	let elementUrl = await this.driver.$(".post-view-link");
 	await elementUrl.click();
+	await takeScreenShot(this);
 	await wait(3);
 	await this.driver.closeWindow();
 	await wait(3);
+	await takeScreenShot(this);
 	let back = await this.driver.$('a[href="#/posts/"]');
 	return await back.click();
 });
@@ -221,6 +247,7 @@ When("I set tag to page", async function () {
 
 	let elementPrev = await this.driver.$(".settings-menu-toggle");
 	await elementPrev.click();
+	await takeScreenShot(this);
 	let elementView = await this.driver.$("#tag-input");
 	await elementView.click();
 	await wait(4);
