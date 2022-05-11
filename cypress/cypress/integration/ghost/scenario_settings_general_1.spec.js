@@ -10,13 +10,15 @@ describe("General Settings", () => {
 
 	beforeEach(() => {
 		cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
+		cy.screenshot("edit-general-password/clicking-login");
 	});
 
 	it("set private site and validate incorrect password ", () => {
+		const stage = "edit-general-password";
 		const newPassword = cy.faker.internet.password();
 		cy.goToGeneralSettings();
 		//valida si el sitioes privado y si no lo es asigna privado
-		cy.setPassword(newPassword)
+		cy.setPassword(newPassword, stage);
 		// esperamos que el guardado sea existoso
 
 		cy.wait(5000);

@@ -15,12 +15,14 @@ describe('Cambiar contraseña de usuario', () => {
 
 	beforeEach(() => {
 		cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
+		cy.screenshot('edit-user-password/clicking-login');
 	});
 
 	it('Cambiar contraseña de usuario', () => {
+		const stage='edit-user-password'
 		const url = Cypress.config('baseUrlDashBoard');
 		cy.visit(url);
-		cy.goUserProfile();
+		cy.goUserProfile(stage);
 
 		const userPasswordOld = usuarios.admins[0].password;
 		const userPasswordNew = 'Qwerty1234567';
@@ -31,7 +33,7 @@ describe('Cambiar contraseña de usuario', () => {
 		
 		cy.login(usuarios.admins[0].username, userPasswordNew)
 		
-		cy.goUserProfile();
+		cy.goUserProfile(stage);
 
 		cy.changePassword(userPasswordNew, userPasswordOld);
 		

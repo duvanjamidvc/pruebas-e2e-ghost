@@ -16,16 +16,18 @@ describe('Crear una subcategoría de filtrado los post publicados', () => {
 
 	beforeEach(() => {
 		cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
+		cy.screenshot('filter-post/clicking-login');
+		cy.screenshot('create-post-nav/clicking-login');
 	});
 
 	it('Ingresar a post publicados y crear filtro', () => {
-
+		const stage = "filter-post";
 
 		const url = Cypress.config('baseUrlDashBoard');
 		cy.visit(url);
 
 		const newTag = cy.faker.commerce.productAdjective().toUpperCase()+cy.faker.datatype.number();
-		cy.newTag(newTag);
+		cy.newTag(newTag,stage);
 
 		// accede al menu de post publicados
 		cy.get('.gh-nav-view-list > li > a[href="#/posts/?type=published"]').click();

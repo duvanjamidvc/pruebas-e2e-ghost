@@ -1,8 +1,9 @@
 /**
  *  Comando para ingresar al perfil del usuario
  */
-Cypress.Commands.add('goUserProfile', () => {
+Cypress.Commands.add('goUserProfile', (stage) => {
 	cy.get('.gh-user-avatar').click();
+	cy.screenshot(`${stage}/clicking-profile`);
 	cy.intercept('**/ghost/api/**').as('viewProfile');
 	cy.get('a[href*="#/settings/staff"]').click();
 	cy.wait('@viewProfile').its('response.statusCode').should('be.oneOf', [204, 200, 201]);

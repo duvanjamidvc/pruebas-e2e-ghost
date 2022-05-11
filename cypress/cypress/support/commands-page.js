@@ -2,7 +2,7 @@
 /**
  *  Comando para crear un post
  */
-Cypress.Commands.add('createPage', (title, content, ) => {
+Cypress.Commands.add('createPage', (title, content,stage ) => {
 
 	cy.log(`Creando pagina con titulo ${title}  y contenido  ${content}`);
 
@@ -10,30 +10,33 @@ Cypress.Commands.add('createPage', (title, content, ) => {
 	cy.visit(url);
 	// accede al menu pages
 	cy.get('.gh-nav-list.gh-nav-manage  li  a[href="#/pages/"]').click();
-
+	cy.screenshot(`${stage}/clicking-pages`);
 	// // esperamos que cargue el contenido
 	// cy.intercept('**/ghost/**').as('createPage');
 	// cy.wait('@createPage');
 	// clic en el boton de crear pagina
 	cy.get('section.view-actions>a[href="#/editor/page/"]').click({ force: true });
+	cy.screenshot(`${stage}/clicking-create-page`);
 	//llena el titulo del post 
 	cy.get('textarea.gh-editor-title').clear().type(title);
 	// llena el contenido 
 	cy.get('article.koenig-editor').type(content);
 	// esperamos que el guardado sea existoso
 	cy.intercept('**/ghost/api/**').as('publishPage');
+	cy.screenshot(`${stage}/clicking-publish-page`);
 	cy.wait('@publishPage').its('response.statusCode').should('be.oneOf', [200, 201]);
 	// vamos al menu publicar
 	cy.get('.gh-publishmenu.ember-view').click();
 	// clic en el boton publicar
 	cy.get('.gh-publishmenu-footer>button.gh-publishmenu-button').click();
+	cy.screenshot(`${stage}/clicking-confirm-publish-page`);
 	// vamos atras
 	cy.get('.gh-editor-back-button').click();
 });
 
 
 
-Cypress.Commands.add('createPageLink', (title) => {
+Cypress.Commands.add('createPageLink', (title,stage) => {
 
 	let titleToLink = title.replace(/\s/gi, '-').toLowerCase();
 
@@ -43,10 +46,10 @@ Cypress.Commands.add('createPageLink', (title) => {
 	cy.visit(url);
 	// accede al menu de configuracion
 	cy.get('a[href="#/settings/"]').click();
-
+	cy.screenshot(`${stage}/clicking-settings`);
 	// clic en el boton navegacion
 	cy.get('a[href="#/settings/navigation/"]').click();
-
+	cy.screenshot(`${stage}/clicking-settings-navigation`);
 	//llena el titulo de la pagina
 	cy.get('#settings-navigation .gh-blognav-line  .gh-blognav-label').last().find('input.ember-text-field').clear().type(title);
 
@@ -54,11 +57,12 @@ Cypress.Commands.add('createPageLink', (title) => {
 	cy.get('#settings-navigation  .gh-blognav-line  .gh-blognav-url').last().find('input.ember-text-field').type(titleToLink);
 	// da clic en guardar
 	cy.get('.view-actions>button').click();
+	cy.screenshot(`${stage}/clicking-settings-navigation-save`);
 
 
 });
 
-Cypress.Commands.add('deletePageLinkByTitle', (title) => {
+Cypress.Commands.add('deletePageLinkByTitle', (title,stage) => {
 
 	let titleToLink = title.replace(/\s/gi, '-').toLowerCase();
 
@@ -71,7 +75,7 @@ Cypress.Commands.add('deletePageLinkByTitle', (title) => {
 
 	// clic en el boton navegacion
 	cy.get('a[href="#/settings/navigation/"]').click();
-
+	cy.screenshot(`${stage}/clicking-settings-navigation-delete`);
 	//llena el titulo de la pagina
 	cy.get('#settings-navigation .gh-blognav-line  .gh-blognav-label')
 		.find('input.ember-text-field')
@@ -87,18 +91,19 @@ Cypress.Commands.add('deletePageLinkByTitle', (title) => {
 
 	//abrimos el menu lateral derecho
 	cy.get('section.view-actions>button').click({ force: true });
+	cy.screenshot(`${stage}/clicking-settings-navigation-delete-save`);
 });
 /**
  *  Comando para eliminar el primer post basado en el titulo
  */
-Cypress.Commands.add('deletePageByTitle', (title) => {
+Cypress.Commands.add('deletePageByTitle', (title,stage) => {
 	cy.log(`Boorando pagina con titulo ${title} `);
 
 	const url = Cypress.config('baseUrlDashBoard');
 	cy.visit(url);
 	// accede al menu pages
 	cy.get('.gh-nav-list.gh-nav-manage  li  a[href="#/pages/"]').click();
-
+	cy.screenshot(`${stage}/clicking-pages-delete`);
 	// // esperamos que cargue el contenido
 	// cy.intercept('**/ghost/api/**').as('deletePageByTitle');
 	// cy.wait('@deletePageByTitle');
@@ -108,24 +113,27 @@ Cypress.Commands.add('deletePageByTitle', (title) => {
 		.contains(title)
 		.parents('.gh-posts-list-item')
 		.click();
+	cy.screenshot(`${stage}/clicking-pages-detail`);
 	//abrimos el menu lateral derecho
 	cy.get('.settings-menu-toggle').click();
 	// eliminarmos el post
 	cy.get('.settings-menu-delete-button').click();
+	cy.screenshot(`${stage}/clicking-delete-page`);
 	// damos clic en eliminar en el mensaje de confirmacion
 	cy.get(' .modal-content > .modal-footer > .ember-view ').click();
-
+	cy.screenshot(`${stage}/clicking-delete-page-confirm`);
 });
 
 
 /**
  *  Comando para validar numero de veces que aparece una pagina publicado
  */
-Cypress.Commands.add('validatePageByTitleAndLink', (title, ocurrencias) => {
+Cypress.Commands.add('validatePageByTitleAndLink', (title, ocurrencias,stage) => {
 	let titleToLink = title.replace(/\s/gi, '-').toLowerCase();
 	cy.log(`Validando que la pagina con titulo ${title}  y  ${titleToLink} este publicada`);
 	const url = Cypress.config('baseUrl');
 	cy.visit(url);
+	cy.screenshot(`${stage}/validate-page`);
 	cy.get('div.gh-head-menu>.nav>li>a[href$="/' + titleToLink + '/"]').should('have.length', ocurrencias);
 });
 

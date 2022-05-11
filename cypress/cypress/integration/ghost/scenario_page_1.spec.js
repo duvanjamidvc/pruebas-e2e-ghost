@@ -11,6 +11,7 @@ describe('Pages', () => {
 		cy.fixture('users').then(users => {
 			usuarios = users;
 			cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
+			cy.screenshot('create-public-page/clicking-login');
 		});
 	});
 

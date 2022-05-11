@@ -10,11 +10,13 @@ describe("Members", () => {
 
   beforeEach(() => {
     cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
+	cy.screenshot('edit-member/clicking-login');
   });
 
   it("Como usuario inicio sesion, creo un miembro, lo valido, lo edito y elimino", () => {
+	const stage ='edit-member';
     const newMember = cy.faker.internet.email();
-    cy.newMember(newMember);
+    cy.newMember(newMember,stage);
 	// esperamos que el guardado sea existoso
 	cy.intercept("**/ghost/api/**").as("addMember");
 	cy.wait("@addMember")
@@ -26,9 +28,9 @@ describe("Members", () => {
 	  //valida si fue creado
 	  cy.get('[href="#/members/"]:visible').parent().first().click();
 	  cy.get("body").should("contain", newMember);
-	  cy.editMember(id);
+	  cy.editMember(id,stage);
 	  cy.get("body").should("contain", newMember);
-	  cy.deleteMember(id);
+	  cy.deleteMember(id,stage);
 	});
 	
   });

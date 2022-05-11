@@ -10,6 +10,7 @@ describe("General Settings", () => {
 
   beforeEach(() => {
     cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
+	cy.screenshot('edit-tittle/clicking-login')
   });
 
   it("update tittle and subtittle  ", () => {

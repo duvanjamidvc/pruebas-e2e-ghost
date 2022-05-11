@@ -11,12 +11,14 @@ describe('page and tag', () => {
 		cy.fixture('users').then(users => {
 			usuarios = users;
 			cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
+			cy.screenshot('create-page-tag/clicking-login');
 		});
 	});
 	
 	it('Como usuario quiero crear un tag y asignarselo a una página', () => {
+		const stage ='create-page-tag'
 		const newTag = cy.faker.commerce.productAdjective()+cy.faker.datatype.number();
-		cy.newTag(newTag);
+		cy.newTag(newTag,stage);
 		
 		let title = 'Titulo del page' + new Date().getTime();
 		let contenido = cy.faker.lorem.paragraph();

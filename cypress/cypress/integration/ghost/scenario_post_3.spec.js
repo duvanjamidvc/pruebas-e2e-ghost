@@ -15,6 +15,7 @@ describe('Pages', () => {
 
 	beforeEach(() => {
 		cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
+		cy.screenshot('create-post-delete-post/clicking-login');
 	});
 	it('Crear post, publicarlo, editarlo, cambiar el estado a borrador y válido en la lista de post que el estado sea borrador', () => {
 		let title = cy.faker.name.title();

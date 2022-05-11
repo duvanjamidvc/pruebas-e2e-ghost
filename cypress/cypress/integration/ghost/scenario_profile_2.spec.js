@@ -1,38 +1,38 @@
 /// <reference types="cypress" />
 
-Cypress.on('uncaught:exception', (err, a) => {
+Cypress.on("uncaught:exception", (err, a) => {
 	return false;
 });
 
 let usuarios;
-describe('Cambiar nombre de usuario', () => {
-
+describe("Cambiar nombre de usuario", () => {
 	before(() => {
-		cy.fixture('users').then(users => {
+		cy.fixture("users").then((users) => {
 			usuarios = users;
 		});
 	});
 
 	beforeEach(() => {
 		cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
+		cy.screenshot("edit-user-name/clicking-login");
 	});
 
-	it('Cambiar nombre de usuario', () => {
-		const url = Cypress.config('baseUrlDashBoard');
+	it("Cambiar nombre de usuario", () => {
+		const stage = "edit-user-name";
+		const url = Cypress.config("baseUrlDashBoard");
 		cy.visit(url);
-		cy.goUserProfile();
+		cy.goUserProfile(stage);
 
 		const nameUser = cy.faker.name.findName();
-		cy.get('#user-name').clear().type(nameUser, {force: true});
-		
+		cy.get("#user-name").clear().type(nameUser, { force: true });
+
 		cy.saveUserProfile();
 
-		cy.get('.gh-user-avatar').click();		
-		cy.get('.gh-user-name').should('have.text',nameUser);
+		cy.get(".gh-user-avatar").click();
+		cy.get(".gh-user-name").should("have.text", nameUser);
 	});
-	
+
 	afterEach(function () {
 		cy.closeDashBoardSession();
 	});
-
 });

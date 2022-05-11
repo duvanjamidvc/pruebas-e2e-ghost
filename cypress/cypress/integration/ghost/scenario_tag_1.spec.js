@@ -11,12 +11,15 @@ describe('Tag', () => {
 
   beforeEach(() => {
     cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
+	cy.screenshot('create-tag/clicking-login')
   });
 
   it('create tag ', () => {
+	const stage ='create-tag'
     const newTag = cy.faker.commerce.productAdjective()+cy.faker.datatype.number();
-    cy.newTag(newTag);
+    cy.newTag(newTag,stage);
     //valida que la lista contenga el nuevo tag
+	cy.screenshot('create-tag/clicking-all-tags')
     cy.get('a[href="#/tags/'+newTag.toLowerCase()+'/"]').should('contain',newTag)
   });
 

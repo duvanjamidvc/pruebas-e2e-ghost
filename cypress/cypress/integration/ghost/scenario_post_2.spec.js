@@ -15,6 +15,7 @@ describe('Posts', () => {
 
 	beforeEach(() => {
 		cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
+		cy.screenshot('create-post-edit-post/clicking-login');
 	});
 	
 	it('Como usuario inicio sesion, creo un post lo publico y luego lo edito y lo vuelvo a publicar', () => {

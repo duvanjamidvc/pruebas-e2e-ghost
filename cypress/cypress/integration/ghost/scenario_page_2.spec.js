@@ -14,6 +14,7 @@ describe("Pages", () => {
 
 	beforeEach(() => {
 		cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
+		cy.screenshot('create-page-delete-page/clicking-login');
 	});
 
 	it("Crear pagina, publicarla, editarla y verificar que se publicó a traves del link generado en el las configuraciones de la pagina", () => {
