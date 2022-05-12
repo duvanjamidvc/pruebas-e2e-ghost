@@ -2,6 +2,8 @@
 
 ## 1. Configurar para la ejecución
 
+ Se deben condigurar las rutas de las evidencias en el archivo `config.json`
+
 ```json
      "basePath": [
         {
