@@ -1,0 +1,27 @@
+{
+    "basePath": [
+        {
+            "path": "./evidencias/kraken",
+            "name": "kraken"
+        },
+        {
+            "path": "./evidencias/cypress",
+            "name": "cypress"
+        }
+    ],
+    "options": {
+        "output": {
+            "errorColor": {
+                "red": 255,
+                "green": 0,
+                "blue": 255
+            },
+            "errorType": "movement",
+            "largeImageThreshold": 1200,
+            "useCrossOrigin": false,
+            "outputDiff": true
+        },
+        "scaleToSameSize": true,
+        "ignore": "antialiasing"
+    }
+}
