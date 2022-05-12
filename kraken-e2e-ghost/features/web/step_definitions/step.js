@@ -1,16 +1,41 @@
 const { Given, When, Then } = require("@cucumber/cucumber");
 const expect = require("chai").expect;
 const faker = require("@faker-js/faker/locale/de");
+const fs = require('fs');
+
+let dir = 'screenShots/';
+let countScreenShot = 0;
+
+
+async function takeScreenShot (self) {
+	await self.driver.saveScreenshot(`./${dir}/captura-${countScreenShot}.png`)
+	countScreenShot++;
+}
+
+When("I active screenshot {string}", async function(folder) {
+	dir += folder;
+	fs.mkdirSync(dir, {recursive: true});
+})
+
+When(
+	"I take a screenshot", async function () {
+		await this.driver.saveScreenshot(`./${dir}/captura-${countScreenShot}.png`)
+		countScreenShot++;
+	}
+)
 
 When(
 	"I login {kraken-string} {kraken-string}",
 	async function (email, password) {
-		let elementEmail = await this.driver.$("#ember7");
+		await takeScreenShot(this);
+		let elementEmail = await this.driver.$('input[name="identification"]');
 		await elementEmail.setValue(email);
-		let elementPassword = await this.driver.$("#ember9");
+		let elementPassword = await this.driver.$('input[name="password"]');
 		await elementPassword.setValue(password);
-		let elementBtn = await this.driver.$("#ember11");
-		return await elementBtn.click();
+		await takeScreenShot(this);
+		let elementBtn = await this.driver.$('button[type="submit"]');
+		await elementBtn.click();
+		return await takeScreenShot(this);
 	}
 );
 
@@ -38,6 +63,7 @@ When("I publish a post", async function () {
 	let element = await this.driver.$(
 		".gh-publishmenu .gh-publishmenu-trigger"
 	);
+	await takeScreenShot(this);
 	await element.click();
 	let btnPublish = await this.driver.$(".gh-publishmenu-button");
 	return await btnPublish.click();
@@ -46,18 +72,22 @@ When("I publish a post", async function () {
 Then("I publish a post and verify", async function () {
 	let elementPrev = await this.driver.$(".settings-menu-toggle");
 	await elementPrev.click();
+	await takeScreenShot(this);
 	let element = await this.driver.$(
 		".gh-publishmenu .gh-publishmenu-trigger"
 	);
 	await element.click();
 	let btnPublish = await this.driver.$(".gh-publishmenu-button");
 	await btnPublish.click();
+	await takeScreenShot(this);
 	await wait(3);
 	let elementUrl = await this.driver.$(".post-view-link");
 	await elementUrl.click();
+	await takeScreenShot(this);
 	await wait(3);
 	await this.driver.closeWindow();
 	await wait(3);
+	await takeScreenShot(this);
 	let back = await this.driver.$('a[href="#/posts/"]');
 	return await back.click();
 });
@@ -92,11 +122,12 @@ When("I create member", async function () {
 
 	let emailName = await this.driver.$("#member-email");
 	await emailName.setValue(faker.internet.email());
-
+	await takeScreenShot(this);
 	let btnSave = await this.driver.$(".view-actions > button");
 	await btnSave.click();
+	await takeScreenShot(this);
 	await wait(3);
-
+	await takeScreenShot(this);
 	let url = await this.driver.getUrl();
 	let urlSplit = url.split("/");
 	idMember = urlSplit.pop();
@@ -116,10 +147,14 @@ Then("I edit a member", async function () {
 
 	let emailName = await this.driver.$("#member-email");
 	await emailName.setValue(faker.internet.email());
-
+	
+	await takeScreenShot(this);
+	
 	let btnSave = await this.driver.$(".view-actions > button");
 	await btnSave.click();
+	await takeScreenShot(this);
 	await wait(3);
+	await takeScreenShot(this);
 
 	let btnBack = await this.driver.$(".gh-canvas-title > a");
 	return await btnBack.click();
@@ -128,14 +163,13 @@ Then("I edit a member", async function () {
 When("I delete a member", async function () {
 	let btnSettings = await this.driver.$(".view-actions > .dropdown > button");
 	await btnSettings.click();
-
+	await takeScreenShot(this);
 	let btnDelete = await this.driver.$(
 		".gh-member-actions-menu > li:last-child > button"
 	);
 	await btnDelete.click();
-
 	await wait(3);
-
+	await takeScreenShot(this);
 	let btnConfirm = await this.driver.$(
 		".modal-footer .gh-btn.gh-btn-red.gh-btn-icon.ember-view"
 	);
@@ -147,10 +181,12 @@ When("I change state to draft", async function () {
 		".gh-publishmenu .gh-publishmenu-trigger"
 	);
 	await element.click();
+	await takeScreenShot(this);
 	let btnUnpublish = await this.driver.$(
 		".gh-publishmenu-radio:not(.active)"
 	);
 	await btnUnpublish.click();
+	await takeScreenShot(this);
 	let btnUpdate = await this.driver.$(".gh-publishmenu-button");
 	return await btnUpdate.click();
 });
@@ -161,6 +197,7 @@ Then("I verify post state is draft", async function () {
 	let idMember = urlSplit.pop();
 	let back = await this.driver.$('a[href="#/posts/"]');
 	await back.click();
+	await takeScreenShot(this);
 	return await this.driver.$(
 		`a[href*="${idMember}"] .items-center .gh-content-status-draft`
 	);
@@ -188,18 +225,25 @@ When('I write title a page', async function () {
 Then("I publish a page and verify", async function () {
 	let elementPrev = await this.driver.$(".settings-menu-toggle");
 	await elementPrev.click();
+	await takeScreenShot(this);
 	let elementView = await this.driver.$(".gh-view");
 	await elementView.click();
+	await takeScreenShot(this);
 	let element = await this.driver.$(
 		".gh-publishmenu>.gh-publishmenu-trigger"
 	);
 	await element.click();
+	await takeScreenShot(this);
 	let btnPublish = await this.driver.$(".gh-publishmenu-button");
 	await btnPublish.click();
+	await takeScreenShot(this);
 	await wait(3);
+	await takeScreenShot(this);
 	let elementUrl = await this.driver.$(".post-view-link");
 	await elementUrl.click();
+	await takeScreenShot(this);
 	await wait(3);
+	await takeScreenShot(this);
 	await this.driver.closeWindow();
 	await wait(3);
 	let back = await this.driver.$('a[href="#/pages/"]');
@@ -209,10 +253,13 @@ Then("I publish a page and verify", async function () {
 When("I publish a page", async function () {
 
 	await this.driver.$('article.koenig-editor').click();
+	await takeScreenShot(this);
 	let element = await this.driver.$(
 		".gh-publishmenu>.gh-publishmenu-trigger"
 	);
 	await element.click();
+	await wait(3);
+	await takeScreenShot(this);
 	let btnPublish = await this.driver.$(".gh-publishmenu-button");
 	await btnPublish.click();
 });
@@ -221,10 +268,10 @@ When("I set tag to page", async function () {
 
 	let elementPrev = await this.driver.$(".settings-menu-toggle");
 	await elementPrev.click();
+	await takeScreenShot(this);
 	let elementView = await this.driver.$("#tag-input");
 	await elementView.click();
 	await wait(4);
-
 	let tagItem = await this.driver.$(`.ember-power-select-option=${nameTag}`);
 	await tagItem.click();
 });
@@ -255,6 +302,7 @@ When("I click an exist page", async function () {
 When("I write content of page", async function () {
 	let element = await this.driver.$(".koenig-editor__editor-wrapper");
 	await element.click();
+	await takeScreenShot(this);
 	return await element.setValue(faker.lorem.sentence());
 });
 
@@ -264,6 +312,7 @@ Then("I verify page state is draft", async function () {
 	let idMember = urlSplit.pop();
 	let back = await this.driver.$('a[href="#/pages/"]');
 	await back.click();
+	await takeScreenShot(this);
 	return await this.driver.$(
 		`a[href*="${idMember}"] .items-center .gh-content-status-draft`
 	);
@@ -276,7 +325,7 @@ When("I click profile", async function () {
 	return await btnProfile.click();
 });
 
-var userName = faker.name.findName();
+var userName = 'Light Yagami';
 When("I write full name", async function () {
 	let element = await this.driver.$("#user-name");
 	return await element.setValue(userName);
@@ -306,7 +355,7 @@ When(
 			"#user-new-password-verification"
 		);
 		await elementUserPasswordNewVerification.setValue(passwordNew);
-
+		await takeScreenShot(this)
 		let btnChangePassword = await this.driver.$(".button-change-password");
 		await btnChangePassword.click();
 	}
@@ -340,18 +389,18 @@ When("I click new Tag", async function () {
 var nameTag = "";
 When("I create Tag", async function () {
 	let inputName = await this.driver.$("#tag-name");
-	nameTag = faker.commerce.productAdjective()+faker.datatype.number();
+	nameTag = 'Deportes';
 	await inputName.setValue(nameTag);
 
 	let colorTag = await this.driver.$('input[name="accent-color"]');
-	await colorTag.setValue(faker.datatype.hexaDecimal(8).split("0x")[1]);
-
+	await colorTag.setValue('000000');
+	await takeScreenShot(this);
 	let btnSave = await this.driver.$(
 		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
 	);
 	await btnSave.click();
+	await takeScreenShot(this);
 	await wait(3);
-
 	let btnBack = await this.driver.$(".gh-canvas-title > a");
 	return await btnBack.click();
 });
@@ -372,11 +421,13 @@ When("I edit a tag", async function () {
 	await btnTag.click();
 	let descriptionTag = await this.driver.$("#tag-description");
 	await descriptionTag.setValue(descEdit);
+	await takeScreenShot(this);
 	let btnSave = await this.driver.$(
 		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
 	);
 	await btnSave.click();
 	await wait(3);
+	await takeScreenShot(this);
 	let btnBack = await this.driver.$(".gh-canvas-title > a");
 	return await btnBack.click();
 });
@@ -386,6 +437,20 @@ Then("I validate edit Tag", async function () {
 		.$(`a[href="#/tags/${nameTag.toLowerCase()}/"]`)
 		.getText();
 	expect(btnTag).to.include(descEdit);
+});
+
+When("I click a Tag", async function () {
+	let btnTag = await this.driver.$(`a[href="#/tags/${nameTag.toLowerCase()}/"]`);
+	return await btnTag.click();
+});
+
+When("I delete a tag", async function () {
+	let btnDeleteTag = await this.driver.$('.gh-canvas .gh-btn.gh-btn-red');
+	await btnDeleteTag.click();
+	let modalDeleteTag = await this.driver.$('.modal-content');
+	await modalDeleteTag.click();
+	let btnConfirmDeleteTag = await this.driver.$('.modal-content .modal-footer .gh-btn.gh-btn-red');
+	return await btnConfirmDeleteTag.click();
 });
 
 
@@ -426,15 +491,14 @@ When("I click in save popUp button", async function () {
 });
 Then("I validate menu filter", async function () {
 	let menuItem = await this.driver
-		.$(`.gh-nav-view-list`)
-		.$(`li`)
-		.$(`a[title="${nameTag.trim()}"]`);
+		.$(`.gh-nav-view-list li a[title="${nameTag.trim()}"]`);
 	expect(menuItem.isDisplayed());
 });
 
 When("I click general settings", async function () {
 	let element = await this.driver.$('a[href="#/settings/"]');
 	await element.click();
+	await takeScreenShot(this);
 	let subElement = await this.driver.$('a[href="#/settings/general/"]');
 	return await subElement.click();
 });
@@ -447,6 +511,7 @@ When("I set private site", async function () {
 		);
 		await btnprivate.click();
 		await wait(3);
+		await takeScreenShot(this);
 	}
 	let inputPassword = await this.driver.$('input[name="general[password]');
 	await inputPassword.setValue(newPassword);
@@ -473,6 +538,7 @@ Then("I set public site", async function () {
 		"body > div.gh-app > div > main > section > div:nth-child(4) > section > div > div.gh-expandable-header > div.for-switch > label > span"
 	);
 	await btnprivate.click();
+	await takeScreenShot(this);
 	let btnSave = await this.driver.$(
 		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
 	);
@@ -480,8 +546,8 @@ Then("I set public site", async function () {
 	return await wait(3);
 });
 
-const tittle = faker.company.companyName();
-const subtittle = faker.company.catchPhrase();
+const tittle = 'La sociedad de almas';
+const subtittle = 'Donde habitan los shinigamis';
 When("I update tittle and subtittle", async function () {
 	let btnTandS = await this.driver.$(
 		".gh-main-section:nth-child(2) > .gh-expandable > .gh-expandable-block:nth-child(1) > .gh-expandable-header > button "
@@ -515,12 +581,15 @@ When("I update tag post", async function () {
 		".gh-viewport > .gh-main > .settings-menu-toggle > span "
 	);
 	await btnSettings.click();
+	await takeScreenShot(this);
 	let tagInput = await this.driver.$("#tag-input");
 	await tagInput.click();
+	await takeScreenShot(this);
 	let tabSelect = await this.driver.$(
 		`.ember-power-select-option=${nameTag}`
 	);
 	await tabSelect.click();
+	await takeScreenShot(this);
 	await wait(2);
 	return await btnSettings.click();
 });
@@ -546,7 +615,6 @@ When('I create link', async function () {
 
 	let title = pageTitle;
 	let titleToLink = title.replace(/\s/gi, '-').toLowerCase();
-	console.log(titleToLink);
 
 	let elements = await this.driver.$$('#settings-navigation>.gh-blognav-item>.gh-blognav-line>.gh-blognav-label');
 
@@ -558,7 +626,7 @@ When('I create link', async function () {
 	let linkElement = await linkElements[linkElements.length - 1].$('input.ember-text-field');
 	await linkElement.clearValue();
 	await linkElement.setValue(titleToLink);
-
+	await takeScreenShot(this);
 	await this.driver.$('.view-actions>button').click();
 });
 
@@ -586,8 +654,10 @@ When('I click page by title', async function () {
 When('I delete page', async function () {
 	//abrimos el menu lateral derecho
 	await this.driver.$('.settings-menu-toggle').click();
+	await takeScreenShot(this);
 	// eliminarmos el post
 	await this.driver.$('.settings-menu-delete-button').click();
+	await takeScreenShot(this);
 	// damos clic en eliminar en el mensaje de confirmacion
 	await this.driver.$(' .modal-content > .modal-footer > .ember-view ').click();
 });
