@@ -18,16 +18,17 @@ describe('Pages', () => {
 		cy.screenshot('create-post-delete-post/clicking-login');
 	});
 	it('Crear post, publicarlo, editarlo, cambiar el estado a borrador y válido en la lista de post que el estado sea borrador', () => {
+		const stage ='create-post-delete-post'
 		let title = cy.faker.name.title();
 		let contenido = cy.faker.lorem.sentence();
-		cy.createPostWithoutBack(title, contenido);
-		cy.publishPost();
+		cy.createPostWithoutBack(title, contenido,stage);
+		cy.publishPost(stage);
 		cy.wait(400);
 		cy.get('.gh-editor-back-button').click();
 		cy.get('a[href="#/posts/?type=published"]').click();
 		cy.wait(400);
 
-		cy.selectFirstPostOfListAndChangeState(title);
+		cy.selectFirstPostOfListAndChangeState(title,stage);
 
 		cy.wait(400);
 		cy.get('.gh-editor-back-button').click();

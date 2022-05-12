@@ -24,13 +24,15 @@ describe("Pages", () => {
 		cy.createPageWithoutBack(title, contenido,stage);
 		cy.wait(400);
 		cy.get(".gh-editor-back-button").click();
+		cy.screenshot(`${stage}/back-button-page`);
 		cy.wait(400);
-		cy.filterPublishPage();
-		cy.selectFirstPageOfListAndChangeState();
+		cy.filterPublishPage(stage);
+		cy.selectFirstPageOfListAndChangeState(stage);
 		cy.wait(400);
 		cy.get(".gh-editor-back-button").click();
+		cy.screenshot(`${stage}/back-button-page-2`);
 		cy.wait(400);
-		cy.filterDraftPage();
+		cy.filterDraftPage(stage);
 		cy.validateDraftStatePage(title, 1);
 	});
 

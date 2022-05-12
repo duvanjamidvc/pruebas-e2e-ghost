@@ -17,6 +17,7 @@ describe("Pages", () => {
 		cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
 		cy.screenshot("create-page-link/clicking-login");
 		cy.screenshot("create-page-delete-page-link/clicking-login");
+		cy.screenshot("create-public-page-nav/clicking-login");
 	});
 	it("Crear pagina y publicarla con Link", () => {
 		const stage = "create-page-link";

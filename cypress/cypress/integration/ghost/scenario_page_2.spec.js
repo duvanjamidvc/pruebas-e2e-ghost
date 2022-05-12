@@ -24,10 +24,11 @@ describe("Pages", () => {
 		cy.createPageWithoutBack(title, contenido,stage);
 		cy.wait(400);
 		cy.get(".gh-editor-back-button").click();
+		cy.screenshot(`${stage}/back-button-page`);
 		cy.wait(400);
-		cy.filterPublishPage();
-		cy.selectFirstPageOfListAndEdit();
-		cy.publishPage();
+		cy.filterPublishPage(stage);
+		cy.selectFirstPageOfListAndEdit(stage);
+		cy.publishPage(stage);
 		cy.validatePublishPageFromSettings(stage);
 	});
 

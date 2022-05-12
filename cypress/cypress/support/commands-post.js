@@ -79,13 +79,14 @@ Cypress.Commands.add('validatePostPublicByTitle', (title, ocurrencias,stage) => 
 /**
  *  Comando para crear un post sin volver atras a la lista de posts
  */
-Cypress.Commands.add('createPostWithoutBack', (title, content) => {
+Cypress.Commands.add('createPostWithoutBack', (title, content,stage) => {
 
 	cy.log(`Creando post con titulo ${title}  y contenido  ${content}`);
 	const url = Cypress.config('baseUrlDashBoard');
 	cy.visit(url);
 	// accede al menu de post nuevo
 	cy.get('.gh-nav-list.gh-nav-manage  li  a[href="#/editor/post/"]').click();
+	cy.screenshot(`${stage}/click-new-post`);
 	//llena el titulo del post 
 	cy.get('textarea.gh-editor-title').clear().type(title);
 
@@ -93,6 +94,7 @@ Cypress.Commands.add('createPostWithoutBack', (title, content) => {
 	// llena el contenido 
 	cy.get('article.koenig-editor').type(content);
 	// esperamos que el guardado sea existoso
+	cy.screenshot(`${stage}/save-auto-post`);
 	cy.wait('@publishPost').its('response.statusCode').should('be.oneOf', [200, 201]);
 	
 })
@@ -100,31 +102,36 @@ Cypress.Commands.add('createPostWithoutBack', (title, content) => {
 /**
  * Comando para Publicar un post
  */
-Cypress.Commands.add('publishPost', () => {
+Cypress.Commands.add('publishPost', (stage) => {
 	// vamos al menu publicar
 	cy.get('.gh-publishmenu-trigger').click();
+	cy.screenshot(`${stage}/click-options-post`);
 	// clic en el boton publicar
 	cy.intercept('**/ghost/api/**').as('publish');
 	cy.get('button.gh-publishmenu-button').click();
+	cy.screenshot(`${stage}/click-publish-post`);
 	cy.wait('@publish').its('response.statusCode').should('be.oneOf', [200, 201]);
 });
 
 /**
  * Comando para Validar que el post tenga enlace publico en los settings del post  
  */
-Cypress.Commands.add('validatePublishPostFromSettings', (title, content) => {
+Cypress.Commands.add('validatePublishPostFromSettings', (stage) => {
 	cy.get('.settings-menu-toggle').click();
+	cy.screenshot(`${stage}/click-settings-post`);
 	cy.wait(100);
 	cy.get('.post-view-link').click();
+	cy.screenshot(`${stage}/click-settings-post-view-link`);
 });
 
 /**
  * Comando para Seleccionar el primer post listado publicado y editadorlo
  */
-Cypress.Commands.add('selectFirstPostOfListAndEdit', (title, content) => {
+Cypress.Commands.add('selectFirstPostOfListAndEdit', (title, content,stage) => {
 	// accede al menu de post publicados
 	cy.intercept('**/ghost/api/**').as('loadPosts');
 	cy.get('.gh-nav-view-list > li > a[href="#/posts/?type=published"]').click();
+	cy.screenshot(`${stage}/click-post-published`);
 	cy.wait('@loadPosts').its('response.statusCode').should('be.oneOf', [200, 201]);
 	//buscamos el post en la lista y accedemos
 	cy.get('li.gh-posts-list-item>a>h3.gh-content-entry-title').contains(title).eq(0).parent('a').parent('li').click();
@@ -135,9 +142,11 @@ Cypress.Commands.add('selectFirstPostOfListAndEdit', (title, content) => {
 /**
  * Comando para seleccionar y editar para cambiar el estado a borrador de la primera pagina de la lista de paginas
  */
-Cypress.Commands.add('selectFirstPostOfListAndChangeState', (title) => {
+Cypress.Commands.add('selectFirstPostOfListAndChangeState', (title,stage) => {
 	cy.get('li.gh-posts-list-item>a>h3.gh-content-entry-title').contains(title).eq(0).parent('a').parent('li').click();
+	cy.screenshot(`${stage}/click-first-post`);
 	cy.get('.gh-publishmenu').click();
+	cy.screenshot(`${stage}/click-post-options`);
 	cy.get('.gh-publishmenu-radio:not(.active)').click();
 	cy.get('.gh-publishmenu-button').click();
 	cy.get('.gh-main').click();

@@ -183,9 +183,10 @@ Cypress.Commands.add('createPageWithoutBack', (title, content,stage ) => {
 /**
  * Comando para publicar una pagina 
  */
-Cypress.Commands.add('publishPage', () => {
+Cypress.Commands.add('publishPage', (stage) => {
 	// vamos al menu publicar
 	cy.get('.gh-publishmenu.ember-view').click();
+	cy.screenshot(`${stage}/click-publish-page`);
 	// clic en el boton publicar
 	cy.intercept('**/ghost/api/**').as('publish');
 	cy.get('.gh-publishmenu-footer>button.gh-publishmenu-button').click();
@@ -205,38 +206,47 @@ Cypress.Commands.add('validatePublishPageFromSettings', (stage) => {
 /**
  * Comando para filtrar paginas publicadas
  */
-Cypress.Commands.add('filterPublishPage', () => {
+Cypress.Commands.add('filterPublishPage', (stage) => {
 	cy.wait(100);
 	cy.get('.view-actions .gh-contentfilter .gh-contentfilter-type .ember-basic-dropdown-trigger').click();
+	cy.screenshot(`${stage}/filter-public-page-option`);
 	cy.get('.ember-power-select-options li[data-option-index="2"]').click();
+	cy.screenshot(`${stage}/filter-public-page`);
 });
 
 /**
  * Comando para filtrar paginas en borrador
  */
-Cypress.Commands.add('filterDraftPage', () => {
+Cypress.Commands.add('filterDraftPage', (stage) => {
 	cy.wait(100);
 	cy.get('.view-actions .gh-contentfilter .gh-contentfilter-type .ember-basic-dropdown-trigger').click();
+	cy.screenshot(`${stage}/click-filter-draft-page-option`);
 	cy.get('.ember-power-select-options li[data-option-index="1"]').click();
+	cy.screenshot(`${stage}/click-filter-draft-page`);
 });
 
 
 /**
  * Comando para seleccionar y editar la primera pagina de la lista de paginas
  */
-Cypress.Commands.add('selectFirstPageOfListAndEdit', () => {
+Cypress.Commands.add('selectFirstPageOfListAndEdit', (stage) => {
 	cy.get('.view-container ol li:nth-child(2)').click();
+	cy.screenshot(`${stage}/select-first-page-of-list`);
 	cy.get('.koenig-editor__editor-wrapper').type(cy.faker.lorem.sentence());
 });
 
 /**
  * Comando para seleccionar y editar para cambiar el estado a borrador de la primera pagina de la lista de paginas  
  */
-Cypress.Commands.add('selectFirstPageOfListAndChangeState', () => {
+Cypress.Commands.add('selectFirstPageOfListAndChangeState', (stage) => {
 	cy.get('.view-container ol li:nth-child(2)').click();
+	cy.screenshot(`${stage}/select-first-page-of-list`);
 	cy.get('.gh-publishmenu').click();
+	cy.screenshot(`${stage}/select-first-page-of-list-option`);
 	cy.get('.gh-publishmenu-radio:not(.active)').click();
+	cy.screenshot(`${stage}/select-first-page-of-list-radio-active`);
 	cy.get('.gh-publishmenu-button').click();
+	cy.screenshot(`${stage}/select-first-page-of-list-click`);
 	cy.get('.gh-main').click();
 	cy.wait(200);
 });
@@ -245,7 +255,7 @@ Cypress.Commands.add('selectFirstPageOfListAndChangeState', () => {
 /**
  *  Comando para crear un post sin volver atras
  */
-Cypress.Commands.add('createPageWithTag', (title, content, tag) => {
+Cypress.Commands.add('createPageWithTag', (title, content, tag,stage) => {
 
 	cy.log(`Creando pagina con titulo ${title}  y contenido  ${content}`);
 
@@ -253,16 +263,17 @@ Cypress.Commands.add('createPageWithTag', (title, content, tag) => {
 	cy.visit(url);
 	// accede al menu pages
 	cy.get('.gh-nav-list.gh-nav-manage  li  a[href="#/pages/"]').click();
-
+	cy.screenshot(`${stage}/click-pages`);
 	// clic en el boton de crear pagina
 	cy.get('section.view-actions>a[href="#/editor/page/"]').click({ force: true });
+	cy.screenshot(`${stage}/click-new-pages`);
 	//llena el titulo del post 
 	cy.get('textarea.gh-editor-title').clear().type(title);
 	// llena el contenido 
 	cy.get('article.koenig-editor').type(content);
 	
 	cy.get('.settings-menu-toggle').click();
-	
+	cy.screenshot(`${stage}/click-options-pages`);
 	cy.get('#tag-input').type(tag);
 
 	cy.get('.ember-power-select-option')
@@ -272,6 +283,7 @@ Cypress.Commands.add('createPageWithTag', (title, content, tag) => {
 	
 	// esperamos que el guardado sea existoso
 	cy.intercept('**/ghost/api/**').as('publishPage');
+	cy.screenshot(`${stage}/click-public-pages`);
 	cy.wait('@publishPage').its('response.statusCode').should('be.oneOf', [200, 201]);
 	
 });

@@ -25,7 +25,7 @@ describe('post and tag', () => {
 
 		cy.createPostWithTag(title, contenido, newTag);
 
-		cy.publishPost();
+		cy.publishPost(stage);
 		cy.wait(100);
 		cy.get('.post-view-link').click();
 	});

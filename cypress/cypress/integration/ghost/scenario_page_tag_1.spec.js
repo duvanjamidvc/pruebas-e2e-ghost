@@ -23,9 +23,9 @@ describe('page and tag', () => {
 		let title = 'Titulo del page' + new Date().getTime();
 		let contenido = cy.faker.lorem.paragraph();
 
-		cy.createPageWithTag(title, contenido, newTag);
+		cy.createPageWithTag(title, contenido, newTag,stage);
 
-		cy.publishPage();
+		cy.publishPage(stage);
 		cy.wait(100);
 		cy.get('.post-view-link').click();
 	});
