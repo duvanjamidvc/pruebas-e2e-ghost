@@ -393,7 +393,7 @@ When("I create Tag", async function () {
 	await inputName.setValue(nameTag);
 
 	let colorTag = await this.driver.$('input[name="accent-color"]');
-	await colorTag.setValue(000000);
+	await colorTag.setValue('000000');
 	await takeScreenShot(this);
 	let btnSave = await this.driver.$(
 		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
