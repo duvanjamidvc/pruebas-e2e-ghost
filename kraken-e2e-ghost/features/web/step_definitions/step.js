@@ -3,19 +3,23 @@ const expect = require("chai").expect;
 const faker = require("@faker-js/faker/locale/de");
 const fs = require('fs');
 
-const dir = 'screenShots/'+(new Date()).toISOString();
+let dir = 'screenShots/';
 let countScreenShot = 0;
-fs.mkdirSync(dir, {recursive: true});
 
 
 async function takeScreenShot (self) {
-	await self.driver.saveScreenshot(`./${dir}/screenshot-${countScreenShot}.png`)
+	await self.driver.saveScreenshot(`./${dir}/captura-${countScreenShot}.png`)
 	countScreenShot++;
 }
 
+When("I active screenshot {string}", async function(folder) {
+	dir += folder;
+	fs.mkdirSync(dir, {recursive: true});
+})
+
 When(
 	"I take a screenshot", async function () {
-		await this.driver.saveScreenshot(`./${dir}/screenshot-${countScreenShot}.png`)
+		await this.driver.saveScreenshot(`./${dir}/captura-${countScreenShot}.png`)
 		countScreenShot++;
 	}
 )
@@ -333,7 +337,7 @@ When(
 			"#user-new-password-verification"
 		);
 		await elementUserPasswordNewVerification.setValue(passwordNew);
-
+		await takeScreenShot(this)
 		let btnChangePassword = await this.driver.$(".button-change-password");
 		await btnChangePassword.click();
 	}
@@ -372,13 +376,13 @@ When("I create Tag", async function () {
 
 	let colorTag = await this.driver.$('input[name="accent-color"]');
 	await colorTag.setValue(faker.datatype.hexaDecimal(8).split("0x")[1]);
-
+	await takeScreenShot(this);
 	let btnSave = await this.driver.$(
 		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
 	);
 	await btnSave.click();
+	await takeScreenShot(this);
 	await wait(3);
-
 	let btnBack = await this.driver.$(".gh-canvas-title > a");
 	return await btnBack.click();
 });
@@ -399,11 +403,13 @@ When("I edit a tag", async function () {
 	await btnTag.click();
 	let descriptionTag = await this.driver.$("#tag-description");
 	await descriptionTag.setValue(descEdit);
+	await takeScreenShot(this);
 	let btnSave = await this.driver.$(
 		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
 	);
 	await btnSave.click();
 	await wait(3);
+	await takeScreenShot(this);
 	let btnBack = await this.driver.$(".gh-canvas-title > a");
 	return await btnBack.click();
 });
@@ -462,6 +468,7 @@ Then("I validate menu filter", async function () {
 When("I click general settings", async function () {
 	let element = await this.driver.$('a[href="#/settings/"]');
 	await element.click();
+	await takeScreenShot(this);
 	let subElement = await this.driver.$('a[href="#/settings/general/"]');
 	return await subElement.click();
 });
