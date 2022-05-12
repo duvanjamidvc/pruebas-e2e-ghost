@@ -122,11 +122,12 @@ When("I create member", async function () {
 
 	let emailName = await this.driver.$("#member-email");
 	await emailName.setValue(faker.internet.email());
-
+	await takeScreenShot(this);
 	let btnSave = await this.driver.$(".view-actions > button");
 	await btnSave.click();
+	await takeScreenShot(this);
 	await wait(3);
-
+	await takeScreenShot(this);
 	let url = await this.driver.getUrl();
 	let urlSplit = url.split("/");
 	idMember = urlSplit.pop();
@@ -146,10 +147,14 @@ Then("I edit a member", async function () {
 
 	let emailName = await this.driver.$("#member-email");
 	await emailName.setValue(faker.internet.email());
-
+	
+	await takeScreenShot(this);
+	
 	let btnSave = await this.driver.$(".view-actions > button");
 	await btnSave.click();
+	await takeScreenShot(this);
 	await wait(3);
+	await takeScreenShot(this);
 
 	let btnBack = await this.driver.$(".gh-canvas-title > a");
 	return await btnBack.click();
@@ -158,14 +163,13 @@ Then("I edit a member", async function () {
 When("I delete a member", async function () {
 	let btnSettings = await this.driver.$(".view-actions > .dropdown > button");
 	await btnSettings.click();
-
+	await takeScreenShot(this);
 	let btnDelete = await this.driver.$(
 		".gh-member-actions-menu > li:last-child > button"
 	);
 	await btnDelete.click();
-
 	await wait(3);
-
+	await takeScreenShot(this);
 	let btnConfirm = await this.driver.$(
 		".modal-footer .gh-btn.gh-btn-red.gh-btn-icon.ember-view"
 	);
@@ -221,18 +225,25 @@ When('I write title a page', async function () {
 Then("I publish a page and verify", async function () {
 	let elementPrev = await this.driver.$(".settings-menu-toggle");
 	await elementPrev.click();
+	await takeScreenShot(this);
 	let elementView = await this.driver.$(".gh-view");
 	await elementView.click();
+	await takeScreenShot(this);
 	let element = await this.driver.$(
 		".gh-publishmenu>.gh-publishmenu-trigger"
 	);
 	await element.click();
+	await takeScreenShot(this);
 	let btnPublish = await this.driver.$(".gh-publishmenu-button");
 	await btnPublish.click();
+	await takeScreenShot(this);
 	await wait(3);
+	await takeScreenShot(this);
 	let elementUrl = await this.driver.$(".post-view-link");
 	await elementUrl.click();
+	await takeScreenShot(this);
 	await wait(3);
+	await takeScreenShot(this);
 	await this.driver.closeWindow();
 	await wait(3);
 	let back = await this.driver.$('a[href="#/pages/"]');
@@ -242,10 +253,13 @@ Then("I publish a page and verify", async function () {
 When("I publish a page", async function () {
 
 	await this.driver.$('article.koenig-editor').click();
+	await takeScreenShot(this);
 	let element = await this.driver.$(
 		".gh-publishmenu>.gh-publishmenu-trigger"
 	);
 	await element.click();
+	await wait(3);
+	await takeScreenShot(this);
 	let btnPublish = await this.driver.$(".gh-publishmenu-button");
 	await btnPublish.click();
 });
@@ -258,7 +272,6 @@ When("I set tag to page", async function () {
 	let elementView = await this.driver.$("#tag-input");
 	await elementView.click();
 	await wait(4);
-
 	let tagItem = await this.driver.$(`.ember-power-select-option=${nameTag}`);
 	await tagItem.click();
 });
@@ -289,6 +302,7 @@ When("I click an exist page", async function () {
 When("I write content of page", async function () {
 	let element = await this.driver.$(".koenig-editor__editor-wrapper");
 	await element.click();
+	await takeScreenShot(this);
 	return await element.setValue(faker.lorem.sentence());
 });
 
@@ -298,6 +312,7 @@ Then("I verify page state is draft", async function () {
 	let idMember = urlSplit.pop();
 	let back = await this.driver.$('a[href="#/pages/"]');
 	await back.click();
+	await takeScreenShot(this);
 	return await this.driver.$(
 		`a[href*="${idMember}"] .items-center .gh-content-status-draft`
 	);
@@ -600,7 +615,6 @@ When('I create link', async function () {
 
 	let title = pageTitle;
 	let titleToLink = title.replace(/\s/gi, '-').toLowerCase();
-	console.log(titleToLink);
 
 	let elements = await this.driver.$$('#settings-navigation>.gh-blognav-item>.gh-blognav-line>.gh-blognav-label');
 
@@ -612,7 +626,7 @@ When('I create link', async function () {
 	let linkElement = await linkElements[linkElements.length - 1].$('input.ember-text-field');
 	await linkElement.clearValue();
 	await linkElement.setValue(titleToLink);
-
+	await takeScreenShot(this);
 	await this.driver.$('.view-actions>button').click();
 });
 
@@ -640,8 +654,10 @@ When('I click page by title', async function () {
 When('I delete page', async function () {
 	//abrimos el menu lateral derecho
 	await this.driver.$('.settings-menu-toggle').click();
+	await takeScreenShot(this);
 	// eliminarmos el post
 	await this.driver.$('.settings-menu-delete-button').click();
+	await takeScreenShot(this);
 	// damos clic en eliminar en el mensaje de confirmacion
 	await this.driver.$(' .modal-content > .modal-footer > .ember-view ').click();
 });
