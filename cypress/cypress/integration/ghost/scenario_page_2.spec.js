@@ -18,16 +18,17 @@ describe("Pages", () => {
 	});
 
 	it("Crear pagina, publicarla, editarla y verificar que se publicó a traves del link generado en el las configuraciones de la pagina", () => {
+		const stage = "create-page-delete-page";
 		let title = cy.faker.name.title();
 		let contenido = cy.faker.lorem.sentence();
-		cy.createPageWithoutBack(title, contenido);
+		cy.createPageWithoutBack(title, contenido,stage);
 		cy.wait(400);
 		cy.get(".gh-editor-back-button").click();
 		cy.wait(400);
 		cy.filterPublishPage();
 		cy.selectFirstPageOfListAndEdit();
 		cy.publishPage();
-		cy.validatePublishPageFromSettings();
+		cy.validatePublishPageFromSettings(stage);
 	});
 
 	afterEach(function () {

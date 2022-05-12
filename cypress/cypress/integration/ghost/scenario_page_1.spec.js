@@ -16,10 +16,11 @@ describe('Pages', () => {
 	});
 
 	it('Crear pagina, publicarla y verificar que se publicó a traves del link generado en el las configuraciones de la pagina', () => {
+		const stage = "create-public-page";
 		let title = cy.faker.name.title();
 		let contenido = cy.faker.lorem.sentence();
-		cy.createPageWithoutBack(title, contenido);
-		cy.validatePublishPageFromSettings();
+		cy.createPageWithoutBack(title, contenido,stage);
+		cy.validatePublishPageFromSettings(stage);
 	});
 
 	after(function () {

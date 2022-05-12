@@ -36,7 +36,7 @@ describe("Pages", () => {
 		let contenido = cy.faker.lorem.paragraph();
 
 		cy.createPage(title, contenido,stage);
-		cy.validatePageLoadPublicLink(title);
+		cy.validatePageLoadPublicLink(title,stage);
 	});
 
 	it("Eliminar pagina y link corespondiente", () => {

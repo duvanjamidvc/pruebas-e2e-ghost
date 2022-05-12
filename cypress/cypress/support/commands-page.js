@@ -141,19 +141,19 @@ Cypress.Commands.add('validatePageByTitleAndLink', (title, ocurrencias,stage) =>
 /**
  *  Comando para validar numero de veces que aparece una pagina publicado
  */
-Cypress.Commands.add('validatePageLoadPublicLink', (title) => {
+Cypress.Commands.add('validatePageLoadPublicLink', (title,stage) => {
 	let titleToLink = title.replace(/\s/gi, '-').toLowerCase();
 	cy.log(`Validando que la pagina con titulo ${title}  y  ${titleToLink} este publicada`);
 	const url = Cypress.config('baseUrl');
 	cy.visit(url + '/' + titleToLink + '/');
-
+	cy.screenshot(`${stage}/validate-page-load-public-link`);
 	cy.url().should('include', titleToLink);
 });
 
 /**
  *  Comando para crear un post sin volver atras
  */
-Cypress.Commands.add('createPageWithoutBack', (title, content, ) => {
+Cypress.Commands.add('createPageWithoutBack', (title, content,stage ) => {
 
 	cy.log(`Creando pagina con titulo ${title}  y contenido  ${content}`);
 
@@ -161,9 +161,10 @@ Cypress.Commands.add('createPageWithoutBack', (title, content, ) => {
 	cy.visit(url);
 	// accede al menu pages
 	cy.get('.gh-nav-list.gh-nav-manage  li  a[href="#/pages/"]').click();
-
+	cy.screenshot(`${stage}/click-pages`);
 	// clic en el boton de crear pagina
 	cy.get('section.view-actions>a[href="#/editor/page/"]').click({ force: true });
+	cy.screenshot(`${stage}/click-new-page`);
 	//llena el titulo del post 
 	cy.get('textarea.gh-editor-title').clear().type(title);
 	// llena el contenido 
@@ -173,8 +174,10 @@ Cypress.Commands.add('createPageWithoutBack', (title, content, ) => {
 	cy.wait('@publishPage').its('response.statusCode').should('be.oneOf', [200, 201]);
 	// vamos al menu publicar
 	cy.get('.gh-publishmenu.ember-view').click();
+	cy.screenshot(`${stage}/click-public-menu-page`);
 	// clic en el boton publicar
 	cy.get('.gh-publishmenu-footer>button.gh-publishmenu-button').click();
+	cy.screenshot(`${stage}/click-public-page`);
 });
 
 /**
@@ -192,10 +195,11 @@ Cypress.Commands.add('publishPage', () => {
 /**
  *  Comando para validar una pagina publicada desde la opcion de configuraciones
  */
-Cypress.Commands.add('validatePublishPageFromSettings', () => {
+Cypress.Commands.add('validatePublishPageFromSettings', (stage) => {
 	cy.get('.settings-menu-toggle').click();
 	cy.wait(100);
 	cy.get('.post-view-link').click();
+	cy.screenshot(`${stage}/validate-public-page-settings`);
 });
 
 /**

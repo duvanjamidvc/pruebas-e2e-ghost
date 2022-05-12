@@ -18,9 +18,10 @@ describe("Pages", () => {
 	});
 
 	it("Crear pagina, publicarla, editarla, cambiar el estado a borrador y válido en la lista de paginas que el estado sea borrador", () => {
+		const stage = "create-page-delete-page";
 		let title = cy.faker.name.title();
 		let contenido = cy.faker.lorem.sentence();
-		cy.createPageWithoutBack(title, contenido);
+		cy.createPageWithoutBack(title, contenido,stage);
 		cy.wait(400);
 		cy.get(".gh-editor-back-button").click();
 		cy.wait(400);
