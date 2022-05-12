@@ -27,7 +27,7 @@ module.exports = (on, config) => {
 		},
 	});
 	on("after:screenshot", (details) => {
-		console.log(details,config); // print all details to terminal
+		
 		const versionForlder= path.join(
 			__dirname,
 			`../screenshots/${config.env.versionGhost}`)

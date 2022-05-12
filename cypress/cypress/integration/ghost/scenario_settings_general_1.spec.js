@@ -16,7 +16,7 @@ describe("General Settings", () => {
 	it("set private site and validate incorrect password ", () => {
 		const stage = "edit-general-password";
 		const newPassword = cy.faker.internet.password();
-		cy.goToGeneralSettings();
+		cy.goToGeneralSettings(stage);
 		//valida si el sitioes privado y si no lo es asigna privado
 		cy.setPassword(newPassword, stage);
 		// esperamos que el guardado sea existoso
@@ -24,11 +24,13 @@ describe("General Settings", () => {
 		cy.wait(5000);
 		//va a dashboard
 		cy.get('a[href="#/dashboard/"]').parent().first().click();
+		cy.screenshot(`${stage}/click-dashboard`);
 		//va de nuevo a settings
-		cy.goToGeneralSettings();
+		cy.goToGeneralSettings(stage);
 		//valida que la contraseña sea la guardada
 
 		cy.get('input[name="general[password]"]').click({ force: true });
+		cy.screenshot(`${stage}/click-general-password`);
 		cy.get('input[name="general[password]"]').should(
 			"have.value",
 			newPassword
@@ -36,7 +38,8 @@ describe("General Settings", () => {
 	});
 
 	it("Set public site", () => {
-		cy.goToGeneralSettings();
+		const stage = "edit-general-password";
+		cy.goToGeneralSettings(stage);
 		//vuelve a poner el sitio como publico
 		cy.get(
 			"body > div.gh-app > div > main > section > div:nth-child(4) > section > div > div.gh-expandable-header > div.for-switch > label > span"

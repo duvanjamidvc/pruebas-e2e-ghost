@@ -26,9 +26,10 @@ describe("Cambiar nombre de usuario", () => {
 		const nameUser = cy.faker.name.findName();
 		cy.get("#user-name").clear().type(nameUser, { force: true });
 
-		cy.saveUserProfile();
+		cy.saveUserProfile(stage);
 
 		cy.get(".gh-user-avatar").click();
+		cy.screenshot(`${stage}/click-avatar-user`);
 		cy.get(".gh-user-name").should("have.text", nameUser);
 	});
 

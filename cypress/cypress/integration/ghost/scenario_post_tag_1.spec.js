@@ -23,7 +23,7 @@ describe('post and tag', () => {
 		let title = 'Titulo del post' + new Date().getTime();
 		let contenido = cy.faker.lorem.paragraph();
 
-		cy.createPostWithTag(title, contenido, newTag);
+		cy.createPostWithTag(title, contenido, newTag,stage);
 
 		cy.publishPost(stage);
 		cy.wait(100);

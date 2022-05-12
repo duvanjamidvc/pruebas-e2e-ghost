@@ -27,15 +27,15 @@ describe('Cambiar contraseña de usuario', () => {
 		const userPasswordOld = usuarios.admins[0].password;
 		const userPasswordNew = 'Qwerty1234567';
 		
-		cy.changePassword(userPasswordOld, userPasswordNew);
+		cy.changePassword(userPasswordOld, userPasswordNew,stage);
 
 		cy.closeDashBoardSession();
 		
 		cy.login(usuarios.admins[0].username, userPasswordNew)
-		
+		cy.screenshot(`${stage}/login-valid`);
 		cy.goUserProfile(stage);
 
-		cy.changePassword(userPasswordNew, userPasswordOld);
+		cy.changePassword(userPasswordNew, userPasswordOld,stage);
 		
 	});
 	

@@ -54,9 +54,9 @@ Cypress.Commands.add("newTag", (newTag, stage) => {
 	cy.get(
 		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
 	).click();
-	cy.wait(3000);
+	cy.wait(1000);
 	cy.screenshot(`${stage}/clicking-save-tag`);
-	cy.wait(2000);
+	cy.wait(3000);
 	//leva a tags de nuevo
 	cy.get('a[href="#/tags/"]').parent().first().click();
 });
@@ -81,9 +81,28 @@ Cypress.Commands.add("editTag", (descEdit, newTag, stage) => {
 	cy.get('a[href="#/tags/"]').parent().first().click();
 });
 
-Cypress.Commands.add("goToGeneralSettings", () => {
+Cypress.Commands.add("deleteTag", (newTag, stage) => {
+	cy.get('a[href="#/tags/"]').parent().first().click();
+	cy.screenshot(`${stage}/clicking-tags-edit`);
+	//navega a tag
+	cy.get('a[href="#/tags/' + newTag.toLowerCase() + '/"]')
+		.first()
+		.click();
+	cy.screenshot(`${stage}/clicking-tag-detail`);
+	//elimina descripción tag
+	cy.get('.gh-main > .gh-canvas > div > .gh-btn ').click();
+	cy.screenshot(`${stage}/clicking-delete-tag`);
+	cy.wait(3000);
+	cy.get('.fullscreen-modal > .modal-content > .modal-footer > .gh-btn-red ').click()
+	cy.screenshot(`${stage}/clicking-delete-tag-confirm`);
+	cy.wait(3000);
+});
+
+Cypress.Commands.add("goToGeneralSettings", (stage) => {
 	cy.get('a[href="#/settings/"]').first().click();
+	cy.screenshot(`${stage}/clicking-settings`);
 	cy.get('a[href="#/settings/general/"]').first().click();
+	cy.screenshot(`${stage}/clicking-general-settings`);
 });
 
 Cypress.Commands.add("newMember", (emailMember, stage) => {

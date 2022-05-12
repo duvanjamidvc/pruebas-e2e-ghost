@@ -1,11 +1,15 @@
 /// <reference types="cypress" />
 
 let usuarios;
+let tagInfo;
 describe("Tag", () => {
   before(() => {
     cy.fixture("users").then((users) => {
       usuarios = users;
     });
+	cy.fixture('tag').then((tag) => {
+		tagInfo = tag
+	});
   });
 
   beforeEach(() => {
@@ -15,15 +19,16 @@ describe("Tag", () => {
 
   it("Edit tag ", () => {
 	const stage ='edit-tag'
-    const newTag = cy.faker.commerce.productAdjective()+cy.faker.datatype.number();
+    const newTag =  tagInfo.nameTag;
     cy.newTag(newTag,stage);
-    const descEdit = cy.faker.lorem.paragraph();
+    const descEdit =  tagInfo.textTag;
     cy.editTag(descEdit, newTag,stage);
     //valida que contenga la descripción editada en el tag
     cy.get('a[href="#/tags/' + newTag.toLowerCase() + '/"]').should(
       "contain",
       descEdit
     );
+	cy.deleteTag(newTag,stage);
   });
 
   

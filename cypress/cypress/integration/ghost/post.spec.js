@@ -34,8 +34,7 @@ describe('Crear una subcategoría de filtrado los post publicados', () => {
 		cy.get('.gh-nav-view-list > li > a[href="#/posts/?type=published"]').click();
 		cy.screenshot(`${stage}/clicking-post-published`);
 		// // esperamos que cargue la pagina
-		cy.intercept('**/ghost/api/**').as('loadPagePublishedPost');
-		cy.wait('@loadPagePublishedPost');
+		
 		cy.wait(3000);
 
 		// da clic en el menu de filtro por tag
@@ -64,7 +63,7 @@ describe('Crear una subcategoría de filtrado los post publicados', () => {
 	});
 
 	it('Crear post publico', () => {
-		const stage = "filter-post";
+		const stage = "create-post-nav";
 		let title = 'Titulo del post' + new Date().getTime();
 		let contenido = cy.faker.lorem.paragraph();
 

@@ -1,12 +1,16 @@
 /// <reference types="cypress" />
 
 let usuarios;
+let tagInfo;
 describe('Tag', () => {
 
   before(() => {
     cy.fixture('users').then(users => {
       usuarios = users;
     });
+	cy.fixture('tag').then((tag) => {
+		tagInfo = tag
+	});
   });
 
   beforeEach(() => {
@@ -16,11 +20,12 @@ describe('Tag', () => {
 
   it('create tag ', () => {
 	const stage ='create-tag'
-    const newTag = cy.faker.commerce.productAdjective()+cy.faker.datatype.number();
+    const newTag = tagInfo.nameTag;
     cy.newTag(newTag,stage);
     //valida que la lista contenga el nuevo tag
 	cy.screenshot('create-tag/clicking-all-tags')
     cy.get('a[href="#/tags/'+newTag.toLowerCase()+'/"]').should('contain',newTag)
+	cy.deleteTag(newTag,stage);
   });
 
 
