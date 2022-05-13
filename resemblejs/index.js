@@ -5,9 +5,9 @@ const fs = require('fs');
 const { options } = config;
 
 async function executeTest() {
-    let resultInfo = [];
-
-    for (let tool of config.basePath) {
+  
+  for (let tool of config.basePath) {
+        let resultInfo = [];
         let basePath = tool.path;
         let versionPathV3 = basePath + "/v3";
         let versionPathV4 = basePath + "/v4";
@@ -63,7 +63,6 @@ async function executeTest() {
 
     console.log('------------------------------------------------------------------------------------')
     console.log("Execution finished. Check the report under the ${basePath} folder in index.html")
-    return resultInfo;
 }
 
 function printItem(item) {

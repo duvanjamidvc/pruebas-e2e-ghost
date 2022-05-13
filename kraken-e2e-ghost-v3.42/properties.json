@@ -1,5 +1,5 @@
 {
-  "URL_GHOST": "http://localhost:3001//ghost",
+  "URL_GHOST": "http://localhost:3001/ghost",
   "URL_GHOST_BASE": "http://localhost:3001/",
   "EMAIL": "n.santiago@uniandes.edu.co",
   "PASSWORD": "Prueba123.",
