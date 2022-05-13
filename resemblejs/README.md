@@ -19,5 +19,5 @@ node index.js
 
 ## 4. Ver los resultados
 
-En la carpeta `evidencias` se encuentra una carpeta por herramienta `cypress y kraken` y en cada una de estas carpetas se encontra un archivo `report.html`
+En la carpeta `evidencias` se encuentra una carpeta por herramienta `cypress y kraken` y en cada una de estas carpetas se encuentra un archivo llamado `report.html`
 el cual contiene el informe de la ejecución.
