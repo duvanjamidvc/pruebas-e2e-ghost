@@ -1,45 +1,23 @@
-# RESEMBLEJS
+# Reporte comparación visual con RESEMBLEJS
 
-## 1. Configurar para la ejecución
-
- Se deben condigurar las rutas de las evidencias en el archivo `config.json`
-
-```json
-     "basePath": [
-        {
-            "path": "./evidencias/kraken",
-            "name": "kraken"
-        },
-        {
-            "path": "./evidencias/cypress",
-            "name": "cypress"
-        }
-    ],
-```
-
-se debe cambiar los paramtros `path` para que apunte a cada una de las carpetas de las herramientas
-
-NOTA: tenga en cuenta que el arbol de carpetas dentro de cada uno de los path debe ser `${path}/[v3|v4/escenario/screnshot.png`
-ejemplo: `./evidencias/kraken/v4/login_in_app/navigate_to_login_page.png`
-
-NOTA2: Debe existir la imagen tanto en la carpta v3 como v4, ejemplo:
-
-- `./evidencias/kraken/v3/login_in_app/navigate_to_login_page.png`
-- `./evidencias/kraken/v4/login_in_app/navigate_to_login_page.png`
+## 1. Prerequisitos
+- [Repositorio](https://github.com/duvanjamidvc/pruebas-e2e-ghost) git clone https://github.com/duvanjamidvc/pruebas-e2e-ghost.git o descargué el zip y descomprímalo.
+- Antes de generar el reporte de comparación visual se debe ejecutar las pruebas, siga el siguiente tutorial
+- Abra una terminal y ubiquese en el folder del proyecto descargado y acceda a la carpeta resemblejs `cd resemplejs`
 
 ## 2. Instalar paquetes
-
+En la terminal ejecute el siguiente comando:
 ```bash
 npm install
 ```
 
 ## 3. Ejecutar las pruebas
-
+Una vez instalados los paquetes, en la terminal ejecute el siguiente comando:
 ```bash
 node index.js
 ```
 
 ## 4. Ver los resultados
 
-En cada una de las carpetas configuradas en  el paso #1 se debe encontrar un archivo report.html
+En la carpeta `evidencias` se encuentra una carpeta por herramienta `cypress y kraken` y en cada una de estas carpetas se encontra un archivo `report.html`
 el cual contiene el informe de la ejecución.
