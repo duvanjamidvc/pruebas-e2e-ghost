@@ -4,6 +4,17 @@ Para la ejecución de las pruebas, por favor siga las instrucciones:
 2. Para la ejecución de las pruebas con la herramienta kraken siga el siguiente tutorial [kraken-e2e-ghost](kraken-e2e-ghost/README.md).
 3. Para la ejecución de las pruebas con la herramienta cypress siga el siguiente tutorial [cypress](cypress/README.md).
 
+# Pruebas de regresión visual usando Ghost v4.41.3 y Ghost v3.42
+Para estas pruebas se utilizo la herramienta resemble para comparar los screenshots tomados de la ejecución de los escenarios de pruebas planteados en las herramientas kraken y cypress.
+
+Para la ejecución de las pruebas, por favor siga las instrucciones:
+1. Clone el repositorio con ```git clone https://github.com/duvanjamidvc/pruebas-e2e-ghost.git``` o descargue el zip y descomprímalo.
+2. Abra una terminal y ubíquese en el folder del proyecto descargado ```cd pruebas-e2e-ghost```
+3. Ejecute el siguiente comando para instalar los paquetes necesarios `npm install`
+4. Ejecute el comando `npm start` para ejecutar las pruebas end to end con kraken y cypres diseñadas para ghost en las 2 versiones seleccionadas, y generar el reporte de pruebas VRT
+5. Al finalizar el proceso se generaran 2 reportes uno para los escenarios ejecutados con kraken y otro con los escenarios de cypress, estos los podra encontrar en el folder ```/resemblejs/evidencias/kraken``` y ```/resemblejs/evidencias/cypress```
+6. Para ver el reporte abra el archivo ```reporte.html``` con el navegador de su preferencia
+
 ## Funcionalidades
 -   Iniciar sesión: El sistema debe permitir iniciar sesión en el módulo administrador de la aplicación mediante usuario y contraseña para poder administrar el contenido de la plataforma.
 
