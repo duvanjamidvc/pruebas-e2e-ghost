@@ -4,7 +4,7 @@ Cypress.Commands.add("login", (username, password) => {
 	cy.visit(url);
 	cy.get('[name="identification"]').type(username);
 	cy.get('[name="password"]').type(password);
-	cy.get("#ember11").click();
+	cy.get("#ember12").click();
 	cy.intercept("GET", "**/ghost/**").as("goToDashBoard");
 	cy.wait("@goToDashBoard")
 		.its("response.statusCode")
@@ -40,7 +40,7 @@ Cypress.Commands.add("goToPublicPage", () => {
 });
 
 Cypress.Commands.add("newTag", (newTag, stage) => {
-	const colorTag = cy.faker.datatype.hexaDecimal(8).split("0x")[1];
+	const colorTag = "000000";
 	cy.get('a[href="#/tags/"]').parent().first().click();
 	cy.wait(5000);
 	cy.screenshot(`${stage}/clicking-tags`);
@@ -52,7 +52,7 @@ Cypress.Commands.add("newTag", (newTag, stage) => {
 	cy.get('[name="accent-color"]').first().type(colorTag);
 	//guarda
 	cy.get(
-		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
+		".gh-canvas-header > .view-actions "
 	).click();
 	cy.wait(1000);
 	cy.screenshot(`${stage}/clicking-save-tag`);

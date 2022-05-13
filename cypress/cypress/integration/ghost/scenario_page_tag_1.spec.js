@@ -28,6 +28,7 @@ describe('page and tag', () => {
 		cy.publishPage(stage);
 		cy.wait(100);
 		cy.get('.post-view-link').click();
+		cy.deleteTag(newTag,stage);
 	});
 
 	after(function () {
