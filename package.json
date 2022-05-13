@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "start": "npx gulp all-run"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-shell": "^0.8.0",
+    "run-sequence": "^2.2.1"
+  }
+}
