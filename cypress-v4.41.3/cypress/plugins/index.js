@@ -30,22 +30,22 @@ module.exports = (on, config) => {
 		
 		const versionForlder= path.join(
 			__dirname,
-			`../screenshots/${config.env.versionGhost}`)
+			`../../../resemblejs/evidencias/cypress/${config.env.versionGhost}`)
 		if (!fs.existsSync(versionForlder)) {
-			fs.mkdirSync(versionForlder);
+			fs.mkdirSync(versionForlder, {recursive: true});
 		}
 		if (details.name && details.name.split("/")[0] && !details.testFailure) {
 			const newPath = path.join(
 				__dirname,
-				`../screenshots/${config.env.versionGhost}/${details.name}.png`
+				`../../../resemblejs/evidencias/cypress/${config.env.versionGhost}/${details.name}.png`
 			);
 			const stagePath = path.join(
 				__dirname,
-				`../screenshots/${config.env.versionGhost}/${details.name.split("/")[0]}`
+				`../../../resemblejs/evidencias/cypress/${config.env.versionGhost}/${details.name.split("/")[0]}`
 			);
 			return new Promise((resolve, reject) => {
 				if (!fs.existsSync(stagePath)) {
-					fs.mkdirSync(stagePath);
+					fs.mkdirSync(stagePath, {recursive: true});
 				}
 				// fs.rename moves the file to the existing directory 'new/path/to'
 				// and renames the image to 'screenshot.png'
