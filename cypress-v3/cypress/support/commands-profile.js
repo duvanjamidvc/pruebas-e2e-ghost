@@ -5,7 +5,8 @@ Cypress.Commands.add('goUserProfile', (stage) => {
 	cy.get('.gh-user-avatar').click();
 	cy.screenshot(`${stage}/clicking-profile`);
 	cy.intercept('**/ghost/api/**').as('viewProfile');
-	cy.get('a[href*="#/settings/staff"]').click();
+	cy.wait(3000);
+	cy.get('.dropdown-menu>li>a[href^="\#\\/staff/"].ember-view').parent().click();
 	cy.wait('@viewProfile').its('response.statusCode').should('be.oneOf', [204, 200, 201]);
 });
 
@@ -18,13 +19,13 @@ Cypress.Commands.add('saveUserProfile', (stage) => {
 });
 
 
-Cypress.Commands.add('changePassword', (userPasswordOld, userPasswordNew,stage) => {
-	cy.get('#user-password-old').clear().type(userPasswordOld, {force: true});
+Cypress.Commands.add('changePassword', (userPasswordOld, userPasswordNew, stage) => {
+	cy.get('#user-password-old').clear().type(userPasswordOld, { force: true });
 	cy.screenshot(`${stage}/write-old-Password`);
-	cy.get('#user-password-new').clear().type(userPasswordNew, {force: true});
+	cy.get('#user-password-new').clear().type(userPasswordNew, { force: true });
 	cy.screenshot(`${stage}/write-new-Password`);
-	cy.get('#user-new-password-verification').clear().type(userPasswordNew, {force: true});
-	
+	cy.get('#user-new-password-verification').clear().type(userPasswordNew, { force: true });
+
 	cy.intercept('**/ghost/api/**').as('changePassword');
 	cy.get('.button-change-password').click();
 	cy.screenshot(`${stage}/click-save-new-Password`);
