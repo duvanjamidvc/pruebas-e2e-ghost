@@ -109,3 +109,9 @@ reports/
 .tern-port
 evidencias/
 resemblejs/results
+
+.vscode
+
+screenShots/
+
+evidencias/
