@@ -15,8 +15,6 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
-import './commands-post'
-import './commands-page'
 import './commands-profile'
 cy.faker = require('faker');
 

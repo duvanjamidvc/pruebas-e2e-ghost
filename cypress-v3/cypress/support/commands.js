@@ -105,70 +105,7 @@ Cypress.Commands.add("goToGeneralSettings", (stage) => {
 	cy.screenshot(`${stage}/clicking-general-settings`);
 });
 
-Cypress.Commands.add("newMember", (emailMember, stage) => {
-	const newMember = cy.faker.name.firstName();
-	const noteMember = cy.faker.lorem.paragraph();
-	cy.get('a[href="#/members/"]:visible').parent().first().click();
-	cy.screenshot(`${stage}/clicking-members`);
-	cy.get('a[href="#/members/new/"]').click();
-	//asignar variables
-	cy.screenshot(`${stage}/clicking-new-members`);
-	cy.get('[id="member-name"]').type(newMember, { force: true });
-	cy.get('[id="member-email"]').type(emailMember);
-	cy.get('[id="member-note"]').type(noteMember);
-	//guardar
-	cy.get(
-		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
-	).click();
-	cy.screenshot(`${stage}/clicking-new-members-save`);
-});
-Cypress.Commands.add("deleteMember", (idMember, stage) => {
-	//ingresa a miembro a eliminar
-	cy.get('a[href="#/members/' + idMember + '/"]')
-		.first()
-		.click();
-	//clic en eliminar
-	cy.screenshot(`${stage}/clicking-members-delete`);
-	cy.get(".view-actions > .dropdown > .gh-btn > span > svg").click();
-	cy.get(
-		".view-actions > .dropdown > .dropdown > li:nth-child(2) > .mr2"
-	).click();
-	cy.screenshot(`${stage}/clicking-member-delete-option`);
-	cy.wait(400);
-	//click en modal aceptar
-	cy.get(".modal-footer > .gh-btn.gh-btn-red.gh-btn-icon.ember-view")
-		.first()
-		.click();
-	cy.screenshot(`${stage}/clicking-member-delete-confirm`);
-});
 
-Cypress.Commands.add("editMember", (idMember,stage) => {
-	const newMember = cy.faker.name.firstName();
-	const noteMember = cy.faker.lorem.paragraph();
-	//ingresa a miembro a eliminar
-	cy.get('a[href="#/members/' + idMember + '/"]')
-		.first()
-		.click();
-	cy.screenshot(`${stage}/clicking-members-detail`);
-	//asignar variables
-	cy.get('[id="member-name"]').type(newMember, { force: true });
-	cy.get('[id="member-note"]').clear().type(noteMember);
-	//guardar
-	cy.get(".view-actions > button").click();
-	cy.screenshot(`${stage}/clicking-members-edit-save`);
-	// esperamos que el guardado sea existoso
-	cy.intercept("**/ghost/api/**").as("addMember");
-	cy.wait("@addMember")
-		.its("response.statusCode")
-		.should("be.oneOf", [200, 201]);
-
-	// esperamos que el guardado sea existoso
-	cy.intercept("**/ghost/api/**").as("goBack");
-	cy.get(".gh-canvas-title > a").click();
-	cy.wait("@goBack")
-		.its("response.statusCode")
-		.should("be.oneOf", [200, 201]);
-});
 
 Cypress.Commands.add("setPassword", (newPassword, stage) => {
 	cy.get("body").then(($body) => {
