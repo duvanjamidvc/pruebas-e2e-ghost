@@ -42,7 +42,7 @@ When(
 When("I click profile", async function () {
 	let element = await this.driver.$(".gh-user-avatar");
 	await element.click();
-	let btnProfile = await this.driver.$('a[href*="#/staff/pruebas"]');
+	let btnProfile = await this.driver.$('.dropdown-menu > li:nth-child(4) a');
 	return await btnProfile.click();
 });
 
