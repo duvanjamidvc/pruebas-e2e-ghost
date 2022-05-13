@@ -20,7 +20,7 @@ describe("General Settings", () => {
     const subtittle = cy.faker.company.catchPhrase();
     cy.goToGeneralSettings(stage);
     cy.get(
-      ".gh-main-section:nth-child(2) > .gh-expandable > .gh-expandable-block:nth-child(1) > .gh-expandable-header > button "
+		".view-container .flex-column:nth-child(2) .gh-setting-first .gh-setting-action button"
     ).click();
 	cy.screenshot(`${stage}/click-section-tittle`);
     cy.get("div[class='gh-setting-content-extended']")
@@ -36,7 +36,7 @@ describe("General Settings", () => {
         cy.get("input[type='text']").invoke("val", "").type(subtittle);
       });
     cy.get(
-      ".gh-canvas-header > .gh-canvas-header-content > .view-actions "
+		".gh-canvas-header .view-actions button"
     ).click();
 	cy.screenshot(`${stage}/click-save-section-tittle`);
     cy.wait(5000);

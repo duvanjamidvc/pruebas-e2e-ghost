@@ -73,10 +73,11 @@ Cypress.Commands.add("editTag", (descEdit, newTag, stage) => {
 	cy.get('[id="tag-description"]').type(descEdit);
 	//guarda
 	cy.get(
-		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
+		".gh-canvas-header > .view-actions "
 	).click();
 	cy.wait(4000);
 	cy.screenshot(`${stage}/clicking-tag-edit-save`);
+	
 	//regresa a tags
 	cy.get('a[href="#/tags/"]').parent().first().click();
 });
@@ -90,16 +91,15 @@ Cypress.Commands.add("deleteTag", (newTag, stage) => {
 		.click();
 	cy.screenshot(`${stage}/clicking-tag-detail`);
 	//elimina descripción tag
-	cy.get('.gh-main > .gh-canvas > div > .gh-btn ').click();
+	cy.get('.gh-canvas .gh-btn.gh-btn-red').click();
 	cy.screenshot(`${stage}/clicking-delete-tag`);
 	cy.wait(3000);
-	cy.get('.fullscreen-modal > .modal-content > .modal-footer > .gh-btn-red ').click()
+	cy.get('.modal-content .modal-footer .gh-btn.gh-btn-red').click()
 	cy.screenshot(`${stage}/clicking-delete-tag-confirm`);
 	cy.wait(3000);
 });
 
 Cypress.Commands.add("goToGeneralSettings", (stage) => {
-	cy.get('a[href="#/settings/"]').first().click();
 	cy.screenshot(`${stage}/clicking-settings`);
 	cy.get('a[href="#/settings/general/"]').first().click();
 	cy.screenshot(`${stage}/clicking-general-settings`);
