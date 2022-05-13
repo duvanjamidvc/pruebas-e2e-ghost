@@ -3,7 +3,7 @@ const expect = require("chai").expect;
 const faker = require("@faker-js/faker/locale/de");
 const fs = require('fs');
 
-let dir = './../resemblejs/evidencias/kraken/v3/';
+let dir = './../resemblejs/evidencias/kraken/v4/';
 let countScreenShot = 0;
 
 
