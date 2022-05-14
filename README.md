@@ -1,5 +1,6 @@
-# Pruebas E2E en Ghost v4.41.3
-Para la ejecución de las pruebas, por favor siga las instrucciones:
+# Pruebas E2E con toma de Screenshots en Ghost v4.41.3
+
+Para la ejecución de los 20 escenarios de pruebas con captura de screenshots, por favor siga las instrucciones:
 1. Clone el repositorio con ```git clone https://github.com/duvanjamidvc/pruebas-e2e-ghost.git``` o descargue el zip y descomprímalo.
 2. Para la ejecución de las pruebas con la herramienta kraken siga el siguiente tutorial [kraken-e2e-ghost](kraken-e2e-ghost/README.md).
 3. Para la ejecución de las pruebas con la herramienta cypress siga el siguiente tutorial [cypress](cypress/README.md).
