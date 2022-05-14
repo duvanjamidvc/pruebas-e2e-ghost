@@ -42,7 +42,8 @@ Para la ejecución de las pruebas, por favor siga las instrucciones:
 - [5 Escenarios con cypress para  Ghost v4.41.3](cypress-v4.41.3/README.md)
 - [5 Escenarios con cypress para  Ghost v3.42](cypress-v3/README.md)
 
-### 
+### 2.4 Proyecto con implementacion de resemblejs para VRT
+- [Proyecto resemblejs](resemblejs/README.md) 
 
 # 3. Funcionalidades
 -   Iniciar sesión: El sistema debe permitir iniciar sesión en el módulo administrador de la aplicación mediante usuario y contraseña para poder administrar el contenido de la plataforma.
