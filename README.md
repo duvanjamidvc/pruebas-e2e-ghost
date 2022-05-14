@@ -45,7 +45,10 @@ Para la ejecución de las pruebas, por favor siga las instrucciones:
 ### 2.4 Proyecto con implementacion de resemblejs para VRT
 - [Proyecto resemblejs](resemblejs/README.md) 
 
-# 3. Funcionalidades
+# 3. Reporte diferencias visuales
+En el siguiente enlace se reportan las diferencias visuales encontradas. [Reporte diferencias visuales](https://github.com/duvanjamidvc/pruebas-e2e-ghost/issues)
+
+# 4. Funcionalidades
 -   Iniciar sesión: El sistema debe permitir iniciar sesión en el módulo administrador de la aplicación mediante usuario y contraseña para poder administrar el contenido de la plataforma.
 
 -   Cerrar sesión: El sistema debe permitir cerrar sesión del módulo administrador de la aplicación.
@@ -76,7 +79,7 @@ Para la ejecución de las pruebas, por favor siga las instrucciones:
 
 -   Configuración del perfil: El sistema debe permitir editar información del perfil o eliminar información en caso de que se requiera.
 
-# 4. Escenarios de prueba
+# 5. Escenarios de prueba
 
 | ID | Funcionalidades          | Descripción escenario                                                                                                                          |
 | -- | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -101,7 +104,7 @@ Para la ejecución de las pruebas, por favor siga las instrucciones:
 | 19 | Configuración perfil     | Cambiar la contraseña y validar que el inicio de sesion sea exitoso con la nueva contraseña                                                    |
 | 20 | Configuración perfil     | Cambiar el nombre de usuario y validar que en el menu del usuario se vea el nuevo nombre                                                       |
 
-# 5. Integrantes
+# 6. Integrantes
 - Plinio José Grijalba Ramirez, Correo: p.grijalbar@uniandes.edu.co
 - Natalie Carolina Santiago Torres, Correo: n.santiago@uniandes.edu.co
 - Duvan Jamid Vargas Castillo, Correo: dj.vargasc1@uniandes.edu.co
