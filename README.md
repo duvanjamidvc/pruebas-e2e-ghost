@@ -27,6 +27,15 @@ Para la ejecución de las pruebas, por favor siga las instrucciones:
 
 ### 2.2 Escenarios para regresion visual
 
+| ID | Funcionalidades          | Descripción escenario                                                                                                                          |
+| -- | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1 | Crear tags               | Crear tag y verificar que haya sido creado exitosamente                                                                                        |
+| 2 | Editar tags              | Crear tag, editar el tag verificar que haya sido editado exitosamente                                                                          |
+| 3 | Configuración general    | Configuración general,cambiar título y subtitulo y verifica que el cambio sea exitoso                                                          |
+| 4 | Configuración perfil     | Cambiar la contraseña y validar que el inicio de sesion sea exitoso con la nueva contraseña                                                    |
+| 5 | Configuración perfil     | Cambiar el nombre de usuario y validar que en el menu del usuario se vea el nuevo nombre                                                       |
+
+
 ### 2.3 Proyectos con los escenarios para regresión visual 
 - [5 Escenarios con kraken para  Ghost v4.41.3](kraken-e2e-ghost-v4.41.3/README.md)
 - [5 Escenarios con kraken para  Ghost v3.42](kraken-e2e-ghost-v3.42/README.md)
