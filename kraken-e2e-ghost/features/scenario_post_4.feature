@@ -44,5 +44,12 @@ Feature: Posts
 		Then I validate menu filter
 		And I wait for 5 seconds
 		And I take a screenshot
+		And I go dashboard
+		And I wait for 5 seconds
+		And I click Tags 
+		And I wait for 5 seconds
+		And I validate exist Tag
+		And I wait for 5 seconds
+		And I delete a tag
 
 
