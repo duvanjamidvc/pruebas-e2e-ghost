@@ -6,7 +6,7 @@ Para la ejecución de los 20 escenarios de pruebas con captura de screenshots, p
 3. Para la ejecución de las pruebas con la herramienta cypress siga el siguiente tutorial [cypress](cypress/README.md).
 
 # Pruebas de regresión visual usando Ghost v4.41.3 y Ghost v3.42
-Para estas pruebas se utilizo la herramienta resemble para comparar los screenshots tomados de la ejecución de los escenarios de pruebas planteados en las herramientas kraken y cypress.
+Para estas pruebas se utilizo la herramienta resemble para comparar los screenshots tomados de la ejecución de los 5 escenarios de pruebas planteados en las herramientas kraken y cypress.
 
 Para la ejecución de las pruebas, por favor siga las instrucciones:
 1. Clone el repositorio con ```git clone https://github.com/duvanjamidvc/pruebas-e2e-ghost.git``` o descargue el zip y descomprímalo.
