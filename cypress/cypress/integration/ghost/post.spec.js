@@ -59,6 +59,7 @@ describe('Crear una subcategoría de filtrado los post publicados', () => {
 		cy.screenshot(`${stage}/clicking-filter-tag-save`);
 		// valida el que el filtro se muestre en el menu lateral
 		cy.get(`.gh-nav-view-list  li  a[title="${newTag.trim()}"]`).children('span.gh-nav-viewname').should('have.text', newTag.trim());
+		cy.goToDashBoard();
 		cy.deleteTag(newTag,stage);
 	});
 

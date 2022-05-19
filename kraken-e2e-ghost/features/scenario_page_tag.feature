@@ -43,4 +43,11 @@ Feature: Settings
 		And I take a screenshot
 		Then I validate page with tag
 		And I take a screenshot
+		And I go dashboard
+		And I wait for 5 seconds
+		And I click Tags 
+		And I wait for 5 seconds
+		And I validate exist Tag
+		And I wait for 5 seconds
+		And I delete a tag
 

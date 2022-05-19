@@ -1,22 +1,54 @@
-# Pruebas E2E con toma de Screenshots en Ghost v4.41.3
+# 1. Pruebas E2E con toma de Screenshots en Ghost v4.41.3
 
 Para la ejecución de los 20 escenarios de pruebas con captura de screenshots, por favor siga las instrucciones:
 1. Clone el repositorio con ```git clone https://github.com/duvanjamidvc/pruebas-e2e-ghost.git``` o descargue el zip y descomprímalo.
 2. Para la ejecución de las pruebas con la herramienta kraken siga el siguiente tutorial [kraken-e2e-ghost](kraken-e2e-ghost/README.md).
 3. Para la ejecución de las pruebas con la herramienta cypress siga el siguiente tutorial [cypress](cypress/README.md).
 
-# Pruebas de regresión visual usando Ghost v4.41.3 y Ghost v3.42
+# 2. Pruebas de regresión visual usando Ghost v4.41.3 y Ghost v3.42
 Para estas pruebas se utilizo la herramienta resemble para comparar los screenshots tomados de la ejecución de los 5 escenarios de pruebas planteados en las herramientas kraken y cypress.
+
+
+### 2.1 Instrucciones
 
 Para la ejecución de las pruebas, por favor siga las instrucciones:
 1. Clone el repositorio con ```git clone https://github.com/duvanjamidvc/pruebas-e2e-ghost.git``` o descargue el zip y descomprímalo.
-2. Abra una terminal y ubíquese en el folder del proyecto descargado ```cd pruebas-e2e-ghost```
-3. Ejecute el siguiente comando para instalar los paquetes necesarios `npm install`
-4. Ejecute el comando `npm start` para ejecutar las pruebas end to end con kraken y cypres diseñadas para ghost en las 2 versiones seleccionadas, y generar el reporte de pruebas VRT
-5. Al finalizar el proceso se generaran 2 reportes uno para los escenarios ejecutados con kraken y otro con los escenarios de cypress, estos los podra encontrar en el folder ```/resemblejs/evidencias/kraken``` y ```/resemblejs/evidencias/cypress```
-6. Para ver el reporte abra el archivo ```reporte.html``` con el navegador de su preferencia
+2. Verifique que puede acceder al sitio  [https://ghost-e2e-miso.herokuapp.com/ghost/](https://ghost-e2e-miso.herokuapp.com/ghost/) con las credenciales:
+  - Email address: dj.vargasc1@uniandes.edu.co
+  - Password: bonita1809
+2. Verifique que puede acceder al sitio  [http://13.58.24.134/ghost](http://13.58.24.134/ghost) con las credenciales:
+  - Email address: dj.vargasc1@uniandes.edu.co
+  - Password: bonita1809
+3. Abra una terminal y ubíquese en el folder del proyecto descargado ```cd pruebas-e2e-ghost```
+4. Ejecute el siguiente comando para instalar los paquetes necesarios `npm install`
+5. Ejecute el comando `npm start` para ejecutar las pruebas end to end con kraken y cypres diseñadas para ghost en las 2 versiones seleccionadas, y generar el reporte de pruebas VRT
+6. Al finalizar el proceso se generaran 2 reportes uno para los escenarios ejecutados con kraken y otro con los escenarios de cypress, estos los podra encontrar en el folder ```/resemblejs/evidencias/kraken``` y ```/resemblejs/evidencias/cypress```
+7. Para ver el reporte abra el archivo ```reporte.html``` con el navegador de su preferencia
 
-## Funcionalidades
+### 2.2 Escenarios para regresion visual
+
+| ID | Funcionalidades          | Descripción escenario                                                                                                                          |
+| -- | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1 | Crear tags               | Crear tag y verificar que haya sido creado exitosamente                                                                                        |
+| 2 | Editar tags              | Crear tag, editar el tag verificar que haya sido editado exitosamente                                                                          |
+| 3 | Configuración general    | Configuración general,cambiar título y subtitulo y verifica que el cambio sea exitoso                                                          |
+| 4 | Configuración perfil     | Cambiar la contraseña y validar que el inicio de sesion sea exitoso con la nueva contraseña                                                    |
+| 5 | Configuración perfil     | Cambiar el nombre de usuario y validar que en el menu del usuario se vea el nuevo nombre                                                       |
+
+
+### 2.3 Proyectos con los escenarios para regresión visual 
+- [5 Escenarios con kraken para  Ghost v4.41.3](kraken-e2e-ghost-v4.41.3/README.md)
+- [5 Escenarios con kraken para  Ghost v3.42](kraken-e2e-ghost-v3.42/README.md)
+- [5 Escenarios con cypress para  Ghost v4.41.3](cypress-v4.41.3/README.md)
+- [5 Escenarios con cypress para  Ghost v3.42](cypress-v3/README.md)
+
+### 2.4 Proyecto con implementacion de resemblejs para VRT
+- [Proyecto resemblejs](resemblejs/README.md) 
+
+# 3. Reporte diferencias visuales
+En el siguiente enlace se reportan las diferencias visuales encontradas. [Reporte diferencias visuales](https://github.com/duvanjamidvc/pruebas-e2e-ghost/issues)
+
+# 4. Funcionalidades
 -   Iniciar sesión: El sistema debe permitir iniciar sesión en el módulo administrador de la aplicación mediante usuario y contraseña para poder administrar el contenido de la plataforma.
 
 -   Cerrar sesión: El sistema debe permitir cerrar sesión del módulo administrador de la aplicación.
@@ -47,7 +79,7 @@ Para la ejecución de las pruebas, por favor siga las instrucciones:
 
 -   Configuración del perfil: El sistema debe permitir editar información del perfil o eliminar información en caso de que se requiera.
 
-## Escenarios de prueba
+# 5. Escenarios de prueba
 
 | ID | Funcionalidades          | Descripción escenario                                                                                                                          |
 | -- | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -72,7 +104,7 @@ Para la ejecución de las pruebas, por favor siga las instrucciones:
 | 19 | Configuración perfil     | Cambiar la contraseña y validar que el inicio de sesion sea exitoso con la nueva contraseña                                                    |
 | 20 | Configuración perfil     | Cambiar el nombre de usuario y validar que en el menu del usuario se vea el nuevo nombre                                                       |
 
-## Integrantes
+# 6. Integrantes
 - Plinio José Grijalba Ramirez, Correo: p.grijalbar@uniandes.edu.co
 - Natalie Carolina Santiago Torres, Correo: n.santiago@uniandes.edu.co
 - Duvan Jamid Vargas Castillo, Correo: dj.vargasc1@uniandes.edu.co
