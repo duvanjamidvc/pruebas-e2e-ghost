@@ -1,6 +1,7 @@
 /**
  *  Comando para ingresar al perfil del usuario
  */
+/// <reference types="Cypress" />
 Cypress.Commands.add('goUserProfile', (stage) => {
 	cy.get('.gh-user-avatar').click();
 	cy.screenshot(`${stage}/clicking-profile`);

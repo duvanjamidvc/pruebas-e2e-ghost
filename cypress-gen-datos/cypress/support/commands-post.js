@@ -1,6 +1,8 @@
 /**
  *  Comando para crear un post
  */
+
+/// <reference types="Cypress" />
 Cypress.Commands.add("createPost", (title, content, stage) => {
 	cy.log(`Creando post con titulo ${title}  y contenido  ${content}`);
 	const url = Cypress.config("baseUrlDashBoard");

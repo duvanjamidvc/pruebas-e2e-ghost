@@ -1,7 +1,8 @@
+/// <reference types="Cypress" />
 
 /**
  *  Comando para crear un post
- */
+ */ 
 Cypress.Commands.add('createPage', (title, content,stage ) => {
 
 	cy.log(`Creando pagina con titulo ${title}  y contenido  ${content}`);
