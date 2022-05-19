@@ -39,14 +39,35 @@ Cypress.Commands.add("goToPublicPage", () => {
 	cy.wait("@goToPublicPage");
 });
 
-Cypress.Commands.add("newTag", (newTag, stage) => {
+Cypress.Commands.add("goToNewTag", () => {
+	cy.get('a[href="#/tags/"]').parent().first().click();
+	cy.wait(3000);
+	cy.get('section.view-actions>a[href="#/tags/new/"]').click();
+});
+
+Cypress.Commands.add("NewTagName", (newName) => {
+	cy.get('[id="tag-name"]').type(newName);
+	cy.get(
+		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
+	).click();
+	cy.wait(1000);
+});
+
+Cypress.Commands.add("NewTagSlug", (newSlug,newName) => {
+	cy.get('[id="tag-name"]').type(newName);
+	cy.get('[id="tag-slug"]').type(newSlug);
+	cy.get(
+		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
+	).click();
+	cy.wait(1000);
+});
+
+Cypress.Commands.add("newTag", (newTag) => {
 	const colorTag = cy.faker.datatype.hexaDecimal(8).split("0x")[1];
 	cy.get('a[href="#/tags/"]').parent().first().click();
 	cy.wait(5000);
-	cy.screenshot(`${stage}/clicking-tags`);
 	//da clic en crear tag
 	cy.get('section.view-actions>a[href="#/tags/new/"]').click();
-	cy.screenshot(`${stage}/clicking-new-tag`);
 	//asigna variables
 	cy.get('[id="tag-name"]').type(newTag);
 	cy.get('[name="accent-color"]').first().type(colorTag);
@@ -54,9 +75,7 @@ Cypress.Commands.add("newTag", (newTag, stage) => {
 	cy.get(
 		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
 	).click();
-	cy.wait(1000);
-	cy.screenshot(`${stage}/clicking-save-tag`);
-	cy.wait(3000);
+	cy.wait(2000);
 	//leva a tags de nuevo
 	cy.get('a[href="#/tags/"]').parent().first().click();
 });
@@ -81,20 +100,18 @@ Cypress.Commands.add("editTag", (descEdit, newTag, stage) => {
 	cy.get('a[href="#/tags/"]').parent().first().click();
 });
 
-Cypress.Commands.add("deleteTag", (newTag, stage) => {
+Cypress.Commands.add("deleteTag", (newTag) => {
 	cy.get('a[href="#/tags/"]').parent().first().click();
-	cy.screenshot(`${stage}/clicking-tags-edit`);
 	//navega a tag
 	cy.get('a[href="#/tags/' + newTag.toLowerCase() + '/"]')
 		.first()
 		.click();
-	cy.screenshot(`${stage}/clicking-tag-detail`);
 	//elimina descripción tag
-	cy.get('.gh-main > .gh-canvas > div > .gh-btn ').click();
-	cy.screenshot(`${stage}/clicking-delete-tag`);
+	cy.get(".gh-main > .gh-canvas > div > .gh-btn ").click();
 	cy.wait(3000);
-	cy.get('.fullscreen-modal > .modal-content > .modal-footer > .gh-btn-red ').click()
-	cy.screenshot(`${stage}/clicking-delete-tag-confirm`);
+	cy.get(
+		".fullscreen-modal > .modal-content > .modal-footer > .gh-btn-red "
+	).click();
 	cy.wait(3000);
 });
 
@@ -142,7 +159,7 @@ Cypress.Commands.add("deleteMember", (idMember, stage) => {
 	cy.screenshot(`${stage}/clicking-member-delete-confirm`);
 });
 
-Cypress.Commands.add("editMember", (idMember,stage) => {
+Cypress.Commands.add("editMember", (idMember, stage) => {
 	const newMember = cy.faker.name.firstName();
 	const noteMember = cy.faker.lorem.paragraph();
 	//ingresa a miembro a eliminar
