@@ -5,68 +5,70 @@ const fs = require('fs');
 const { options } = config;
 
 async function executeTest() {
-  
+
   for (let tool of config.basePath) {
-        let resultInfo = [];
-        let basePath = tool.path;
-        let versionPathV3 = basePath + "/v3";
-        let versionPathV4 = basePath + "/v4";
+    let resultInfo = [];
+    let basePath = tool.path;
+    let versionPathV3 = basePath + "/v3";
+    let versionPathV4 = basePath + "/v4";
 
-        let folders = await fs.promises.readdir(versionPathV3);
-        for (let escenarioFolder of folders) {
-            let imagenes = await fs.promises.readdir(versionPathV3 + "/" + escenarioFolder);
-            for (let imagen of imagenes) {
-                console.log("imagen: " + imagen);
-                const imageV3 = versionPathV3 + "/" + escenarioFolder + "/" + imagen;
-                const imageV4 = versionPathV4 + "/" + escenarioFolder + "/" + imagen;
+    let folders = await fs.promises.readdir(versionPathV3);
+    for (let escenarioFolder of folders) {
+      let imagenes = await fs.promises.readdir(versionPathV3 + "/" + escenarioFolder);
+      for (let imagen of imagenes) {
+        console.log("VRT para : " + imagen);
+        const imageV3 = versionPathV3 + "/" + escenarioFolder + "/" + imagen;
+        const imageV4 = versionPathV4 + "/" + escenarioFolder + "/" + imagen;
 
-                // compara las imagenes
-                const diffData = await compareImages(
-                    fs.readFileSync(imageV3),
-                    fs.readFileSync(imageV4),
-                    options
-                );
+        // compara las imagenes
+        const diffData = await compareImages(
+          fs.readFileSync(imageV3),
+          fs.readFileSync(imageV4),
+          options
+        );
 
-                if (!fs.existsSync(`${basePath}/diff/${escenarioFolder}`)) {
-                    fs.mkdirSync(`${basePath}/diff/${escenarioFolder}`, { recursive: true });
-                }
-                const imageDiff = `${basePath}/diff/${escenarioFolder}/diff-${imagen}`;
-                // guarda la imagen de comparacion
-                fs.writeFileSync(imageDiff, diffData.getBuffer());
-
-                let info = {
-                    escenario: escenarioFolder,
-                    step: imagen.split('.')[0],
-                    rawMisMatchPercentage: diffData.rawMisMatchPercentage,
-                    misMatchPercentage: diffData.misMatchPercentage,
-                    data: {
-                        isSameDimensions: diffData.isSameDimensions,
-                        dimensionDifference: diffData.dimensionDifference,
-                        rawMisMatchPercentage: diffData.rawMisMatchPercentage,
-                        misMatchPercentage: diffData.misMatchPercentage,
-                        diffBounds: diffData.diffBounds,
-                        analysisTime: diffData.analysisTime
-                    },
-                    images: {
-                        imageV3: imageV3.replace(basePath + "/", ""),
-                        imageV4: imageV4.replace(basePath + "/", ""),
-                        imageDiff: imageDiff.replace(basePath + "/", ""),
-                    }
-                };
-                resultInfo.push(info);
-            }
-
+        if (!fs.existsSync(`${basePath}/diff/${escenarioFolder}`)) {
+          fs.mkdirSync(`${basePath}/diff/${escenarioFolder}`, { recursive: true });
         }
-        fs.writeFileSync(`${basePath}/report.html`, createReport(tool.name, resultInfo));
-        fs.copyFileSync('./index.css', `${basePath}/index.css`);
-    }
+        const imageDiff = `${basePath}/diff/${escenarioFolder}/diff-${imagen}`;
+        // guarda la imagen de comparacion
+        fs.writeFileSync(imageDiff, diffData.getBuffer());
 
-    console.log('------------------------------------------------------------------------------------')
-    console.log("Execution finished. Check the report under the ${basePath} folder in index.html")
+        let info = {
+          escenario: escenarioFolder,
+          step: imagen.split('.')[0],
+          rawMisMatchPercentage: diffData.rawMisMatchPercentage,
+          misMatchPercentage: diffData.misMatchPercentage,
+          data: {
+            isSameDimensions: diffData.isSameDimensions,
+            dimensionDifference: diffData.dimensionDifference,
+            rawMisMatchPercentage: diffData.rawMisMatchPercentage,
+            misMatchPercentage: diffData.misMatchPercentage,
+            diffBounds: diffData.diffBounds,
+            analysisTime: diffData.analysisTime
+          },
+          images: {
+            imageV3: imageV3.replace(basePath + "/", ""),
+            imageV4: imageV4.replace(basePath + "/", ""),
+            imageDiff: imageDiff.replace(basePath + "/", ""),
+          }
+        };
+        resultInfo.push(info);
+      }
+
+    }
+    fs.writeFileSync(`${basePath}/report.html`, createReport(tool.name, resultInfo));
+    fs.copyFileSync('./index.css', `${basePath}/index.css`);
+
+
+    console.log('------------------------------------------------------------------------------------');
+    console.log(`Regresion visual para ${tool.name}, verifique el archivo  file:resemblejs/${tool.name}/report.html `)
+
+  }
 }
 
 function printItem(item) {
-    return `
+  return `
     <div class="escenario" >
 
     <div class="title">
@@ -116,7 +118,7 @@ function printItem(item) {
 }
 
 function createReport(toolName, resultInfo) {
-    return `
+  return `
     <html>
         <head>
             <title> VRT Report </title>
