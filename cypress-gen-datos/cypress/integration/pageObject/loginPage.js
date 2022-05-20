@@ -14,9 +14,17 @@ class LoginPage {
 	submit() {
 		return cy.get('[type="submit"]');
 	}
+
+	forgot() {
+		return cy.get('.forgotten-link ');
+	}
 	
 	mainError() {
 		return cy.get('.main-error');
+	}
+	
+	alertContent() {
+		return cy.get('.gh-alert-content');
 	}
 	
 }
