@@ -16,9 +16,11 @@ describe("Tag aleatorios", () => {
 	});
 
 	it("Tag color is not number", () => {
-		const newColor = cy.faker.random.number(3);
-		const newName = cy.faker.lorem.word();
-		cy.NewTagNameColor(newName, newColor);
+		let data ={
+			newColor:cy.faker.random.number(3),
+			newName: cy.faker.lorem.word()
+		};
+		cy.NewTagNameColor(data.newName, data.newColor);
 		cy.get("p").should(
 			"contain",
 			"The colour should be in valid hex format"
