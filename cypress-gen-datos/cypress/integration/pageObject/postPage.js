@@ -12,6 +12,14 @@ class PostPage {
         return cy.get("textarea.gh-editor-title");
     }
 
+    inputContent() {
+        return cy.get("article.koenig-editor");
+    }
+
+    btnPublishMenu() {
+        cy.get(".gh-publishmenu-trigger");
+    }
+
     wait(time) {
         return cy.wait(time);
     }

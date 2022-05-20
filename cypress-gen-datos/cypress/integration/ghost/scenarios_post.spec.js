@@ -1,8 +1,13 @@
+Cypress.on('uncaught:exception', (err, runnable) => {
+	// returning false here prevents Cypress from failing the test
+	return false
+})
+
 import PostPage from "../pageObject/postPage";
 
 
-function getRowDataPool(array){
-	const max = array.length-1;
+function getRowDataPool(array) {
+	const max = array.length - 1;
 	const pos = Math.floor(Math.random() * max);
 	return array[pos];
 }
@@ -10,7 +15,7 @@ function getRowDataPool(array){
 let postPage = new PostPage();
 
 describe("Create post with apriori data", () => {
-	
+
 	before(function () {
 		cy.fixture('users').then(user => {
 			this.users = user;
@@ -27,7 +32,13 @@ describe("Create post with apriori data", () => {
 
 	it('should create post with empty title', function () {
 		postPage.navegateToDashboard();
-		postPage.wait(500);
 		postPage.postLinkLeftMenu().click();
+		postPage.inputTile().clear();
+		postPage.inputContent().clear().type(this.post.content);
+		cy.intercept("**/ghost/api/**").as("publishPost");
+		cy.wait("@publishPost")
+			.its("response.statusCode")
+			.should("be.oneOf", [200, 201]);
+		// postPage.btnPublishMenu().click();
 	});
 });

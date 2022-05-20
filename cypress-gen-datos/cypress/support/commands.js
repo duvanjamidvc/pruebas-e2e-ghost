@@ -53,9 +53,27 @@ Cypress.Commands.add("NewTagName", (newName) => {
 	cy.wait(1000);
 });
 
+Cypress.Commands.add("NewTagNameColor", (newName,newColor) => {
+	cy.get('[id="tag-name"]').type(newName);
+	cy.get('[name="accent-color"]').first().type(newColor);
+	cy.get(
+		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
+	).click();
+	cy.wait(1000);
+});
+
 Cypress.Commands.add("NewTagSlug", (newSlug,newName) => {
 	cy.get('[id="tag-name"]').type(newName);
 	cy.get('[id="tag-slug"]').type(newSlug);
+	cy.get(
+		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
+	).click();
+	cy.wait(1000);
+});
+
+Cypress.Commands.add("NewTagDescription", (newDescription,newName) => {
+	cy.get('[id="tag-name"]').type(newName);
+	cy.get('[id="tag-description"]').type(newDescription);
 	cy.get(
 		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
 	).click();
