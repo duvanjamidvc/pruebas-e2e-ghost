@@ -1,8 +1,50 @@
 {
 	"dataValid": [
 		{
-			"username": "dj.vargasc1@uniandes.edu.co",
+			"email": "dj.vargasc1@uniandes.edu.co",
 			"password": "bonita1809"
 		}
-	]	
+	],
+	"dataInvalid": [
+		{
+			"email": "msimmon0@uol.com.br",
+			"password": "zqfSsQd1UKe"
+		},
+		{
+			"email": "isellars1@foxnews.com",
+			"password": "17tU2cB"
+		},
+		{
+			"email": "lcarryer2@meetup.com",
+			"password": "MzKBOGAC5"
+		},
+		{
+			"email": "jsarver3@360.cn",
+			"password": "jLu1dnL"
+		},
+		{
+			"email": "cpusill4@edublogs.org",
+			"password": "Z3Cma8g"
+		},
+		{
+			"email": "ebrainsby5@apache.org",
+			"password": "FBrdRjDy"
+		},
+		{
+			"email": "rroony6@apache.org",
+			"password": "rzsNOJBXH"
+		},
+		{
+			"email": "bminto7@hp.com",
+			"password": "Vjywv75rlWU"
+		},
+		{
+			"email": "zbodycomb8@usnews.com",
+			"password": "b9DY20"
+		},
+		{
+			"email": "wsouthern9@ustream.tv",
+			"password": "1Nh6Zwh"
+		}
+	]
 }

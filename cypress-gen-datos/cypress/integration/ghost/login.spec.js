@@ -1,49 +1,43 @@
 import LoginPage from "../../../../cypress-gen-datos/cypress/integration/pageObject/loginPage";
 
 
-function getRowDataPool(users){
-	const max = users.admins.length-1;
+function getRowDataPool(array){
+	const max = array.length-1;
 	const pos = Math.floor(Math.random() * max);
-	return users.admins[pos];
+	return array[pos];
 }
 
 let loginPage = new LoginPage();
 
-describe("Login data", () => {
-	before(function () {
+describe("Login data a priori", () => {
+	beforeEach(function () {
 		cy.fixture("login").then((users)=>  {
-			this.user = getRowDataPool(users);
+			this.userValid = getRowDataPool(users.dataValid);
+			this.userInvalid = getRowDataPool(users.dataInvalid);
+			// this.userEmailInvalid = getRowDataPool(users.emailInvalid);
 		});
 	})
 	it('should login data valid', function () {
 		loginPage.navegate();
-		loginPage.inputEmail().type(this.user.username);
-		loginPage.inputPassword().type(this.user.password);
+		loginPage.inputEmail().type(this.userValid.email);
+		loginPage.inputPassword().type(this.userValid.password);
 		loginPage.submit().click();
 		cy.intercept("GET", "**/ghost/**").as("goToDashBoard");
 		cy.wait("@goToDashBoard")
 			.its("response.statusCode")
 			.should("be.oneOf", [200]);
 	});
-});
-
-
-describe("Login data", () => {
-	before(function () {
-		cy.fixture("login").then((users)=>  {
-			this.user = getRowDataPool(users);
-		});
-	})
-	it('should login data valid', function () {
+	
+	it('should login data invalid', function () {
 		loginPage.navegate();
-		loginPage.inputEmail().type(this.user.username);
-		loginPage.inputPassword().type(this.user.password);
+		console.log(console.log(this.userInvalid))
+		loginPage.inputEmail().type(this.userInvalid.email);
+		loginPage.inputPassword().type(this.userInvalid.password);
 		loginPage.submit().click();
-		cy.intercept("GET", "**/ghost/**").as("goToDashBoard");
-		cy.wait("@goToDashBoard")
-			.its("response.statusCode")
-			.should("be.oneOf", [200]);
+		cy.wait(500);
+		loginPage.mainError().contains('There is no user with that email address.');
 	});
+	
 });
 
 describe("Login data random", () => {
