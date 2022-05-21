@@ -17,4 +17,3 @@
 
 - Ejecute el comando `npm start` para ejecutar las pruebas end to end con cypress
 
-- Para ver el reporte de hallazgos puede ingresar al directorio /screenshots/ghost
