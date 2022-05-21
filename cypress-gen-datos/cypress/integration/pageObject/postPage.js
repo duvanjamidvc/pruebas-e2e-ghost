@@ -108,6 +108,10 @@ class PostPage {
         return cy.get('.settings-menu-content textarea[name="post-setting-og-description"]');
     }
 
+    footerPublish() {
+        return cy.get(".gh-publishmenu-footer");
+    }
+
     wait(time) {
         return cy.wait(time);
     }

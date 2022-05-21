@@ -1,7 +1,7 @@
 import PostPage from "../pageObject/postPage";
 
-function getRowDataPool(array){
-	const max = array.length-1;
+function getRowDataPool(array) {
+	const max = array.length - 1;
 	const pos = Math.round(Math.random() * max);
 	return array[pos];
 }
@@ -19,7 +19,7 @@ describe("Post with random data", () => {
 	});
 
 	beforeEach(() => {
-		let usuario =  getRowDataPool(usuariosAdmin);
+		let usuario = getRowDataPool(usuariosAdmin);
 		cy.login(usuario.username, usuario.password);
 	});
 
@@ -109,7 +109,7 @@ describe("Post with random data", () => {
 		postPage.btnPublish().click();
 		postPage.wait(1000);
 		cy.wait(1000)
-		cy.get(".gh-publishmenu-footer").should("contain", "Scheduled");
+		postPage.footerPublish().should("contain", "Scheduled");
 	});
 
 	it("should post cannot be published with schedule date format YYYY-MM-DD invalid", () => {
@@ -176,9 +176,14 @@ describe("Post with random data", () => {
 	it('should post cannot be published with schedule hour valid', () => {
 		const title = cy.faker.lorem.word();
 		const content = cy.faker.lorem.sentence();
-		const publishDate = cy.faker.datatype.datetime();
-		const hour = (publishDate.getHours() < 10) ? `0${publishDate.getHours()}` : publishDate.getHours();
-		const minutes = (publishDate.getMinutes() < 10) ? `0${publishDate.getMinutes()}` : publishDate.getMinutes();
+		const publishedDate = cy.faker.date.future();
+
+		const month = (publishedDate.getMonth() > 9 ? publishedDate.getMonth() : "0" + String(publishedDate.getMonth()));
+		const date = (publishedDate.getDate() > 9 ? publishedDate.getDate() : "0" + String(publishedDate.getDate()));
+		const fullDate = `${publishedDate.getFullYear()}-${month}-${date}`;
+
+		const hour = (publishedDate.getHours() < 10) ? `0${publishedDate.getHours()}` : publishedDate.getHours();
+		const minutes = (publishedDate.getMinutes() < 10) ? `0${publishedDate.getMinutes()}` : publishedDate.getMinutes();
 		const publishHour = `${hour}:${minutes}`
 
 		postPage.navegateToDashboard();
@@ -190,14 +195,11 @@ describe("Post with random data", () => {
 			.its("response.statusCode")
 			.should("be.oneOf", [200, 201]);
 		postPage.btnPublishMenu().click();
+		postPage.inputPublishDate().clear().type(fullDate);
 		postPage.inputPublishHour().clear().type(publishHour);
 		postPage.btnPublish().click();
 		postPage.wait(1000);
-		postPage.mainContent().click();
-		postPage.btnBackPost().click();
-		postPage.wait(500);
-		postPage.schedulePostLinkLeftMenu().click();
-		postPage.titleOfFirstElementOfList().contains(title);
+		postPage.footerPublish().should("contain", "Scheduled");
 	});
 
 	it('should twitter title cannot be more than 300', () => {
