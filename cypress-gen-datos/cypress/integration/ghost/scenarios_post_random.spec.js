@@ -90,9 +90,11 @@ describe("Post with random data", () => {
 	it("should post can be published with schedule date format YYYY-MM-DD", () => {
 		const title = cy.faker.lorem.word();
 		const content = cy.faker.lorem.sentence();
-		const publishedDate = cy.faker.datatype.datetime().getMonth() + 1;
-		const month = (publishedDate > 9 ? publishedDate : "0" + String(publishedDate));
-		const date = `${cy.faker.datatype.datetime().getFullYear()}-${month}-${cy.faker.datatype.datetime().getDate()}`;
+		const publishedDate = cy.faker.date.future();
+		const month = (publishedDate.getMonth() > 9 ? publishedDate.getMonth() : "0" + String(publishedDate.getMonth()));
+		const date = (publishedDate.getDate() > 9 ? publishedDate.getDate() : "0" + String(publishedDate.getDate()));
+
+		const fullDate = `${publishedDate.getFullYear()}-${month}-${date}`;
 
 		postPage.navegateToDashboard();
 		postPage.createPostLinkLeftMenu().click();
@@ -103,26 +105,21 @@ describe("Post with random data", () => {
 			.its("response.statusCode")
 			.should("be.oneOf", [200, 201]);
 		postPage.btnPublishMenu().click();
-		postPage.inputPublishDate().clear().type(date);
+		postPage.inputPublishDate().clear().type(fullDate);
 		postPage.btnPublish().click();
 		postPage.wait(1000);
-		postPage.mainContent().click();
-		postPage.btnBackPost().click();
-		postPage.wait(500);
-		postPage.schedulePostLinkLeftMenu().click();
-		cy.intercept("**/ghost/api/**").as("schedulePost");
-		cy.wait("@schedulePost")
-			.its("response.statusCode")
-			.should("be.oneOf", [200, 201]);
-		postPage.titleOfFirstElementOfList().contains(title);
+		cy.wait(1000)
+		cy.get(".gh-publishmenu-footer").should("contain", "Scheduled");
 	});
 
 	it("should post cannot be published with schedule date format YYYY-MM-DD invalid", () => {
 		const title = cy.faker.lorem.word();
 		const content = cy.faker.lorem.sentence();
-		const publishedDate = cy.faker.datatype.datetime().getMonth() + 1;
-		const month = (publishedDate > 9 ? publishedDate : "0" + String(publishedDate));
-		const date = `${cy.faker.datatype.datetime().getFullYear()}-${month}-${cy.faker.datatype.datetime().getDate()}${cy.faker.random.number(1)}`;
+		const publishedDate = cy.faker.date.future();
+		const month = (publishedDate.getMonth() > 9 ? publishedDate.getMonth() : "0" + String(publishedDate.getMonth()));
+		const date = (publishedDate.getDate() > 9 ? publishedDate.getDate() : "0" + String(publishedDate.getDate()));
+
+		const fullDate = `${publishedDate.getFullYear()}-${month}-${date}${cy.faker.random.number(12)}`;
 
 		postPage.navegateToDashboard();
 		postPage.createPostLinkLeftMenu().click();
@@ -133,7 +130,7 @@ describe("Post with random data", () => {
 			.its("response.statusCode")
 			.should("be.oneOf", [200, 201]);
 		postPage.btnPublishMenu().click();
-		postPage.inputPublishDate().clear().type(date);
+		postPage.inputPublishDate().clear().type(fullDate);
 		postPage.btnPublish().click();
 		postPage.wait(1000);
 		postPage.errorPublishDate().contains('Invalid');
