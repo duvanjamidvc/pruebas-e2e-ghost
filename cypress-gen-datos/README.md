@@ -17,3 +17,4 @@
 
 - Ejecute el comando `npm start` para ejecutar las pruebas con las diferentes estrategias de generación de datos
 
+- Mockaroo tiene un límite de ejecuciones gratuitas por cuenta, en el caso de que la ejecución de los escenarios del archivo `scenarios_tag_edit_seudo_ale_dinamico.spec.js` fallen actualice la llave con una de las siguientes opciones `"d0fd5d70" "a9b59a40" "59d82e30"` en archivo `cypress.env.json` variable `"apiKey"`
