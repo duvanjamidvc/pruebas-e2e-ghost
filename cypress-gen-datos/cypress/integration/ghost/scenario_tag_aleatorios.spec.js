@@ -4,8 +4,8 @@ let usuarios;
 import TagsPage from "../pageObject/tagsPage";
 let tagsPage = new TagsPage();
 
-function getRowDataPool(array){
-	const max = array.length-1;
+function getRowDataPool(array) {
+	const max = array.length - 1;
 	const pos = Math.round(Math.random() * max);
 	return array[pos];
 }
@@ -18,13 +18,13 @@ describe("Tag aleatorios", () => {
 	});
 
 	beforeEach(() => {
-		let usuario =  getRowDataPool(usuarios.admins);
+		let usuario = getRowDataPool(usuarios.admins);
 		cy.login(usuario.username, usuario.password);
 		cy.wait(1000);
 		cy.goToNewTag();
 	});
 
-	 it("Tag color is not number", () => {
+	it("Tag color is not number", () => {
 		let data = {
 			newColor: cy.faker.random.number(3),
 			newName: cy.faker.lorem.word(),
@@ -178,7 +178,7 @@ describe("Tag aleatorios", () => {
 	it("MetaTitle sugest  longer valid  than 70 characters", () => {
 		let data = {
 			newName: cy.faker.lorem.word(),
-			newMetaTitle:cy.faker.lorem.sentence(30),
+			newMetaTitle: cy.faker.lorem.sentence(30),
 		};
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(1) > .gh-expandable-header > .gh-btn > span"
@@ -241,7 +241,7 @@ describe("Tag aleatorios", () => {
 		cy.wait(1000);
 		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
-	}); 
+	});
 
 	it("Canonical URL should be valid", () => {
 		let data = {
@@ -275,8 +275,8 @@ describe("Tag aleatorios", () => {
 		cy.wait(1000);
 		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
-	}); 
- 	it("TwitterTitle sugest  longer valid  than 70 characters", () => {
+	});
+	it("TwitterTitle sugest  longer valid  than 70 characters", () => {
 		let data = {
 			newName: cy.faker.lorem.word(),
 			newTwitterTitle: cy.faker.lorem.paragraph(),
@@ -342,7 +342,7 @@ describe("Tag aleatorios", () => {
 		cy.wait(1000);
 		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
-	}); 
+	});
 
 	it("FacebookTitle sugest  longer valid  than 70 characters", () => {
 		let data = {
@@ -376,7 +376,7 @@ describe("Tag aleatorios", () => {
 		cy.wait(1000);
 		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
-	}); 
+	});
 
 	it("FacebookDescription sugest  longer valid  than 156 characters", () => {
 		let data = {
@@ -412,9 +412,8 @@ describe("Tag aleatorios", () => {
 		cy.deleteTag(data.newName);
 	});
 
-
 	afterEach(() => {
-		// cy.closeDashBoardSession(); 
+		cy.closeDashBoardSession();
 	});
 });
 
