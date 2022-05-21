@@ -37,3 +37,41 @@ Cypress.Commands.add('validateDraftStatePage', (title, ocurrencias) => {
 	cy.get('.view-container ol li:nth-child(2) .gh-post-list-title .gh-content-entry-title').contains(title).should('have.length', ocurrencias);
 });
 
+/**
+ *  Comando para publicar un page con Canonical URL
+ */
+ Cypress.Commands.add("CreatePageCanonicalURL", (newTittle, newUrl) => {
+	cy.get("textarea.gh-editor-title").clear().type(newTittle);
+	cy.get(".settings-menu-toggle").click();
+	cy.get("form > .nav-list > .nav-list-item:nth-child(1) > button").click();
+	cy.get('[name="post-setting-canonicalUrl"]').type(newUrl);
+});
+
+/**
+ *  Comando para publicar un page 
+ */
+ Cypress.Commands.add("CreatePageTittle", (newTittle) => {
+	cy.get("textarea.gh-editor-title").clear().type(newTittle);
+	cy.get('.koenig-editor__editor-wrapper > .koenig-editor__editor').click()
+});
+
+Cypress.Commands.add("CreatePageTwitterDescription", (newTittle, newDescriptionT) => {
+	cy.get("textarea.gh-editor-title").clear().type(newTittle);
+	cy.get(".settings-menu-toggle").click();
+	cy.get("form > .nav-list > .nav-list-item:nth-child(2) > button").click();
+	cy.get('[name="post-setting-twitter-description"]').type(newDescriptionT);
+});
+
+/**
+ * Comando para publicar una pagina con fecha invalida
+ */
+ Cypress.Commands.add('publishPageDate', (newTittle,newDate) => {
+	cy.get('textarea.gh-editor-title').clear().type(newTittle);
+	cy.get('.koenig-editor__editor-wrapper > .koenig-editor__editor').click()
+	cy.wait(3000)
+	// vamos al menu publicar
+	cy.get('.gh-publishmenu.ember-view').click();
+	cy.get('.gh-date-time-picker-date > input').invoke("val", "").type(newDate);
+	// clic en el boton publicar
+	cy.get('.gh-publishmenu-footer>button.gh-publishmenu-button').click();
+});
