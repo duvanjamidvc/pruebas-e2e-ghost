@@ -110,6 +110,10 @@ describe("Post with random data", () => {
 		postPage.btnBackPost().click();
 		postPage.wait(500);
 		postPage.schedulePostLinkLeftMenu().click();
+		cy.intercept("**/ghost/api/**").as("schedulePost");
+		cy.wait("@schedulePost")
+			.its("response.statusCode")
+			.should("be.oneOf", [200, 201]);
 		postPage.titleOfFirstElementOfList().contains(title);
 	});
 
