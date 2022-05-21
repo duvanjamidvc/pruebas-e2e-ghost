@@ -61,6 +61,7 @@ describe("Pages aleatorios", () => {
 				cy.faker.datatype.datetime().getDate(),
 		};
 		cy.publishPageDate(data.newTittle, data.newDate);
+		cy.wait(1000)
 		cy.get(".gh-publishmenu-footer").should("contain", "Scheduled");
 	});
 	it("Page Canonical URL cannot be longer than 2000 characters.", () => {
