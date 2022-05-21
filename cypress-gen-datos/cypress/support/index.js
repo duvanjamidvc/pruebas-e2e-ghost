@@ -18,6 +18,7 @@ import './commands'
 import './commands-post'
 import './commands-page'
 import './commands-profile'
+import './commands-tags'
 cy.faker = require('faker'); 
 
 

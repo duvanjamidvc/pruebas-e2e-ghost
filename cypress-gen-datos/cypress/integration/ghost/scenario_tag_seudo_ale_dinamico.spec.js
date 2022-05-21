@@ -76,7 +76,7 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		});
 		const apiUrl = Cypress.config("apiUrl");
 		const apiKey = Cypress.config("apiKey");
-
+		console.log(myData)
 		myData.datos.forEach((escenario, index) => {
 			cy.log(`Consultado data para el escenario: ${escenario.id}`)
 			cy.request(`${apiUrl}${escenario.url}?key=${apiKey}`)
@@ -99,8 +99,9 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 	it("ESC1: Tag color is not number", () => {
 console.table(myData);
 		let data = myData.getCase('ESC1');
-console.log(data);
-		cy.NewTagNameColor(data.newName, data.newColor);
+		console.log(data)
+		cy.newTag(data.newName)
+		cy.EditTagNameColor(data.newColor)
 		cy.get("p").should(
 			"contain",
 			"The colour should be in valid hex format"
@@ -110,7 +111,7 @@ console.log(data);
 		cy.wait(1000);
 		cy.get(".modal-footer > .gh-btn-red > span").click();
 	});
-
+/* 
 	it("ESC2: Tag color is not letters", () => {
 		let data = myData.getCase('ESC2');
 
@@ -463,11 +464,11 @@ console.log(data);
 		cy.get('a[href="#/tags/"]').parent().first().click();
 		cy.deleteTag(data.newName);
 	});
+ */
 
-
-	/*afterEach(() => {
+	/* afterEach(() => {
 		cy.closeDashBoardSession();
-	});*/
+	}); */
 });
 
 Cypress.on("uncaught:exception", (err, runnable) => {
