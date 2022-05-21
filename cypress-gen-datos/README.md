@@ -15,5 +15,5 @@
   - Password: bonita1809
 
 
-- Ejecute el comando `npm start` para ejecutar las pruebas end to end con cypress
+- Ejecute el comando `npm start` para ejecutar las pruebas con las diferentes estrategias de generación de datos
 
