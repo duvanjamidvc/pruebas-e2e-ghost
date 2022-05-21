@@ -1,8 +1,8 @@
 import PostPage from "../pageObject/postPage";
 
-function getRowDataPool(array) {
-	const max = array.length - 1;
-	const pos = Math.floor(Math.random() * max);
+function getRowDataPool(array){
+	const max = array.length-1;
+	const pos = Math.round(Math.random() * max);
 	return array[pos];
 }
 
