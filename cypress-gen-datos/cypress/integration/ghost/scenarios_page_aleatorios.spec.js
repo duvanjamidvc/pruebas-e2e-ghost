@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
-function getRowDataPool(array){
-	const max = array.length-1;
+function getRowDataPool(array) {
+	const max = array.length - 1;
 	const pos = Math.round(Math.random() * max);
 	return array[pos];
 }
@@ -18,7 +18,7 @@ describe("Pages aleatorios", () => {
 	});
 
 	beforeEach(() => {
-		let usuario =  getRowDataPool(usuarios.admins);
+		let usuario = getRowDataPool(usuarios.admins);
 		cy.login(usuario.username, usuario.password);
 		cy.wait(1000);
 		cy.GoCreatePage();
@@ -50,18 +50,19 @@ describe("Pages aleatorios", () => {
 		cy.get("button").should("contain", "Retry");
 	});
 	it("Page Publish date must be format YYYY-MM-DD.", () => {
-		let monthFormat = cy.faker.datatype.datetime().getMonth() + 1;
+		const publishedDate = cy.faker.date.future();
+		let monthFormat = publishedDate.getMonth() + 1;
 		let data = {
 			newTittle: cy.faker.lorem.word(),
 			newDate:
-				cy.faker.datatype.datetime().getFullYear() +
+				publishedDate.getFullYear() +
 				"-" +
 				(monthFormat > 9 ? monthFormat : "0" + String(monthFormat)) +
 				"-" +
-				cy.faker.datatype.datetime().getDate(),
+				publishedDate.getDate(),
 		};
 		cy.publishPageDate(data.newTittle, data.newDate);
-		cy.wait(1000)
+		cy.wait(1000);
 		cy.get(".gh-publishmenu-footer").should("contain", "Scheduled");
 	});
 	it("Page Canonical URL cannot be longer than 2000 characters.", () => {
