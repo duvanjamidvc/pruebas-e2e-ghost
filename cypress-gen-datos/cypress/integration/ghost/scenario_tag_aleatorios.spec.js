@@ -2,6 +2,9 @@
 
 let usuarios;
 let tagInfo;
+import TagsPage from "../pageObject/tagsPage";
+let tagsPage = new TagsPage();
+
 describe("Tag aleatorios", () => {
 	before(() => {
 		cy.fixture("users").then((users) => {
@@ -26,7 +29,7 @@ describe("Tag aleatorios", () => {
 			"The colour should be in valid hex format"
 		);
 		cy.get("button").should("contain", "Retry");
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.wait(1000);
 		cy.get(".modal-footer > .gh-btn-red > span").click();
 	});
@@ -42,7 +45,7 @@ describe("Tag aleatorios", () => {
 			"The colour should be in valid hex format"
 		);
 		cy.get("button").should("contain", "Retry");
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.wait(1000);
 		cy.get(".modal-footer > .gh-btn-red > span").click();
 	});
@@ -58,7 +61,7 @@ describe("Tag aleatorios", () => {
 			"The colour should be in valid hex format"
 		);
 		cy.get("button").should("contain", "Retry");
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.wait(1000);
 		cy.get(".modal-footer > .gh-btn-red > span").click();
 	});
@@ -70,7 +73,7 @@ describe("Tag aleatorios", () => {
 		};
 		cy.NewTagNameColor(data.newName, data.newColor);
 		cy.wait(1000);
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.get('a[href="#/tags/' + data.newName.toLowerCase() + '/"]').should(
 			"contain",
 			data.newName
@@ -88,7 +91,7 @@ describe("Tag aleatorios", () => {
 			"contain",
 			"Tag names cannot be longer than 191 characters."
 		);
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.wait(1000);
 		cy.get(".modal-footer > .gh-btn-red > span").click();
 	});
@@ -99,7 +102,7 @@ describe("Tag aleatorios", () => {
 		};
 		cy.NewTagName(data.newName);
 		cy.wait(1000);
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.get('a[href="#/tags/' + data.newName.toLowerCase() + '/"]').should(
 			"contain",
 			data.newName
@@ -115,7 +118,7 @@ describe("Tag aleatorios", () => {
 		};
 		cy.NewTagSlug(data.newSlug, data.newName);
 		cy.get("button").should("contain", "Retry");
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.wait(1000);
 		cy.get(".modal-footer > .gh-btn-red > span").click();
 	});
@@ -127,7 +130,7 @@ describe("Tag aleatorios", () => {
 		};
 		cy.NewTagSlug(data.newSlug, data.newName);
 		cy.wait(1000);
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.wait(1000);
 		cy.get(
 			'a[href="#/tags/' +
@@ -146,7 +149,7 @@ describe("Tag aleatorios", () => {
 		};
 		cy.NewTagDescription(data.newDescription, data.newName);
 		cy.get("button").should("contain", "Retry");
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.wait(1000);
 		cy.get(".modal-footer > .gh-btn-red > span").click();
 	});
@@ -157,7 +160,7 @@ describe("Tag aleatorios", () => {
 			newDescription: cy.faker.lorem.paragraph(),
 		};
 		cy.NewTagDescription(data.newDescription, data.newName);
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.get('a[href="#/tags/' + data.newName.toLowerCase() + '/"]').should(
 			"contain",
 			data.newName
@@ -179,7 +182,7 @@ describe("Tag aleatorios", () => {
 		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
 		cy.NewTagName(data.newName);
 		cy.wait(1000);
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
 	});
 
@@ -196,7 +199,7 @@ describe("Tag aleatorios", () => {
 		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
 		cy.NewTagName(data.newName);
 		cy.wait(1000);
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
 	});
 
@@ -213,7 +216,7 @@ describe("Tag aleatorios", () => {
 		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
 		cy.NewTagName(data.newName);
 		cy.wait(1000);
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
 	});
 
@@ -230,7 +233,7 @@ describe("Tag aleatorios", () => {
 		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
 		cy.NewTagName(data.newName);
 		cy.wait(1000);
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
 	}); 
 
@@ -246,7 +249,7 @@ describe("Tag aleatorios", () => {
 		cy.get('[id="canonical-url"]').type(data.newUrl);
 		cy.NewTagName(data.newName);
 		cy.get("button").should("contain", "Retry");
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.wait(1000);
 		cy.get(".modal-footer > .gh-btn-red > span").click();
 	});
@@ -264,7 +267,7 @@ describe("Tag aleatorios", () => {
 		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
 		cy.NewTagName(data.newName);
 		cy.wait(1000);
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
 	}); 
  	it("TwitterTitle sugest  longer valid  than 70 characters", () => {
@@ -280,7 +283,7 @@ describe("Tag aleatorios", () => {
 		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
 		cy.NewTagName(data.newName);
 		cy.wait(1000);
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
 	});
 
@@ -297,7 +300,7 @@ describe("Tag aleatorios", () => {
 		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
 		cy.NewTagName(data.newName);
 		cy.wait(1000);
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
 	});
 
@@ -314,7 +317,7 @@ describe("Tag aleatorios", () => {
 		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
 		cy.NewTagName(data.newName);
 		cy.wait(1000);
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
 	});
 
@@ -331,7 +334,7 @@ describe("Tag aleatorios", () => {
 		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
 		cy.NewTagName(data.newName);
 		cy.wait(1000);
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
 	}); 
 
@@ -348,7 +351,7 @@ describe("Tag aleatorios", () => {
 		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
 		cy.NewTagName(data.newName);
 		cy.wait(1000);
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
 	});
 
@@ -365,7 +368,7 @@ describe("Tag aleatorios", () => {
 		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
 		cy.NewTagName(data.newName);
 		cy.wait(1000);
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
 	}); 
 
@@ -382,7 +385,7 @@ describe("Tag aleatorios", () => {
 		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
 		cy.NewTagName(data.newName);
 		cy.wait(1000);
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
 	});
 
@@ -399,13 +402,13 @@ describe("Tag aleatorios", () => {
 		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
 		cy.NewTagName(data.newName);
 		cy.wait(1000);
-		cy.get('a[href="#/tags/"]').parent().first().click();
+		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
 	});
 
 
 	afterEach(() => {
-		 cy.closeDashBoardSession(); 
+		// cy.closeDashBoardSession(); 
 	});
 });
 
