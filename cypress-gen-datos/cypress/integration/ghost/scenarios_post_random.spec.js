@@ -1,20 +1,26 @@
 import PostPage from "../pageObject/postPage";
 
+function getRowDataPool(array) {
+	const max = array.length - 1;
+	const pos = Math.floor(Math.random() * max);
+	return array[pos];
+}
+
 let postPage = new PostPage();
 
-let users;
 describe("Post with random data", () => {
 
+	let usuariosAdmin;
 
 	before(() => {
-		cy.fixture('users').then(user => {
-			users = user;
+		cy.fixture('users').then(users => {
+			usuariosAdmin = users.admins;
 		});
-
 	});
 
 	beforeEach(() => {
-		cy.login(users.admins[0].username, users.admins[0].password);
+		let usuario =  getRowDataPool(usuariosAdmin);
+		cy.login(usuario.username, usuario.password);
 	});
 
 	it('should do not show message error with meta description empty', () => {

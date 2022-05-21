@@ -121,23 +121,21 @@ const myData = {
 	]
 };
 
-
 describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
-
 	before(() => {
 		cy.fixture("users").then((users) => {
 			usuarios = users;
 		});
 		const apiUrl = Cypress.config("apiUrl");
 		const apiKey = Cypress.config("apiKey");
-		/* myData.datos.forEach((escenario, index) => {
+		myData.datos.forEach((escenario, index) => {
 			cy.log(`Consultado data para el escenario: ${escenario.id}`);
 			cy.request(`${apiUrl}${escenario.url}?key=${apiKey}`).then(
 				(response) => {
 					escenario.data = response.body;
 				}
 			);
-		}); */
+		});
 	});
 
 	beforeEach(() => {
@@ -146,7 +144,7 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.goToNewTag();
 	});
 
-	/* it("ESC1: Edit Tag color is not number", () => {
+	it("ESC1: Edit Tag color is not number", () => {
 		let data = myData.getCase("ESC1");
 		cy.newTag(data.newName);
 		cy.EditTagNameColor(data.newName, data.newColor);
@@ -200,7 +198,7 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.wait(1000);
 	});
 
-	it("ESC5: Tag names cannot be longer than 191 characters.", () => {
+	 	it("ESC5: Tag names cannot be longer than 191 characters.", () => {
 		let data = myData.getCase("ESC5");
 		cy.newTag(data.newName);
 		cy.EditNewTagName(data.newName, data.newEditName);
@@ -228,16 +226,17 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 
 	it("ESC7: Tag slug cannot be longer than 191 characters.", () => {
 		let data = myData.getCase("ESC7");
-		cy.NewTagSlug(data.newSlug, data.newName);
+		cy.newTag(data.newName);
+		cy.EditTagSlug(data.newSlug, data.newName);
 		cy.get("button").should("contain", "Retry");
 		tagsPage.menuOptionTag().parent().first().click();
-		cy.wait(1000);
-		cy.get(".modal-footer > .gh-btn-red > span").click();
+		cy.deleteTag(data.newName);
 	});
 
 	it("ESC8: Tag slug contain less than 191 characters.", () => {
 		let data = myData.getCase("ESC8");
-
+		cy.newTag(data.newName);
+		cy.EditTagSlug(data.newSlug, data.newName);
 		cy.NewTagSlug(data.newSlug, data.newName);
 		cy.wait(1000);
 		tagsPage.menuOptionTag().parent().first().click();
@@ -254,16 +253,17 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 
 	it("ESC9: Tag Description cannot be longer than 500 characters.", () => {
 		let data = myData.getCase("ESC9");
-		cy.NewTagDescription(data.newDescription, data.newName);
+		cy.newTag(data.newName);
+		cy.EditTagDescription(data.newDescription, data.newName);
 		cy.get("button").should("contain", "Retry");
 		tagsPage.menuOptionTag().parent().first().click();
-		cy.wait(1000);
-		cy.get(".modal-footer > .gh-btn-red > span").click();
+		cy.deleteTag(data.newName);
 	});
 
 	it("ESC10: Tag Description contain less than 500 characters.", () => {
 		let data = myData.getCase("ESC10");
-		cy.NewTagDescription(data.newDescription, data.newName);
+		cy.newTag(data.newName);
+		cy.EditTagDescription(data.newDescription, data.newName);
 		tagsPage.menuOptionTag().parent().first().click();
 		cy.get('a[href="#/tags/' + data.newName.toLowerCase() + '/"]').should(
 			"contain",
@@ -271,12 +271,15 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		);
 		cy.deleteTag(data.newName);
 		cy.wait(1000);
-	});*/
+	});
 
-	it("ESC11: Edit MetaTitle sugest  longer valid  than 70 characters", () => {
-		let data = myData.getCase("ESC11");
+	it(" Edit MetaTitle sugest  longer valid  than 70 characters", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newMetaTitle: cy.faker.lorem.sentence(30),
+		};
 		cy.newTag(data.newName);
-		cy.goEditTag(data.newName)
+		cy.goEditTag(data.newName);
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(1) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -289,10 +292,13 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it("ESC12: Edit MetaTitle sugest  contain less than 70 characters", () => {
-		let data = myData.getCase("ESC12");
+	it(" Edit MetaTitle sugest  contain less than 70 characters", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newMetaTitle: cy.faker.lorem.sentence(5),
+		};
 		cy.newTag(data.newName);
-		cy.goEditTag(data.newName)
+		cy.goEditTag(data.newName);
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(1) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -305,10 +311,13 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it("ESC13: Edit MetaDescription sugest  longer valid  than 156 characters", () => {
-		let data = myData.getCase("ESC13");
+	it(" Edit MetaDescription sugest  longer valid  than 156 characters", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newMetaDescription: cy.faker.lorem.sentence(40),
+		};
 		cy.newTag(data.newName);
-		cy.goEditTag(data.newName)
+		cy.goEditTag(data.newName);
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(1) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -321,10 +330,13 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it("ESC14: Edit MetaDescription sugest  contain less than 156 characters", () => {
-		let data = myData.getCase("ESC14");
+	it(" Edit MetaDescription sugest  contain less than 156 characters", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newMetaDescription: cy.faker.lorem.sentence(10),
+		};
 		cy.newTag(data.newName);
-		cy.goEditTag(data.newName)
+		cy.goEditTag(data.newName);
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(1) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -337,12 +349,13 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it("ESC15: Edit Canonical URL should be valid", () => {
-		
-		let data = myData.getCase("ESC15");
-
+	it(" Edit Canonical URL should be valid", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newUrl: cy.faker.lorem.sentence(10),
+		};
 		cy.newTag(data.newName);
-		cy.goEditTag(data.newName)
+		cy.goEditTag(data.newName);
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(1) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -355,11 +368,13 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.get(".modal-footer > .gh-btn-red > span").click();
 	});
 
-	it("ESC16: Edit Canonical URL should is valid", () => {
-		let data = myData.getCase("ESC16");
-
+	it(" Edit Canonical URL should is valid", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newUrl: cy.faker.internet.url(),
+		};
 		cy.newTag(data.newName);
-		cy.goEditTag(data.newName)
+		cy.goEditTag(data.newName);
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(1) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -371,10 +386,13 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
 	});
-	it("ESC17: Edit TwitterTitle sugest  longer valid  than 70 characters", () => {
-		let data = myData.getCase("ESC17");
+	it(" Edit TwitterTitle sugest  longer valid  than 70 characters", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newTwitterTitle: cy.faker.lorem.paragraph(),
+		};
 		cy.newTag(data.newName);
-		cy.goEditTag(data.newName)
+		cy.goEditTag(data.newName);
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(2) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -387,11 +405,13 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it("ESC18 Edit TwitterTitle sugest  contain less than 70 characters", () => {
-		let data = myData.getCase("ESC18");
-
+	it(" Edit TwitterTitle sugest  contain less than 70 characters", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newTwitterTitle: cy.faker.lorem.sentence(5),
+		};
 		cy.newTag(data.newName);
-		cy.goEditTag(data.newName)
+		cy.goEditTag(data.newName);
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(2) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -404,11 +424,13 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it("ESC19: Edit TwitterDescription sugest  longer valid  than 156 characters", () => {
-		let data = myData.getCase("ESC19");
-
+	it(" Edit TwitterDescription sugest  longer valid  than 156 characters", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newTwitterDescription: cy.faker.lorem.sentence(40),
+		};
 		cy.newTag(data.newName);
-		cy.goEditTag(data.newName)
+		cy.goEditTag(data.newName);
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(2) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -421,11 +443,13 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it("ESC20: Edit TwitterDescription sugest  contain less than 156 characters", () => {
-		let data = myData.getCase("ESC20");
-
+	it(" Edit TwitterDescription sugest  contain less than 156 characters", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newTwitterDescription: cy.faker.lorem.sentence(10),
+		};
 		cy.newTag(data.newName);
-		cy.goEditTag(data.newName)
+		cy.goEditTag(data.newName);
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(2) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -444,7 +468,7 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 			newFacebookTitle: cy.faker.lorem.sentence(30),
 		};
 		cy.newTag(data.newName);
-		cy.goEditTag(data.newName)
+		cy.goEditTag(data.newName);
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(3) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -463,7 +487,7 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 			newFacebookTitle: cy.faker.lorem.sentence(5),
 		};
 		cy.newTag(data.newName);
-		cy.goEditTag(data.newName)
+		cy.goEditTag(data.newName);
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(3) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -482,7 +506,7 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 			newFacebookDescription: cy.faker.lorem.sentence(40),
 		};
 		cy.newTag(data.newName);
-		cy.goEditTag(data.newName)
+		cy.goEditTag(data.newName);
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(3) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -493,9 +517,8 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.wait(1000);
 		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
-	}); 
-
-/* 	it(" Edit FacebookDescription sugest  contain less than 156 characters", () => {
+	});
+	 	it(" Edit FacebookDescription sugest  contain less than 156 characters", () => {
 		let data = {
 			newName: cy.faker.lorem.word(),
 			newFacebookDescription: cy.faker.lorem.sentence(10),
@@ -512,7 +535,7 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.wait(1000);
 		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
-	}); */
+	}); 
 
 	afterEach(() => {
 		cy.closeDashBoardSession();
