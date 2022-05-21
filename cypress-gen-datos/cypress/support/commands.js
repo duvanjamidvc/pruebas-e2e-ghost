@@ -25,3 +25,9 @@ Cypress.Commands.add("closeDashBoardSession", () => {
 	cy.get(".user-menu-signout").click();
 });
 
+Cypress.Commands.add('goUserProfile', () => {
+	cy.get('.gh-user-avatar').click();
+	cy.intercept('**/ghost/api/**').as('viewProfile');
+	cy.get('a[href*="#/settings/staff"]').click();
+	cy.wait('@viewProfile').its('response.statusCode').should('be.oneOf', [204, 200, 201]);
+});
