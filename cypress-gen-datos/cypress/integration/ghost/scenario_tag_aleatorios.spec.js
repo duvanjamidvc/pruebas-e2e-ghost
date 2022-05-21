@@ -15,7 +15,7 @@ describe("Tag aleatorios", () => {
 		cy.goToNewTag();
 	});
 
-	it("Tag color is not number", () => {
+	 it("Tag color is not number", () => {
 		let data = {
 			newColor: cy.faker.random.number(3),
 			newName: cy.faker.lorem.word(),
@@ -169,7 +169,7 @@ describe("Tag aleatorios", () => {
 	it("MetaTitle sugest  longer valid  than 70 characters", () => {
 		let data = {
 			newName: cy.faker.lorem.word(),
-			newMetaTitle: cy.faker.lorem.paragraph(),
+			newMetaTitle:cy.faker.lorem.sentence(30),
 		};
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(1) > .gh-expandable-header > .gh-btn > span"
@@ -232,10 +232,180 @@ describe("Tag aleatorios", () => {
 		cy.wait(1000);
 		cy.get('a[href="#/tags/"]').parent().first().click();
 		cy.deleteTag(data.newName);
+	}); 
+
+	it("Canonical URL should be valid", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newUrl: cy.faker.lorem.sentence(10),
+		};
+		cy.get(
+			".gh-expandable > .gh-expandable-block:nth-child(1) > .gh-expandable-header > .gh-btn > span"
+		).click();
+		cy.wait(1000);
+		cy.get('[id="canonical-url"]').type(data.newUrl);
+		cy.NewTagName(data.newName);
+		cy.get("button").should("contain", "Retry");
+		cy.get('a[href="#/tags/"]').parent().first().click();
+		cy.wait(1000);
+		cy.get(".modal-footer > .gh-btn-red > span").click();
 	});
 
+	it("Canonical URL should is valid", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newUrl: cy.faker.internet.url(),
+		};
+		cy.get(
+			".gh-expandable > .gh-expandable-block:nth-child(1) > .gh-expandable-header > .gh-btn > span"
+		).click();
+		cy.wait(1000);
+		cy.get('[id="canonical-url"]').type(data.newUrl);
+		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
+		cy.NewTagName(data.newName);
+		cy.wait(1000);
+		cy.get('a[href="#/tags/"]').parent().first().click();
+		cy.deleteTag(data.newName);
+	}); 
+ 	it("TwitterTitle sugest  longer valid  than 70 characters", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newTwitterTitle: cy.faker.lorem.paragraph(),
+		};
+		cy.get(
+			".gh-expandable > .gh-expandable-block:nth-child(2) > .gh-expandable-header > .gh-btn > span"
+		).click();
+		cy.wait(1000);
+		cy.get('[id="twitter-title"]').type(data.newTwitterTitle);
+		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
+		cy.NewTagName(data.newName);
+		cy.wait(1000);
+		cy.get('a[href="#/tags/"]').parent().first().click();
+		cy.deleteTag(data.newName);
+	});
+
+	it("TwitterTitle sugest  contain less than 70 characters", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newTwitterTitle: cy.faker.lorem.sentence(5),
+		};
+		cy.get(
+			".gh-expandable > .gh-expandable-block:nth-child(2) > .gh-expandable-header > .gh-btn > span"
+		).click();
+		cy.wait(1000);
+		cy.get('[id="twitter-title"]').type(data.newTwitterTitle);
+		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
+		cy.NewTagName(data.newName);
+		cy.wait(1000);
+		cy.get('a[href="#/tags/"]').parent().first().click();
+		cy.deleteTag(data.newName);
+	});
+
+	it("TwitterDescription sugest  longer valid  than 156 characters", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newTwitterDescription: cy.faker.lorem.sentence(40),
+		};
+		cy.get(
+			".gh-expandable > .gh-expandable-block:nth-child(2) > .gh-expandable-header > .gh-btn > span"
+		).click();
+		cy.wait(1000);
+		cy.get('[id="twitter-description"]').type(data.newTwitterDescription);
+		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
+		cy.NewTagName(data.newName);
+		cy.wait(1000);
+		cy.get('a[href="#/tags/"]').parent().first().click();
+		cy.deleteTag(data.newName);
+	});
+
+	it("TwitterDescription sugest  contain less than 156 characters", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newTwitterDescription: cy.faker.lorem.sentence(10),
+		};
+		cy.get(
+			".gh-expandable > .gh-expandable-block:nth-child(2) > .gh-expandable-header > .gh-btn > span"
+		).click();
+		cy.wait(1000);
+		cy.get('[id="twitter-description"]').type(data.newTwitterDescription);
+		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
+		cy.NewTagName(data.newName);
+		cy.wait(1000);
+		cy.get('a[href="#/tags/"]').parent().first().click();
+		cy.deleteTag(data.newName);
+	}); 
+
+	it("FacebookTitle sugest  longer valid  than 70 characters", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newFacebookTitle: cy.faker.lorem.sentence(30),
+		};
+		cy.get(
+			".gh-expandable > .gh-expandable-block:nth-child(3) > .gh-expandable-header > .gh-btn > span"
+		).click();
+		cy.wait(1000);
+		cy.get('[id="og-title"]').type(data.newFacebookTitle);
+		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
+		cy.NewTagName(data.newName);
+		cy.wait(1000);
+		cy.get('a[href="#/tags/"]').parent().first().click();
+		cy.deleteTag(data.newName);
+	});
+
+	it("FacebookTitle sugest  contain less than 70 characters", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newFacebookTitle: cy.faker.lorem.sentence(5),
+		};
+		cy.get(
+			".gh-expandable > .gh-expandable-block:nth-child(3) > .gh-expandable-header > .gh-btn > span"
+		).click();
+		cy.wait(1000);
+		cy.get('[id="og-title"]').type(data.newFacebookTitle);
+		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
+		cy.NewTagName(data.newName);
+		cy.wait(1000);
+		cy.get('a[href="#/tags/"]').parent().first().click();
+		cy.deleteTag(data.newName);
+	}); 
+
+	it("FacebookDescription sugest  longer valid  than 156 characters", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newFacebookDescription: cy.faker.lorem.sentence(40),
+		};
+		cy.get(
+			".gh-expandable > .gh-expandable-block:nth-child(3) > .gh-expandable-header > .gh-btn > span"
+		).click();
+		cy.wait(1000);
+		cy.get('[id="og-description"]').type(data.newFacebookDescription);
+		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
+		cy.NewTagName(data.newName);
+		cy.wait(1000);
+		cy.get('a[href="#/tags/"]').parent().first().click();
+		cy.deleteTag(data.newName);
+	});
+
+	it("FacebookDescription sugest  contain less than 156 characters", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newFacebookDescription: cy.faker.lorem.sentence(10),
+		};
+		cy.get(
+			".gh-expandable > .gh-expandable-block:nth-child(3) > .gh-expandable-header > .gh-btn > span"
+		).click();
+		cy.wait(1000);
+		cy.get('[id="og-description"]').type(data.newFacebookDescription);
+		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
+		cy.NewTagName(data.newName);
+		cy.wait(1000);
+		cy.get('a[href="#/tags/"]').parent().first().click();
+		cy.deleteTag(data.newName);
+	});
+
+
 	afterEach(() => {
-		cy.closeDashBoardSession();
+		 cy.closeDashBoardSession(); 
 	});
 });
 
