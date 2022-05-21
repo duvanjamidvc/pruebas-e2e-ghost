@@ -112,6 +112,16 @@ describe("Pages aleatorios", () => {
 		cy.get("button").should("not.have", "Publish");
 	});
 
+	it("Page  description twter cannot be longer than 500 characters", () => {
+		let data = {
+			newTittle: cy.faker.lorem.word(),
+			newUrl: cy.faker.lorem.sentence(150),
+		};
+		cy.CreatePageTwitterDescription(data.newTittle, data.newUrl);
+		cy.publishPage();
+		cy.get("button").should("contain", "Retry");
+	});
+
 	after(function () {
 		cy.closeDashBoardSession();
 	});

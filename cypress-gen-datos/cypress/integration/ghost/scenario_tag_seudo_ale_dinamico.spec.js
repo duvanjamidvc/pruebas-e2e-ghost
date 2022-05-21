@@ -21,57 +21,109 @@ const myData = {
 		{
 			id: "ESC1",
 			url: "/tags-invalid-color-numbers.json",
-			data: [],
+			data: []
 		},
 		{
 			id: "ESC2",
 			url: "/tags-invalid-color-letters.json",
-			data: [],
+			data: []
 		},
 		{
 			id: "ESC3",
 			url: "/tags-invalid-color-hexa.json",
-			data: [],
+			data: []
 		},
 		{
 			id: "ESC4",
 			url: "/tags-invalid-color-hexa-0x.json",
-			data: [],
+			data: []
 		},
 		{
 			id: "ESC5",
 			url: "/tags-invalid-name-longer.json",
-			data: [],
+			data: []
 		},
 		{
 			id: "ESC6",
 			url: "/tags-valid-name.json",
-			data: [],
+			data: []
 		},
 		{
 			id: "ESC7",
 			url: "/tags-invalid-slug-longer.json",
-			data: [],
+			data: []
 		},
 		{
 			id: "ESC8",
 			url: "/tags-valid-slug.json",
-			data: [],
+			data: []
 		},
 		{
 			id: "ESC9",
 			url: "/tags-invalid-description-longer.json",
-			data: [],
+			data: []
 		},
 		{
 			id: "ESC10",
 			url: "/tags-valid-description.json",
-			data: [],
+			data: []
 		},
-	],
+		{
+			id: "ESC11",
+			url: "/tags_invalid_meta_title.json",
+			data: []
+		},
+		{
+			id: "ESC12",
+			url: "/tags-valid-meta-title.json",
+			data: []
+		},
+		{
+			id: "ESC13",
+			url: "",
+			data: []
+		},
+		{
+			id: "ESC14",
+			url: "",
+			data: []
+		},
+		{
+			id: "ESC15",
+			url: "",
+			data: []
+		},
+		{
+			id: "ESC16",
+			url: "",
+			data: []
+		},
+		{
+			id: "ESC17",
+			url: "",
+			data: []
+		},
+		{
+			id: "ESC18",
+			url: "",
+			data: []
+		},
+		{
+			id: "ESC19",
+			url: "",
+			data: []
+		},
+		{
+			id: "ESC20",
+			url: "",
+			data: []
+		}
+	]
 };
 
+
 describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
+
 	before(() => {
 		cy.fixture("users").then((users) => {
 			usuarios = users;
@@ -494,3 +546,4 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 Cypress.on("uncaught:exception", (err, runnable) => {
 	return false;
 });
+
