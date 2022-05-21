@@ -57,40 +57,7 @@ Cypress.Commands.add("NewTagDescription", (newDescription,newName) => {
 });
 
 
-Cypress.Commands.add("editTag", (descEdit, newTag, stage) => {
-	cy.get('a[href="#/tags/"]').parent().first().click();
-	cy.screenshot(`${stage}/clicking-tags-edit`);
-	//navega a tag
-	cy.get('a[href="#/tags/' + newTag.toLowerCase() + '/"]')
-		.first()
-		.click();
-	cy.screenshot(`${stage}/clicking-tag-detail`);
-	//actualiza descripción tag
-	cy.get('[id="tag-description"]').type(descEdit);
-	//guarda
-	cy.get(
-		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
-	).click();
-	cy.wait(4000);
-	cy.screenshot(`${stage}/clicking-tag-edit-save`);
-	//regresa a tags
-	cy.get('a[href="#/tags/"]').parent().first().click();
-});
 
-Cypress.Commands.add("deleteTag", (newTag) => {
-	cy.get('a[href="#/tags/"]').parent().first().click();
-	//navega a tag
-	cy.get('a[href="#/tags/' + newTag.toLowerCase() + '/"]')
-		.first()
-		.click();
-	//elimina descripción tag
-	cy.get(".gh-main > .gh-canvas > div > .gh-btn ").click();
-	cy.wait(3000);
-	cy.get(
-		".fullscreen-modal > .modal-content > .modal-footer > .gh-btn-red "
-	).click();
-	cy.wait(3000);
-});
 
 Cypress.Commands.add("goToGeneralSettings", (stage) => {
 	cy.get('a[href="#/settings/"]').first().click();
