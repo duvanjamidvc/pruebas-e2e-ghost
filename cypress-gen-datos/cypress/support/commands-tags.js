@@ -21,6 +21,7 @@ Cypress.Commands.add("EditNewTagName", (newName,editName) => {
 	cy.get('a[href="#/tags/' + newName.toLowerCase().replace(" ", "-") + '/"]')
 	.first()
 	.click();
+	cy.wait(2000);
 	tagsPage.inputTagName().type(editName);
 	tagsPage.buttonSaveTag().click();
 	cy.wait(1000);

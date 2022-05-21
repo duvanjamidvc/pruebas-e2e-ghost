@@ -2,6 +2,7 @@
 
 let usuarios;
 import TagsPage from "../pageObject/tagsPage";
+
 let tagsPage = new TagsPage();
 
 const myData = {
@@ -198,7 +199,7 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.wait(1000);
 	});
 
-	 	it("ESC5: Tag names cannot be longer than 191 characters.", () => {
+	it("ESC5: Edit Tag names cannot be longer than 191 characters.", () => {
 		let data = myData.getCase("ESC5");
 		cy.newTag(data.newName);
 		cy.EditNewTagName(data.newName, data.newEditName);
@@ -206,11 +207,14 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 			"contain",
 			"Tag names cannot be longer than 191 characters."
 		);
+
 		tagsPage.menuOptionTag().parent().first().click();
+		cy.wait(2000);
+		tagsPage.buttonLeaveNewTag().click();
 		cy.deleteTag(data.newName);
 	});
 
-	it("ESC6: Tag names contain less than 191 characters.", () => {
+	it("ESC6: Edit Tag names contain less than 191 characters.", () => {
 		let data = myData.getCase("ESC6");
 		cy.newTag(data.newName);
 		cy.EditNewTagName(data.newName, data.newEditName);
@@ -224,43 +228,46 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.wait(1000);
 	});
 
-	it("ESC7: Tag slug cannot be longer than 191 characters.", () => {
+	it("ESC7: Edit Tag slug cannot be longer than 191 characters.", () => {
 		let data = myData.getCase("ESC7");
 		cy.newTag(data.newName);
 		cy.EditTagSlug(data.newSlug, data.newName);
 		cy.get("button").should("contain", "Retry");
 		tagsPage.menuOptionTag().parent().first().click();
+		cy.wait(2000);
+		tagsPage.buttonLeaveNewTag().click();
 		cy.deleteTag(data.newName);
 	});
 
-	it("ESC8: Tag slug contain less than 191 characters.", () => {
+	it("ESC8:  Edit Tag slug contain less than 191 characters.", () => {
 		let data = myData.getCase("ESC8");
 		cy.newTag(data.newName);
 		cy.EditTagSlug(data.newSlug, data.newName);
-		cy.NewTagSlug(data.newSlug, data.newName);
 		cy.wait(1000);
 		tagsPage.menuOptionTag().parent().first().click();
 		cy.wait(1000);
 		cy.get(
 			'a[href="#/tags/' +
-				data.newName.toLowerCase() +
-				data.newSlug.toLowerCase() +
-				'/"]'
+			data.newName.toLowerCase() +
+			data.newSlug.toLowerCase() +
+			'/"]'
 		).should("contain", data.newName);
 		cy.wait(1000);
 		cy.deleteTag(data.newName.toLowerCase() + data.newSlug.toLowerCase());
 	});
 
-	it("ESC9: Tag Description cannot be longer than 500 characters.", () => {
+	it("ESC9:  Edit Tag Description cannot be longer than 500 characters.", () => {
 		let data = myData.getCase("ESC9");
 		cy.newTag(data.newName);
 		cy.EditTagDescription(data.newDescription, data.newName);
 		cy.get("button").should("contain", "Retry");
 		tagsPage.menuOptionTag().parent().first().click();
+		cy.wait(2000);
+		tagsPage.buttonLeaveNewTag().click();
 		cy.deleteTag(data.newName);
 	});
 
-	it("ESC10: Tag Description contain less than 500 characters.", () => {
+	it("ESC10: Edit Tag Description contain less than 500 characters.", () => {
 		let data = myData.getCase("ESC10");
 		cy.newTag(data.newName);
 		cy.EditTagDescription(data.newDescription, data.newName);
@@ -492,7 +499,7 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
 	});
-	 	it(" Edit FacebookDescription sugest  contain less than 156 characters", () => {
+	it(" Edit FacebookDescription sugest  contain less than 156 characters", () => {
 		let data = {
 			newName: cy.faker.lorem.word(),
 			newFacebookDescription: cy.faker.lorem.sentence(10),
@@ -509,11 +516,11 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.wait(1000);
 		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
-	}); 
-
+	});
+	/*
 	afterEach(() => {
 		cy.closeDashBoardSession();
-	});
+	});*/
 });
 
 Cypress.on("uncaught:exception", (err, runnable) => {
