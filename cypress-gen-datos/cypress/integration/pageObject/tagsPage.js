@@ -1,5 +1,4 @@
 class TagsPage {
-	
 	inputTagName() {
 		return cy.get('[id="tag-name"]');
 	}
@@ -12,6 +11,15 @@ class TagsPage {
 		return cy.get('a[href="#/tags/"]');
 	}
 
+	buttonSaveTag() {
+		return cy.get(
+			".gh-canvas-header > .gh-canvas-header-content > .view-actions "
+		);
+	}
+
+	buttonLeaveNewTag() {
+		return cy.get(".modal-footer > .gh-btn-red > span")
+	}
 }
 
 export default TagsPage;

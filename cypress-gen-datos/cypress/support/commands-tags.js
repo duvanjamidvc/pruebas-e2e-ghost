@@ -4,9 +4,7 @@ let tagsPage = new TagsPage();
 Cypress.Commands.add("NewTagNameColor", (newName, newColor) => {
 	tagsPage.inputTagName().type(newName);
 	tagsPage.inputTagColor().first().type(newColor);
-	cy.get(
-		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
-	).click();
+	tagsPage.buttonSaveTag().click();
 	cy.wait(1000);
 });
 
@@ -15,9 +13,7 @@ Cypress.Commands.add("EditTagNameColor", (newName, newColor) => {
 		.first()
 		.click();
 	tagsPage.inputTagColor().first().type(newColor);
-	cy.get(
-		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
-	).click();
+	tagsPage.buttonSaveTag().click();
 	cy.wait(1000);
 });
 
@@ -26,9 +22,7 @@ Cypress.Commands.add("EditNewTagName", (newName,editName) => {
 	.first()
 	.click();
 	tagsPage.inputTagName().type(editName);
-	cy.get(
-		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
-	).click();
+	tagsPage.buttonSaveTag().click();
 	cy.wait(1000);
 });
 
@@ -40,18 +34,14 @@ Cypress.Commands.add("goEditTag", (newName) => {
 
 Cypress.Commands.add("NewTagName", (newName) => {
 	tagsPage.inputTagName().type(newName);
-	cy.get(
-		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
-	).click();
+	tagsPage.buttonSaveTag().click();
 	cy.wait(1000);
 });
 
 Cypress.Commands.add("NewTagSlug", (newSlug, newName) => {
 	tagsPage.inputTagName().type(newName);
 	cy.get('[id="tag-slug"]').type(newSlug);
-	cy.get(
-		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
-	).click();
+	tagsPage.buttonSaveTag().click();
 	cy.wait(1000);
 });
 
@@ -60,9 +50,7 @@ Cypress.Commands.add("EditTagSlug", (newSlug, newName) => {
 	.first()
 	.click();
 	cy.get('[id="tag-slug"]').type(newSlug);
-	cy.get(
-		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
-	).click();
+	tagsPage.buttonSaveTag().click();
 	cy.wait(1000);
 });
 
@@ -71,9 +59,7 @@ Cypress.Commands.add("newTag", (newName) => {
 	//asigna variables
 	tagsPage.inputTagName().type(newName);
 	//guarda
-	cy.get(
-		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
-	).click();
+	tagsPage.buttonSaveTag().click();
 	cy.wait(2000);
 	//leva a tags de nuevo
 	tagsPage.menuOptionTag().parent().first().click();
@@ -99,9 +85,7 @@ Cypress.Commands.add("deleteTag", (newTag) => {
 Cypress.Commands.add("NewTagDescription", (newDescription,newName) => {
 	cy.get('[id="tag-name"]').type(newName);
 	cy.get('[id="tag-description"]').type(newDescription);
-	cy.get(
-		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
-	).click();
+	tagsPage.buttonSaveTag().click();
 	cy.wait(1000);
 });
 
@@ -110,9 +94,7 @@ Cypress.Commands.add("EditTagDescription", (newDescription,newName) => {
 	.first()
 	.click();
 	cy.get('[id="tag-description"]').type(newDescription);
-	cy.get(
-		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
-	).click();
+	tagsPage.buttonSaveTag().click();
 	cy.wait(1000);
 });
 

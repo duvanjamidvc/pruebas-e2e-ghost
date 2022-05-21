@@ -1,7 +1,6 @@
 /// <reference types="cypress" />
 
 let usuarios;
-let tagInfo;
 import TagsPage from "../pageObject/tagsPage";
 let tagsPage = new TagsPage();
 
@@ -31,7 +30,7 @@ describe("Tag aleatorios", () => {
 		cy.get("button").should("contain", "Retry");
 		tagsPage.menuOptionTag().parent().first().click();
 		cy.wait(1000);
-		cy.get(".modal-footer > .gh-btn-red > span").click();
+		tagsPage.buttonLeaveNewTag().click();
 	});
 
 	it("Tag color is not letters", () => {
@@ -47,7 +46,7 @@ describe("Tag aleatorios", () => {
 		cy.get("button").should("contain", "Retry");
 		tagsPage.menuOptionTag().parent().first().click();
 		cy.wait(1000);
-		cy.get(".modal-footer > .gh-btn-red > span").click();
+		tagsPage.buttonLeaveNewTag().click();
 	});
 
 	it("Tag color must have correct hex validate error", () => {
@@ -63,7 +62,7 @@ describe("Tag aleatorios", () => {
 		cy.get("button").should("contain", "Retry");
 		tagsPage.menuOptionTag().parent().first().click();
 		cy.wait(1000);
-		cy.get(".modal-footer > .gh-btn-red > span").click();
+		tagsPage.buttonLeaveNewTag().click();
 	});
 
 	it("Tag color must have correct hex", () => {
@@ -93,7 +92,7 @@ describe("Tag aleatorios", () => {
 		);
 		tagsPage.menuOptionTag().parent().first().click();
 		cy.wait(1000);
-		cy.get(".modal-footer > .gh-btn-red > span").click();
+		tagsPage.buttonLeaveNewTag().click();
 	});
 
 	it("Tag names contain less than 191 characters.", () => {
@@ -120,7 +119,7 @@ describe("Tag aleatorios", () => {
 		cy.get("button").should("contain", "Retry");
 		tagsPage.menuOptionTag().parent().first().click();
 		cy.wait(1000);
-		cy.get(".modal-footer > .gh-btn-red > span").click();
+		tagsPage.buttonLeaveNewTag().click();
 	});
 
 	it("Tag slug contain less than 191 characters.", () => {
@@ -151,7 +150,7 @@ describe("Tag aleatorios", () => {
 		cy.get("button").should("contain", "Retry");
 		tagsPage.menuOptionTag().parent().first().click();
 		cy.wait(1000);
-		cy.get(".modal-footer > .gh-btn-red > span").click();
+		tagsPage.buttonLeaveNewTag().click();
 	});
 
 	it("Tag Description contain less than 500 characters.", () => {
@@ -251,7 +250,7 @@ describe("Tag aleatorios", () => {
 		cy.get("button").should("contain", "Retry");
 		tagsPage.menuOptionTag().parent().first().click();
 		cy.wait(1000);
-		cy.get(".modal-footer > .gh-btn-red > span").click();
+		tagsPage.buttonLeaveNewTag().click();
 	});
 
 	it("Canonical URL should is valid", () => {
