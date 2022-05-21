@@ -19,6 +19,10 @@ describe("Post with apriori data", () => {
 	let excerptValid;
 	let metatitleInvalid;
 	let metatitleValid;
+	let facebookTitleInvalid;
+	let facebookTitleValid;
+	let facebookDescriptionInvalid;
+	let facebookDescriptionValid;
 
 	before(() => {
 		cy.fixture('users').then(user => {
@@ -33,6 +37,10 @@ describe("Post with apriori data", () => {
 			excerptValid = getRowDataPool(posts.excerptValid);
 			metatitleInvalid = getRowDataPool(posts.metatitleInvalid);
 			metatitleValid = getRowDataPool(posts.metatitleValid);
+			facebookTitleInvalid = getRowDataPool(posts.facebookTitleInvalid);
+			facebookTitleValid = getRowDataPool(posts.facebookTitleValid);
+			facebookDescriptionInvalid = getRowDataPool(posts.facebookDescriptionInvalid);
+			facebookDescriptionValid = getRowDataPool(posts.facebookDescriptionValid);
 		});
 	});
 
@@ -88,7 +96,7 @@ describe("Post with apriori data", () => {
 
 	it('should edit a draft post and try to publish with title invalid, more than 255', () => {
 		postPage.navegateToDashboard();
-		postPage.draftPostLinkLeftMenu().click();
+		postPage.btnFilterPublished().click();
 		postPage.elementOfList().first().click();
 		postPage.inputTile().clear().type(postInvalidTitle.title);
 		postPage.inputContent().clear().type(postInvalidTitle.content);
@@ -154,6 +162,46 @@ describe("Post with apriori data", () => {
 		postPage.inputMetatitle().clear().type(metatitleValid.metatitle);
 		postPage.mainContent().click();
 		postPage.inputMetatitle().siblings('p').children('.word-count').should('have.css', 'color', 'rgb(48, 207, 67)');
+	});
+
+	it('should edit a draft post and facebook title cannot be more than 300', () => {
+		postPage.navegateToDashboard();
+		postPage.createPostLinkLeftMenu().click();
+		postPage.settingMenu().click();
+		postPage.metadata().eq(2).click();
+		postPage.inputFacebookTitle().clear().type(facebookTitleInvalid.facebookTitle);
+		postPage.mainContent().click();
+		postPage.inputFacebookTitle().siblings('.response').contains('Facebook Title cannot be longer than 300 characters.');
+	});
+
+	it('should facebook title can be less than 300', () => {
+		postPage.navegateToDashboard();
+		postPage.createPostLinkLeftMenu().click();
+		postPage.settingMenu().click();
+		postPage.metadata().eq(2).click();
+		postPage.inputFacebookTitle().clear().type(facebookTitleValid.facebookTitle);
+		postPage.mainContent().click();
+		postPage.inputFacebookTitle().siblings('.response').should('be.hidden');
+	});
+
+	it('should facebook description cannot be more than 500', () => {
+		postPage.navegateToDashboard();
+		postPage.createPostLinkLeftMenu().click();
+		postPage.settingMenu().click();
+		postPage.metadata().eq(2).click();
+		postPage.inputFacebookDescription().clear().type(facebookDescriptionInvalid.facebookDescription);
+		postPage.mainContent().click();
+		postPage.inputFacebookDescription().siblings('.response').contains('Facebook Description cannot be longer than 500 characters.');
+	});
+
+	it('should facebook description can be less than 500', () => {
+		postPage.navegateToDashboard();
+		postPage.createPostLinkLeftMenu().click();
+		postPage.settingMenu().click();
+		postPage.metadata().eq(2).click();
+		postPage.inputFacebookDescription().clear().type(facebookDescriptionValid.facebookDescription);
+		postPage.mainContent().click();
+		postPage.inputFacebookDescription().siblings('.response').should('be.hidden');
 	});
 
 	afterEach(() => {

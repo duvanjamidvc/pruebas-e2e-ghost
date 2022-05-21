@@ -81,10 +81,65 @@ describe("Post with random data", () => {
 		postPage.inputCanonicalUrl().siblings('.response').should('be.visible');
 	});
 
-	it('should edit a draft post and post cannot be published with schedule hour empty', () => {
+	it("should post can be published with schedule date format YYYY-MM-DD", () => {
+		const title = cy.faker.lorem.word();
+		const content = cy.faker.lorem.sentence();
+		const publishedDate = cy.faker.datatype.datetime().getMonth() + 1;
+		const month = (publishedDate > 9 ? publishedDate : "0" + String(publishedDate));
+		const date = `${cy.faker.datatype.datetime().getFullYear()}-${month}-${cy.faker.datatype.datetime().getDate()}`;
+
 		postPage.navegateToDashboard();
-		postPage.draftPostLinkLeftMenu().click();
-		postPage.elementOfList().first().click();
+		postPage.createPostLinkLeftMenu().click();
+		postPage.inputTile().clear().type(title);
+		postPage.inputContent().clear().type(content);
+		cy.intercept("**/ghost/api/**").as("savePost");
+		cy.wait("@savePost")
+			.its("response.statusCode")
+			.should("be.oneOf", [200, 201]);
+		postPage.btnPublishMenu().click();
+		postPage.inputPublishDate().clear().type(date);
+		postPage.btnPublish().click();
+		postPage.wait(1000);
+		postPage.mainContent().click();
+		postPage.btnBackPost().click();
+		postPage.wait(500);
+		postPage.schedulePostLinkLeftMenu().click();
+		postPage.titleOfFirstElementOfList().contains(title);
+	});
+
+	it("should post cannot be published with schedule date format YYYY-MM-DD invalid", () => {
+		const title = cy.faker.lorem.word();
+		const content = cy.faker.lorem.sentence();
+		const publishedDate = cy.faker.datatype.datetime().getMonth() + 1;
+		const month = (publishedDate > 9 ? publishedDate : "0" + String(publishedDate));
+		const date = `${cy.faker.datatype.datetime().getFullYear()}-${month}-${cy.faker.datatype.datetime().getDate()}${cy.faker.random.number(1)}`;
+
+		postPage.navegateToDashboard();
+		postPage.createPostLinkLeftMenu().click();
+		postPage.inputTile().clear().type(title);
+		postPage.inputContent().clear().type(content);
+		cy.intercept("**/ghost/api/**").as("savePost");
+		cy.wait("@savePost")
+			.its("response.statusCode")
+			.should("be.oneOf", [200, 201]);
+		postPage.btnPublishMenu().click();
+		postPage.inputPublishDate().clear().type(date);
+		postPage.btnPublish().click();
+		postPage.wait(1000);
+		postPage.errorPublishDate().contains('Invalid');
+	});
+
+	it('should post cannot be published with schedule hour empty', () => {
+		const title = cy.faker.lorem.word();
+		const content = cy.faker.lorem.sentence();
+		postPage.navegateToDashboard();
+		postPage.createPostLinkLeftMenu().click();
+		postPage.inputTile().clear().type(title);
+		postPage.inputContent().clear().type(content);
+		cy.intercept("**/ghost/api/**").as("savePost");
+		cy.wait("@savePost")
+			.its("response.statusCode")
+			.should("be.oneOf", [200, 201]);
 		postPage.btnPublishMenu().click();
 		postPage.inputPublishHour().clear();
 		postPage.btnPublish().click();
@@ -92,11 +147,18 @@ describe("Post with random data", () => {
 		postPage.errorPublishDate().contains('Must be in format');
 	});
 
-	it('should edit a draft post and post cannot be published with schedule hour invalid', () => {
+	it('should post cannot be published with schedule hour invalid', () => {
+		const title = cy.faker.lorem.word();
+		const content = cy.faker.lorem.sentence();
 		const publishDate = cy.faker.random.number(4);
 		postPage.navegateToDashboard();
-		postPage.draftPostLinkLeftMenu().click();
-		postPage.elementOfList().first().click();
+		postPage.createPostLinkLeftMenu().click();
+		postPage.inputTile().clear().type(title);
+		postPage.inputContent().clear().type(content);
+		cy.intercept("**/ghost/api/**").as("savePost");
+		cy.wait("@savePost")
+			.its("response.statusCode")
+			.should("be.oneOf", [200, 201]);
 		postPage.btnPublishMenu().click();
 		postPage.inputPublishHour().clear().type(publishDate);
 		postPage.btnPublish().click();
@@ -104,7 +166,7 @@ describe("Post with random data", () => {
 		postPage.errorPublishDate().contains('Must be in format');
 	});
 
-	it('should edit a draft post and post cannot be published with schedule hour valid', () => {
+	it('should post cannot be published with schedule hour valid', () => {
 		const title = cy.faker.lorem.word();
 		const content = cy.faker.lorem.sentence();
 		const publishDate = cy.faker.datatype.datetime();
@@ -131,11 +193,10 @@ describe("Post with random data", () => {
 		postPage.titleOfFirstElementOfList().contains(title);
 	});
 
-	it('should edit a draft post and twitter title cannot be more than 300', () => {
+	it('should twitter title cannot be more than 300', () => {
 		const twitterTitle = cy.faker.lorem.sentence(100);
 		postPage.navegateToDashboard();
-		postPage.draftPostLinkLeftMenu().click();
-		postPage.elementOfList().first().click();
+		postPage.createPostLinkLeftMenu().click();
 		postPage.settingMenu().click();
 		postPage.metadata().eq(1).click();
 		postPage.inputTwitterTitle().clear().type(twitterTitle);
@@ -143,11 +204,10 @@ describe("Post with random data", () => {
 		postPage.inputTwitterTitle().siblings('.response').contains('Twitter Title cannot be longer than 300 characters.');
 	});
 
-	it('should edit a draft post and twitter title can be less than 300', () => {
+	it('should twitter title can be less than 300', () => {
 		const twitterTitle = cy.faker.lorem.sentence(5);
 		postPage.navegateToDashboard();
-		postPage.draftPostLinkLeftMenu().click();
-		postPage.elementOfList().first().click();
+		postPage.createPostLinkLeftMenu().click();
 		postPage.settingMenu().click();
 		postPage.metadata().eq(1).click();
 		postPage.inputTwitterTitle().clear().type(twitterTitle);
@@ -155,11 +215,10 @@ describe("Post with random data", () => {
 		postPage.inputTwitterTitle().siblings('.response').should('be.hidden');
 	});
 
-	it('should edit a draft post and twitter description cannot be more than 500', () => {
+	it('should twitter description cannot be more than 500', () => {
 		const twitterDescription = cy.faker.lorem.sentence(100);
 		postPage.navegateToDashboard();
-		postPage.draftPostLinkLeftMenu().click();
-		postPage.elementOfList().first().click();
+		postPage.createPostLinkLeftMenu().click();
 		postPage.settingMenu().click();
 		postPage.metadata().eq(1).click();
 		postPage.inputTwitterDescription().clear().type(twitterDescription);
@@ -167,11 +226,10 @@ describe("Post with random data", () => {
 		postPage.inputTwitterDescription().siblings('.response').contains('Twitter Description cannot be longer than 500 characters.');
 	});
 
-	it('should edit a draft post and twitter description can be less than 500', () => {
+	it('should twitter description can be less than 500', () => {
 		const twitterDescription = cy.faker.lorem.sentence(30);
 		postPage.navegateToDashboard();
-		postPage.draftPostLinkLeftMenu().click();
-		postPage.elementOfList().first().click();
+		postPage.createPostLinkLeftMenu().click();
 		postPage.settingMenu().click();
 		postPage.metadata().eq(1).click();
 		postPage.inputTwitterDescription().clear().type(twitterDescription);

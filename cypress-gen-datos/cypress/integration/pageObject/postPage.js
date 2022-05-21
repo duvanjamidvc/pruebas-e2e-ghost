@@ -76,6 +76,10 @@ class PostPage {
         return cy.get('.settings-menu-content input[name="post-setting-canonicalUrl"]');
     }
 
+    inputPublishDate() {
+        return cy.get('.ember-power-calendar .gh-date-time-picker-date input');
+    }
+
     inputPublishHour() {
         return cy.get('.gh-date-time-picker .gh-date-time-picker-time input');
     }
@@ -94,6 +98,14 @@ class PostPage {
 
     inputTwitterDescription() {
         return cy.get('.settings-menu-content textarea[name="post-setting-twitter-description"]');
+    }
+
+    inputFacebookTitle() {
+        return cy.get('.settings-menu-content input[name="post-setting-og-title"]');
+    }
+
+    inputFacebookDescription() {
+        return cy.get('.settings-menu-content textarea[name="post-setting-og-description"]');
     }
 
     wait(time) {
