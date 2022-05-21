@@ -91,7 +91,7 @@ describe("Post with random data", () => {
 		const title = cy.faker.lorem.word();
 		const content = cy.faker.lorem.sentence();
 		const publishedDate = cy.faker.date.future();
-		const month = (publishedDate.getMonth() > 9 ? publishedDate.getMonth() : "0" + String(publishedDate.getMonth()));
+		const month = (publishedDate.getMonth()+1 > 9 ? publishedDate.getMonth()+1 : "0" + String(publishedDate.getMonth()+1));
 		const date = (publishedDate.getDate() > 9 ? publishedDate.getDate() : "0" + String(publishedDate.getDate()));
 
 		const fullDate = `${publishedDate.getFullYear()}-${month}-${date}`;
@@ -116,7 +116,7 @@ describe("Post with random data", () => {
 		const title = cy.faker.lorem.word();
 		const content = cy.faker.lorem.sentence();
 		const publishedDate = cy.faker.date.future();
-		const month = (publishedDate.getMonth() > 9 ? publishedDate.getMonth() : "0" + String(publishedDate.getMonth()));
+		const month = (publishedDate.getMonth() > 9 ? publishedDate.getMonth()+1 : "0" + String(publishedDate.getMonth()+1));
 		const date = (publishedDate.getDate() > 9 ? publishedDate.getDate() : "0" + String(publishedDate.getDate()));
 
 		const fullDate = `${publishedDate.getFullYear()}-${month}-${date}${cy.faker.random.number(12)}`;
@@ -178,7 +178,7 @@ describe("Post with random data", () => {
 		const content = cy.faker.lorem.sentence();
 		const publishedDate = cy.faker.date.future();
 
-		const month = (publishedDate.getMonth() > 9 ? publishedDate.getMonth() : "0" + String(publishedDate.getMonth()));
+		const month = (publishedDate.getMonth()+1 > 9 ? publishedDate.getMonth()+1 : "0" + String(publishedDate.getMonth()+1));
 		const date = (publishedDate.getDate() > 9 ? publishedDate.getDate() : "0" + String(publishedDate.getDate()));
 		const fullDate = `${publishedDate.getFullYear()}-${month}-${date}`;
 
