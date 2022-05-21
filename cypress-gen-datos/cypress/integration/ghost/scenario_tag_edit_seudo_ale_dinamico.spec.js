@@ -5,6 +5,12 @@ import TagsPage from "../pageObject/tagsPage";
 
 let tagsPage = new TagsPage();
 
+function getRowDataPool(array){
+	const max = array.length-1;
+	const pos = Math.round(Math.random() * max);
+	return array[pos];
+}
+
 const myData = {
 	getCase: (ID) => {
 		return myData.getRamdomRow(
@@ -140,7 +146,8 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 	});
 
 	beforeEach(() => {
-		cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
+		let usuario =  getRowDataPool(usuarios.admins);
+		cy.login(usuario.username, usuario.password);
 		cy.wait(1000);
 		cy.goToNewTag();
 	});

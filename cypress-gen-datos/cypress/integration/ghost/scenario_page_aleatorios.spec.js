@@ -1,5 +1,10 @@
 /// <reference types="cypress" />
 
+function getRowDataPool(array){
+	const max = array.length-1;
+	const pos = Math.round(Math.random() * max);
+	return array[pos];
+}
 Cypress.on("uncaught:exception", (err, a) => {
 	return false;
 });
@@ -13,7 +18,8 @@ describe("Pages aleatorios", () => {
 	});
 
 	beforeEach(() => {
-		cy.login(usuarios.admins[0].username, usuarios.admins[0].password);
+		let usuario =  getRowDataPool(usuarios.admins);
+		cy.login(usuario.username, usuario.password);
 		cy.wait(1000);
 		cy.GoCreatePage();
 	});
