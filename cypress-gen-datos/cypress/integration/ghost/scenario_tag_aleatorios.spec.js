@@ -16,9 +16,9 @@ describe("Tag aleatorios", () => {
 	});
 
 	it("Tag color is not number", () => {
-		let data ={
-			newColor:cy.faker.random.number(3),
-			newName: cy.faker.lorem.word()
+		let data = {
+			newColor: cy.faker.random.number(3),
+			newName: cy.faker.lorem.word(),
 		};
 		cy.NewTagNameColor(data.newName, data.newColor);
 		cy.get("p").should(
@@ -32,9 +32,9 @@ describe("Tag aleatorios", () => {
 	});
 
 	it("Tag color is not letters", () => {
-		let data ={
-			newColor:cy.faker.random.word(),
-			newName: cy.faker.lorem.word()
+		let data = {
+			newColor: cy.faker.random.word(),
+			newName: cy.faker.lorem.word(),
 		};
 		cy.NewTagNameColor(data.newName, data.newColor);
 		cy.get("p").should(
@@ -48,9 +48,9 @@ describe("Tag aleatorios", () => {
 	});
 
 	it("Tag color must have correct hex validate error", () => {
-		let data ={
-			newColor:cy.faker.datatype.hexaDecimal(8),
-			newName: cy.faker.lorem.word()
+		let data = {
+			newColor: cy.faker.datatype.hexaDecimal(8),
+			newName: cy.faker.lorem.word(),
 		};
 		cy.NewTagNameColor(data.newName, data.newColor);
 		cy.get("p").should(
@@ -64,9 +64,9 @@ describe("Tag aleatorios", () => {
 	});
 
 	it("Tag color must have correct hex", () => {
-		let data ={
-			newColor:cy.faker.datatype.hexaDecimal(8).split("0x")[1],
-			newName: cy.faker.lorem.word()
+		let data = {
+			newColor: cy.faker.datatype.hexaDecimal(8).split("0x")[1],
+			newName: cy.faker.lorem.word(),
 		};
 		cy.NewTagNameColor(data.newName, data.newColor);
 		cy.wait(1000);
@@ -80,8 +80,8 @@ describe("Tag aleatorios", () => {
 	});
 
 	it("Tag names cannot be longer than 191 characters.", () => {
-		let data ={
-			newName: cy.faker.lorem.paragraphs()
+		let data = {
+			newName: cy.faker.lorem.paragraphs(),
 		};
 		cy.NewTagName(data.newName);
 		cy.get("p").should(
@@ -94,8 +94,8 @@ describe("Tag aleatorios", () => {
 	});
 
 	it("Tag names contain less than 191 characters.", () => {
-		let data ={
-			newName: cy.faker.lorem.word()
+		let data = {
+			newName: cy.faker.lorem.word(),
 		};
 		cy.NewTagName(data.newName);
 		cy.wait(1000);
@@ -109,9 +109,9 @@ describe("Tag aleatorios", () => {
 	});
 
 	it("Tag slug cannot be longer than 191 characters.", () => {
-		let data ={
+		let data = {
 			newName: cy.faker.lorem.word(),
-			newSlug: cy.faker.lorem.paragraphs()
+			newSlug: cy.faker.lorem.paragraphs(),
 		};
 		cy.NewTagSlug(data.newSlug, data.newName);
 		cy.get("button").should("contain", "Retry");
@@ -121,9 +121,9 @@ describe("Tag aleatorios", () => {
 	});
 
 	it("Tag slug contain less than 191 characters.", () => {
-		let data ={
+		let data = {
 			newName: cy.faker.lorem.word(),
-			newSlug: cy.faker.lorem.word()
+			newSlug: cy.faker.lorem.word(),
 		};
 		cy.NewTagSlug(data.newSlug, data.newName);
 		cy.wait(1000);
@@ -137,24 +137,24 @@ describe("Tag aleatorios", () => {
 		).should("contain", data.newName);
 		cy.wait(1000);
 		cy.deleteTag(data.newName.toLowerCase() + data.newSlug.toLowerCase());
-	}); 
+	});
 
- 	it("Tag Description cannot be longer than 500 characters.", () => {
-		let data ={
+	it("Tag Description cannot be longer than 500 characters.", () => {
+		let data = {
 			newName: cy.faker.lorem.word(),
-			newDescription: cy.faker.lorem.sentence(150)
+			newDescription: cy.faker.lorem.sentence(150),
 		};
 		cy.NewTagDescription(data.newDescription, data.newName);
 		cy.get("button").should("contain", "Retry");
 		cy.get('a[href="#/tags/"]').parent().first().click();
 		cy.wait(1000);
 		cy.get(".modal-footer > .gh-btn-red > span").click();
-	}); 
+	});
 
 	it("Tag Description contain less than 500 characters.", () => {
-		let data ={
+		let data = {
 			newName: cy.faker.lorem.word(),
-			newDescription: cy.faker.lorem.paragraph()
+			newDescription: cy.faker.lorem.paragraph(),
 		};
 		cy.NewTagDescription(data.newDescription, data.newName);
 		cy.get('a[href="#/tags/"]').parent().first().click();
@@ -164,6 +164,74 @@ describe("Tag aleatorios", () => {
 		);
 		cy.deleteTag(data.newName);
 		cy.wait(1000);
+	});
+
+	it("MetaTitle sugest  longer valid  than 70 characters", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newMetaTitle: cy.faker.lorem.paragraph(),
+		};
+		cy.get(
+			".gh-expandable > .gh-expandable-block:nth-child(1) > .gh-expandable-header > .gh-btn > span"
+		).click();
+		cy.wait(1000);
+		cy.get('[id="meta-title"]').type(data.newMetaTitle);
+		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
+		cy.NewTagName(data.newName);
+		cy.wait(1000);
+		cy.get('a[href="#/tags/"]').parent().first().click();
+		cy.deleteTag(data.newName);
+	});
+
+	it("MetaTitle sugest  contain less than 70 characters", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newMetaTitle: cy.faker.lorem.sentence(5),
+		};
+		cy.get(
+			".gh-expandable > .gh-expandable-block:nth-child(1) > .gh-expandable-header > .gh-btn > span"
+		).click();
+		cy.wait(1000);
+		cy.get('[id="meta-title"]').type(data.newMetaTitle);
+		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
+		cy.NewTagName(data.newName);
+		cy.wait(1000);
+		cy.get('a[href="#/tags/"]').parent().first().click();
+		cy.deleteTag(data.newName);
+	});
+
+	it("MetaDescription sugest  longer valid  than 156 characters", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newMetaDescription: cy.faker.lorem.sentence(40),
+		};
+		cy.get(
+			".gh-expandable > .gh-expandable-block:nth-child(1) > .gh-expandable-header > .gh-btn > span"
+		).click();
+		cy.wait(1000);
+		cy.get('[id="meta-description"]').type(data.newMetaDescription);
+		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
+		cy.NewTagName(data.newName);
+		cy.wait(1000);
+		cy.get('a[href="#/tags/"]').parent().first().click();
+		cy.deleteTag(data.newName);
+	});
+
+	it("MetaDescription sugest  contain less than 156 characters", () => {
+		let data = {
+			newName: cy.faker.lorem.word(),
+			newMetaDescription: cy.faker.lorem.sentence(10),
+		};
+		cy.get(
+			".gh-expandable > .gh-expandable-block:nth-child(1) > .gh-expandable-header > .gh-btn > span"
+		).click();
+		cy.wait(1000);
+		cy.get('[id="meta-description"]').type(data.newMetaDescription);
+		cy.get(".word-count").should("have.css", "color", "rgb(48, 207, 67)");
+		cy.NewTagName(data.newName);
+		cy.wait(1000);
+		cy.get('a[href="#/tags/"]').parent().first().click();
+		cy.deleteTag(data.newName);
 	});
 
 	afterEach(() => {

@@ -1,4 +1,4 @@
-import LoginPage from "../../../../cypress-gen-datos/cypress/integration/pageObject/loginPage";
+import LoginPage from "../pageObject/loginPage";
 
 
 function getRowDataPool(array){
