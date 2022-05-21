@@ -9,9 +9,9 @@ function getRowDataPool(array) {
 
 let postPage = new PostPage();
 
-let users;
 describe("Post with apriori data", () => {
 
+	let usuariosAdmin;
 	let postEmptyTitle;
 	let postInvalidTitle;
 	let postValidTitle;
@@ -25,8 +25,8 @@ describe("Post with apriori data", () => {
 	let facebookDescriptionValid;
 
 	before(() => {
-		cy.fixture('users').then(user => {
-			users = user;
+		cy.fixture('users').then(users => {
+			usuariosAdmin = users.admins;
 		});
 
 		cy.fixture('MOCK_DATA_POST').then(posts => {
@@ -45,7 +45,8 @@ describe("Post with apriori data", () => {
 	});
 
 	beforeEach(() => {
-		cy.login(users.admins[0].username, users.admins[0].password);
+		let usuario =  getRowDataPool(usuariosAdmin);
+		cy.login(usuario.username, usuario.password);
 	});
 
 	it('should create post with empty title', () => {
