@@ -273,11 +273,8 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.wait(1000);
 	});
 
-	it(" Edit MetaTitle sugest  longer valid  than 70 characters", () => {
-		let data = {
-			newName: cy.faker.lorem.word(),
-			newMetaTitle: cy.faker.lorem.sentence(30),
-		};
+	it("ESC11: Edit MetaTitle sugest  longer valid  than 70 characters", () => {
+		let data = myData.getCase("ESC11");
 		cy.newTag(data.newName);
 		cy.goEditTag(data.newName);
 		cy.get(
@@ -292,11 +289,8 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it(" Edit MetaTitle sugest  contain less than 70 characters", () => {
-		let data = {
-			newName: cy.faker.lorem.word(),
-			newMetaTitle: cy.faker.lorem.sentence(5),
-		};
+	it("ESC12: Edit MetaTitle sugest  contain less than 70 characters", () => {
+		let data = myData.getCase("ESC12");
 		cy.newTag(data.newName);
 		cy.goEditTag(data.newName);
 		cy.get(
@@ -311,11 +305,8 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it(" Edit MetaDescription sugest  longer valid  than 156 characters", () => {
-		let data = {
-			newName: cy.faker.lorem.word(),
-			newMetaDescription: cy.faker.lorem.sentence(40),
-		};
+	it("ESC13: Edit MetaDescription sugest  longer valid  than 156 characters", () => {
+		let data = myData.getCase("ESC13");
 		cy.newTag(data.newName);
 		cy.goEditTag(data.newName);
 		cy.get(
@@ -330,11 +321,8 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it(" Edit MetaDescription sugest  contain less than 156 characters", () => {
-		let data = {
-			newName: cy.faker.lorem.word(),
-			newMetaDescription: cy.faker.lorem.sentence(10),
-		};
+	it("ESC14: Edit MetaDescription sugest  contain less than 156 characters", () => {
+		let data = myData.getCase("ESC14");
 		cy.newTag(data.newName);
 		cy.goEditTag(data.newName);
 		cy.get(
@@ -349,11 +337,10 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it(" Edit Canonical URL should be valid", () => {
-		let data = {
-			newName: cy.faker.lorem.word(),
-			newUrl: cy.faker.lorem.sentence(10),
-		};
+
+	it("ESC15: Edit Canonical URL should be valid", () => {
+
+		let data = myData.getCase("ESC15");
 		cy.newTag(data.newName);
 		cy.goEditTag(data.newName);
 		cy.get(
@@ -368,11 +355,8 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.get(".modal-footer > .gh-btn-red > span").click();
 	});
 
-	it(" Edit Canonical URL should is valid", () => {
-		let data = {
-			newName: cy.faker.lorem.word(),
-			newUrl: cy.faker.internet.url(),
-		};
+	it("ESC16: Edit Canonical URL should is valid", () => {
+		let data = myData.getCase("ESC16");
 		cy.newTag(data.newName);
 		cy.goEditTag(data.newName);
 		cy.get(
@@ -386,11 +370,8 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
 	});
-	it(" Edit TwitterTitle sugest  longer valid  than 70 characters", () => {
-		let data = {
-			newName: cy.faker.lorem.word(),
-			newTwitterTitle: cy.faker.lorem.paragraph(),
-		};
+	it("ESC17: Edit TwitterTitle sugest  longer valid  than 70 characters", () => {
+		let data = myData.getCase("ESC17");
 		cy.newTag(data.newName);
 		cy.goEditTag(data.newName);
 		cy.get(
@@ -405,11 +386,10 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it(" Edit TwitterTitle sugest  contain less than 70 characters", () => {
-		let data = {
-			newName: cy.faker.lorem.word(),
-			newTwitterTitle: cy.faker.lorem.sentence(5),
-		};
+
+	it("ESC18 Edit TwitterTitle sugest  contain less than 70 characters", () => {
+		let data = myData.getCase("ESC18");
+
 		cy.newTag(data.newName);
 		cy.goEditTag(data.newName);
 		cy.get(
@@ -424,11 +404,8 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it(" Edit TwitterDescription sugest  longer valid  than 156 characters", () => {
-		let data = {
-			newName: cy.faker.lorem.word(),
-			newTwitterDescription: cy.faker.lorem.sentence(40),
-		};
+	it("ESC19: Edit TwitterDescription sugest  longer valid  than 156 characters", () => {
+		let data = myData.getCase("ESC19");
 		cy.newTag(data.newName);
 		cy.goEditTag(data.newName);
 		cy.get(
@@ -443,11 +420,8 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it(" Edit TwitterDescription sugest  contain less than 156 characters", () => {
-		let data = {
-			newName: cy.faker.lorem.word(),
-			newTwitterDescription: cy.faker.lorem.sentence(10),
-		};
+	it("ESC20: Edit TwitterDescription sugest  contain less than 156 characters", () => {
+		let data = myData.getCase("ESC20");
 		cy.newTag(data.newName);
 		cy.goEditTag(data.newName);
 		cy.get(
