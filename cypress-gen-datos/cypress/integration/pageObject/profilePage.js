@@ -8,6 +8,7 @@ class ProfilePage {
 	inputUser() {
 		return cy.get('#user-name');
 	}
+
 	inputUserSlug() {
 		return cy.get('#user-slug');
 	}
@@ -31,7 +32,7 @@ class ProfilePage {
 	inputTwitter() {
 		return cy.get('#user-twitter');
 	}
-	
+
 	inputBio() {
 		return cy.get('#user-bio');
 	}
@@ -47,7 +48,11 @@ class ProfilePage {
 	inputPassNewVerification() {
 		return cy.get('#user-new-password-verification');
 	}
-	
+
+	btnChanngePass() {
+		return cy.get('.button-change-password');
+	}
+
 	errorMessage() {
 		return cy.get('.error .response');
 	}
