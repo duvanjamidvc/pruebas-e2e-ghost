@@ -130,7 +130,7 @@ describe("Post with apriori data", () => {
 		postPage.navegateToDashboard();
 		postPage.createPostLinkLeftMenu().click();
 		postPage.settingMenu().click();
-		postPage.metadata().click();
+		postPage.metadata().eq(0).click();
 		postPage.inputMetatitle().clear();
 		postPage.mainContent().click();
 		postPage.inputMetatitle().siblings('p').children('.word-count').should('have.css', 'color', 'rgb(48, 207, 67)');
@@ -140,7 +140,7 @@ describe("Post with apriori data", () => {
 		postPage.navegateToDashboard();
 		postPage.createPostLinkLeftMenu().click();
 		postPage.settingMenu().click();
-		postPage.metadata().click();
+		postPage.metadata().eq(0).click();
 		postPage.inputMetatitle().clear().type(metatitleInvalid.metatitle);
 		postPage.mainContent().click();
 		postPage.inputMetatitle().siblings('p').children('.word-count').should('have.css', 'color', 'rgb(226, 84, 64)');
@@ -150,7 +150,7 @@ describe("Post with apriori data", () => {
 		postPage.navegateToDashboard();
 		postPage.createPostLinkLeftMenu().click();
 		postPage.settingMenu().click();
-		postPage.metadata().click();
+		postPage.metadata().eq(0).click();
 		postPage.inputMetatitle().clear().type(metatitleValid.metatitle);
 		postPage.mainContent().click();
 		postPage.inputMetatitle().siblings('p').children('.word-count').should('have.css', 'color', 'rgb(48, 207, 67)');

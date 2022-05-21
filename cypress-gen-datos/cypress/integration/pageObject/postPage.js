@@ -61,15 +61,39 @@ class PostPage {
     }
 
     metadata() {
-        return cy.get('.nav-list-block .nav-list-item:first-child').first();
+        return cy.get('.nav-list-block .nav-list-item');
     }
 
     inputMetatitle() {
-        return cy.get('.settings-menu-content input[name="post-setting-meta-title"]')
+        return cy.get('.settings-menu-content input[name="post-setting-meta-title"]');
     }
 
     inputMetaDescription() {
-        return cy.get('.settings-menu-content textarea[name="post-setting-meta-description"]')
+        return cy.get('.settings-menu-content textarea[name="post-setting-meta-description"]');
+    }
+
+    inputCanonicalUrl() {
+        return cy.get('.settings-menu-content input[name="post-setting-canonicalUrl"]');
+    }
+
+    inputPublishHour() {
+        return cy.get('.gh-date-time-picker .gh-date-time-picker-time input');
+    }
+
+    errorPublishDate() {
+        return cy.get('.gh-date-time-picker-error');
+    }
+
+    schedulePostLinkLeftMenu() {
+        return cy.get('a[href="#/posts/?type=scheduled"]');
+    }
+
+    inputTwitterTitle() {
+        return cy.get('.settings-menu-content input[name="post-setting-twitter-title"]');
+    }
+
+    inputTwitterDescription() {
+        return cy.get('.settings-menu-content textarea[name="post-setting-twitter-description"]');
     }
 
     wait(time) {
