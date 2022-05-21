@@ -39,25 +39,6 @@ Cypress.Commands.add("goToPublicPage", () => {
 	cy.wait("@goToPublicPage");
 });
 
-Cypress.Commands.add("goToNewTag", () => {
-	cy.get('a[href="#/tags/"]').parent().first().click();
-	cy.wait(3000);
-	cy.get('section.view-actions>a[href="#/tags/new/"]').click();
-});
-
-
-
-Cypress.Commands.add("NewTagDescription", (newDescription,newName) => {
-	cy.get('[id="tag-name"]').type(newName);
-	cy.get('[id="tag-description"]').type(newDescription);
-	cy.get(
-		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
-	).click();
-	cy.wait(1000);
-});
-
-
-
 
 Cypress.Commands.add("goToGeneralSettings", (stage) => {
 	cy.get('a[href="#/settings/"]').first().click();

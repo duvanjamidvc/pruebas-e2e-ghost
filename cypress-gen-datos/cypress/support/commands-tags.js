@@ -55,6 +55,17 @@ Cypress.Commands.add("NewTagSlug", (newSlug, newName) => {
 	cy.wait(1000);
 });
 
+Cypress.Commands.add("EditTagSlug", (newSlug, newName) => {
+	cy.get('a[href="#/tags/' + newName.toLowerCase().replace(" ", "-") + '/"]')
+	.first()
+	.click();
+	cy.get('[id="tag-slug"]').type(newSlug);
+	cy.get(
+		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
+	).click();
+	cy.wait(1000);
+});
+
 Cypress.Commands.add("newTag", (newName) => {
 	
 	//asigna variables
@@ -82,4 +93,31 @@ Cypress.Commands.add("deleteTag", (newTag) => {
 		".fullscreen-modal > .modal-content > .modal-footer > .gh-btn-red "
 	).click();
 	cy.wait(3000);
+});
+
+
+Cypress.Commands.add("NewTagDescription", (newDescription,newName) => {
+	cy.get('[id="tag-name"]').type(newName);
+	cy.get('[id="tag-description"]').type(newDescription);
+	cy.get(
+		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
+	).click();
+	cy.wait(1000);
+});
+
+Cypress.Commands.add("EditTagDescription", (newDescription,newName) => {
+	cy.get('a[href="#/tags/' + newName.toLowerCase().replace(" ", "-") + '/"]')
+	.first()
+	.click();
+	cy.get('[id="tag-description"]').type(newDescription);
+	cy.get(
+		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
+	).click();
+	cy.wait(1000);
+});
+
+Cypress.Commands.add("goToNewTag", () => {
+	cy.get('a[href="#/tags/"]').parent().first().click();
+	cy.wait(3000);
+	cy.get('section.view-actions>a[href="#/tags/new/"]').click();
 });
