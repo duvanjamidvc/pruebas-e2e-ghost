@@ -219,13 +219,15 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		);
 		cy.deleteTag(data.newName);
 		cy.wait(1000);
-	});
+	});*/
 
-	it("MetaTitle sugest  longer valid  than 70 characters", () => {
+	it(" Edit MetaTitle sugest  longer valid  than 70 characters", () => {
 		let data = {
 			newName: cy.faker.lorem.word(),
 			newMetaTitle: cy.faker.lorem.sentence(30),
 		};
+		cy.newTag(data.newName);
+		cy.goEditTag(data.newName)
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(1) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -238,11 +240,13 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it("MetaTitle sugest  contain less than 70 characters", () => {
+	it(" Edit MetaTitle sugest  contain less than 70 characters", () => {
 		let data = {
 			newName: cy.faker.lorem.word(),
 			newMetaTitle: cy.faker.lorem.sentence(5),
 		};
+		cy.newTag(data.newName);
+		cy.goEditTag(data.newName)
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(1) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -255,11 +259,13 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it("MetaDescription sugest  longer valid  than 156 characters", () => {
+	it(" Edit MetaDescription sugest  longer valid  than 156 characters", () => {
 		let data = {
 			newName: cy.faker.lorem.word(),
 			newMetaDescription: cy.faker.lorem.sentence(40),
 		};
+		cy.newTag(data.newName);
+		cy.goEditTag(data.newName)
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(1) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -272,11 +278,13 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it("MetaDescription sugest  contain less than 156 characters", () => {
+	it(" Edit MetaDescription sugest  contain less than 156 characters", () => {
 		let data = {
 			newName: cy.faker.lorem.word(),
 			newMetaDescription: cy.faker.lorem.sentence(10),
 		};
+		cy.newTag(data.newName);
+		cy.goEditTag(data.newName)
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(1) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -289,11 +297,13 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it("Canonical URL should be valid", () => {
+	it(" Edit Canonical URL should be valid", () => {
 		let data = {
 			newName: cy.faker.lorem.word(),
 			newUrl: cy.faker.lorem.sentence(10),
 		};
+		cy.newTag(data.newName);
+		cy.goEditTag(data.newName)
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(1) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -306,11 +316,13 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.get(".modal-footer > .gh-btn-red > span").click();
 	});
 
-	it("Canonical URL should is valid", () => {
+	it(" Edit Canonical URL should is valid", () => {
 		let data = {
 			newName: cy.faker.lorem.word(),
 			newUrl: cy.faker.internet.url(),
 		};
+		cy.newTag(data.newName);
+		cy.goEditTag(data.newName)
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(1) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -322,11 +334,13 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
 	});
-	it("TwitterTitle sugest  longer valid  than 70 characters", () => {
+	it(" Edit TwitterTitle sugest  longer valid  than 70 characters", () => {
 		let data = {
 			newName: cy.faker.lorem.word(),
 			newTwitterTitle: cy.faker.lorem.paragraph(),
 		};
+		cy.newTag(data.newName);
+		cy.goEditTag(data.newName)
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(2) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -339,11 +353,13 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it("TwitterTitle sugest  contain less than 70 characters", () => {
+	it(" Edit TwitterTitle sugest  contain less than 70 characters", () => {
 		let data = {
 			newName: cy.faker.lorem.word(),
 			newTwitterTitle: cy.faker.lorem.sentence(5),
 		};
+		cy.newTag(data.newName);
+		cy.goEditTag(data.newName)
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(2) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -356,11 +372,13 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it("TwitterDescription sugest  longer valid  than 156 characters", () => {
+	it(" Edit TwitterDescription sugest  longer valid  than 156 characters", () => {
 		let data = {
 			newName: cy.faker.lorem.word(),
 			newTwitterDescription: cy.faker.lorem.sentence(40),
 		};
+		cy.newTag(data.newName);
+		cy.goEditTag(data.newName)
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(2) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -373,11 +391,13 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it("TwitterDescription sugest  contain less than 156 characters", () => {
+	it(" Edit TwitterDescription sugest  contain less than 156 characters", () => {
 		let data = {
 			newName: cy.faker.lorem.word(),
 			newTwitterDescription: cy.faker.lorem.sentence(10),
 		};
+		cy.newTag(data.newName);
+		cy.goEditTag(data.newName)
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(2) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -390,11 +410,13 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it("FacebookTitle sugest  longer valid  than 70 characters", () => {
+	it(" Edit FacebookTitle sugest  longer valid  than 70 characters", () => {
 		let data = {
 			newName: cy.faker.lorem.word(),
 			newFacebookTitle: cy.faker.lorem.sentence(30),
 		};
+		cy.newTag(data.newName);
+		cy.goEditTag(data.newName)
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(3) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -407,11 +429,13 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it("FacebookTitle sugest  contain less than 70 characters", () => {
+	it(" Edit FacebookTitle sugest  contain less than 70 characters", () => {
 		let data = {
 			newName: cy.faker.lorem.word(),
 			newFacebookTitle: cy.faker.lorem.sentence(5),
 		};
+		cy.newTag(data.newName);
+		cy.goEditTag(data.newName)
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(3) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -424,11 +448,13 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.deleteTag(data.newName);
 	});
 
-	it("FacebookDescription sugest  longer valid  than 156 characters", () => {
+	it(" Edit FacebookDescription sugest  longer valid  than 156 characters", () => {
 		let data = {
 			newName: cy.faker.lorem.word(),
 			newFacebookDescription: cy.faker.lorem.sentence(40),
 		};
+		cy.newTag(data.newName);
+		cy.goEditTag(data.newName)
 		cy.get(
 			".gh-expandable > .gh-expandable-block:nth-child(3) > .gh-expandable-header > .gh-btn > span"
 		).click();
@@ -439,9 +465,9 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.wait(1000);
 		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
-	}); */
+	}); 
 
-	it("FacebookDescription sugest  contain less than 156 characters", () => {
+/* 	it(" Edit FacebookDescription sugest  contain less than 156 characters", () => {
 		let data = {
 			newName: cy.faker.lorem.word(),
 			newFacebookDescription: cy.faker.lorem.sentence(10),
@@ -458,7 +484,7 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		cy.wait(1000);
 		tagsPage.menuOptionTag().parent().first().click();
 		cy.deleteTag(data.newName);
-	});
+	}); */
 
 	afterEach(() => {
 		cy.closeDashBoardSession();
