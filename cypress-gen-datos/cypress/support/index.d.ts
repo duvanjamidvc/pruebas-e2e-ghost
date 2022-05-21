@@ -14,13 +14,25 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
-import './commands-post'
-import './commands-page'
-import './commands-profile'
-import './commands-tags'
-cy.faker = require('faker'); 
+
+/// <reference types="Cypress" />
 
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+declare namespace Cypress {
+	interface Chainable<Subject> {
+		/**
+		 * Create several Todo items via UI
+		 * @example
+		 * cy.createDefaultTodos()
+		 */
+		createDefaultTodos(): Chainable<any>
+		/**
+		 * Creates one Todo using UI
+		 * @example
+		 * cy.login('new item')
+		 */
+		login(username: string, password:string): Chainable<any>
+	}
+}

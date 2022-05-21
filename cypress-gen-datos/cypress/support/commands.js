@@ -45,31 +45,7 @@ Cypress.Commands.add("goToNewTag", () => {
 	cy.get('section.view-actions>a[href="#/tags/new/"]').click();
 });
 
-Cypress.Commands.add("NewTagName", (newName) => {
-	cy.get('[id="tag-name"]').type(newName);
-	cy.get(
-		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
-	).click();
-	cy.wait(1000);
-});
 
-Cypress.Commands.add("NewTagNameColor", (newName,newColor) => {
-	cy.get('[id="tag-name"]').type(newName);
-	cy.get('[name="accent-color"]').first().type(newColor);
-	cy.get(
-		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
-	).click();
-	cy.wait(1000);
-});
-
-Cypress.Commands.add("NewTagSlug", (newSlug,newName) => {
-	cy.get('[id="tag-name"]').type(newName);
-	cy.get('[id="tag-slug"]').type(newSlug);
-	cy.get(
-		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
-	).click();
-	cy.wait(1000);
-});
 
 Cypress.Commands.add("NewTagDescription", (newDescription,newName) => {
 	cy.get('[id="tag-name"]').type(newName);
@@ -80,23 +56,6 @@ Cypress.Commands.add("NewTagDescription", (newDescription,newName) => {
 	cy.wait(1000);
 });
 
-Cypress.Commands.add("newTag", (newTag) => {
-	const colorTag = cy.faker.datatype.hexaDecimal(8).split("0x")[1];
-	cy.get('a[href="#/tags/"]').parent().first().click();
-	cy.wait(5000);
-	//da clic en crear tag
-	cy.get('section.view-actions>a[href="#/tags/new/"]').click();
-	//asigna variables
-	cy.get('[id="tag-name"]').type(newTag);
-	cy.get('[name="accent-color"]').first().type(colorTag);
-	//guarda
-	cy.get(
-		".gh-canvas-header > .gh-canvas-header-content > .view-actions "
-	).click();
-	cy.wait(2000);
-	//leva a tags de nuevo
-	cy.get('a[href="#/tags/"]').parent().first().click();
-});
 
 Cypress.Commands.add("editTag", (descEdit, newTag, stage) => {
 	cy.get('a[href="#/tags/"]').parent().first().click();
