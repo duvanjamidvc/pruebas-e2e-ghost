@@ -4,11 +4,13 @@ let usuarios;
 
 const myData = {
 	getCase: (ID) => {
-		return myData.getRamdomRow(myData.datos.find(item => item.id === ID));
+		return myData.getRamdomRow(myData.datos.find(item => item.id === ID).data);
 	},
 	getRamdomRow: (dataArray) => {
 		const max = dataArray.length - 1;
 		const pos = Math.floor(Math.random() * max);
+		console.log(dataArray);
+		console.log(pos);
 		return dataArray[pos];
 	},
 	datos: [
@@ -66,7 +68,7 @@ const myData = {
 };
 
 
-describe("Tags datos  a priori", () => {
+describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 
 	before(() => {
 		cy.fixture("users").then((users) => {
@@ -95,9 +97,9 @@ describe("Tags datos  a priori", () => {
 	 * ESC1 escenario 1
 	 */
 	it("ESC1: Tag color is not number", () => {
-
+console.table(myData);
 		let data = myData.getCase('ESC1');
-
+console.log(data);
 		cy.NewTagNameColor(data.newName, data.newColor);
 		cy.get("p").should(
 			"contain",
@@ -463,9 +465,9 @@ describe("Tags datos  a priori", () => {
 	});
 
 
-	afterEach(() => {
+	/*afterEach(() => {
 		cy.closeDashBoardSession();
-	});
+	});*/
 });
 
 Cypress.on("uncaught:exception", (err, runnable) => {
