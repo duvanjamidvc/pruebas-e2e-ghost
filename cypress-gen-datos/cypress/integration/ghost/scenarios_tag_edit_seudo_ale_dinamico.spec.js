@@ -137,7 +137,7 @@ describe("Editar Tags datos  seudo aleatorios dinamicos", () => {
 		const apiKey = Cypress.config("apiKey");
 		myData.datos.forEach((escenario, index) => {
 			cy.log(`Consultado data para el escenario: ${escenario.id}`);
-			cy.request(`${apiUrl}${escenario.url}?key=${apiKey}`).then(
+			cy.request(`${apiUrl}${escenario.url}?key=${apiKey[2]}`).then(
 				(response) => {
 					escenario.data = response.body;
 				}
